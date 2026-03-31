@@ -1,0 +1,51 @@
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?error}
+      POSTGRES_USER: ${POSTGRES_USER:?error}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?error}
+    volumes:
+      - database_data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      start_period: 5s
+      interval: 30s
+      timeout: 20s
+      retries: 3
+  backend:
+    container_name: backend
+    init: true # run additional init process to avoid having java process with PID 1: https://bugs.openjdk.org/browse/JMC-8296
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:?error}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?error}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health || exit 1" ]
+      start_period: 15s
+      interval: 15s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      database:
+        condition: service_healthy
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  database_data:
