@@ -21,6 +21,14 @@ jobs:
           sparse-checkout: 'backend'
           sparse-checkout-cone-mode: 'true'
 
+      - name: Debug mvnw
+        working-directory: backend
+        run: |
+          pwd
+          ls -l
+          chmod +x mvnw
+          ls -l
+
       - name: Run Formatting Check
         working-directory: backend
         run: ./mvnw spotless:check
