@@ -27,4 +27,4 @@ jobs:
 
       - name: Run Formatting Check
         working-directory: backend
-        run: ./mvnw spotless:check
+        run: ./mvnw --batch-mode spotless:check
