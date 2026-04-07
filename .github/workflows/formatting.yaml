@@ -1,4 +1,5 @@
 name: Formatting Code
+
 on: [pull_request]
 
 env:
@@ -6,8 +7,9 @@ env:
 
 jobs:
   spotless:
-    name: "Spotless"
+    name: Spotless
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Backend
         uses: actions/checkout@v6
