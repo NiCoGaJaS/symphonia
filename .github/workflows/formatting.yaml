@@ -4,6 +4,7 @@ on: [pull_request]
 
 env:
   JAVA_VERSION: 25
+  NODE_VERSION: 25
 
 jobs:
   spotless:
@@ -28,3 +29,28 @@ jobs:
       - name: Run Formatting Check
         working-directory: backend
         run: ./mvnw --batch-mode spotless:check
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Frontend
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: 'frontend'
+          sparse-checkout-cone-mode: 'true'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npm run format
