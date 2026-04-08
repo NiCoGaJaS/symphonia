@@ -1,8 +1,20 @@
 .wrapper {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-between;
-  position: relative;
+  margin: 2vh;
 }
 
+.wrapper > app-menu {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pi {
+  font-size: 2rem;
+}
+
+.navbar-right > i {
+  margin-left: 4vh;
+}

@@ -9,7 +9,10 @@ import Aura from '@primeuix/themes/aura';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay()), providePrimeNG({
     theme: {
-      preset: Aura
+      preset: Aura,
+      options: {
+        darkModeSelector: '.app-dark'
+      }
     }
   })]
 };
