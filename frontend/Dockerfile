@@ -1,4 +1,4 @@
-FROM node:latest AS build
+FROM node:25 AS build
 WORKDIR /build
 
 COPY package*.json ./
@@ -7,7 +7,7 @@ RUN npm ci
 COPY . ./
 RUN npm run build
 
-FROM node:latest AS runtime
+FROM node:25 AS runtime
 ENV NODE_ENV=production
 
 WORKDIR /frontend
