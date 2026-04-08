@@ -114,6 +114,34 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<java>
+						<removeUnusedImports/>
+						<endWithNewline/>
+						<forbidWildcardImports/>
+
+						<importOrder>
+							<order>de.nicogajas,java|javax,\#</order>
+						</importOrder>
+
+						<eclipse>
+							<version>4.39</version>
+							<file>${project.basedir}/meta/eclipse-style.xml</file>
+						</eclipse>
+					</java>
+
+					<sql>
+						<includes>
+							<include>src/main/resources/**/*.sql</include>
+						</includes>
+						<dbeaver/>
+					</sql>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
