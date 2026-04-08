@@ -1,0 +1,30 @@
+name: Build & Test
+
+on: [pull_request]
+
+env:
+  JAVA_VERSION: 25
+
+jobs:
+  backend:
+    name: Build and test backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Backend
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: 'backend'
+          sparse-checkout-cone-mode: 'true'
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'maven'
+          cache-dependency-path: 'backend/pom.xml'
+
+      - name: Build & Test
+        working-directory: backend
+        run: ./mvnw --batch-mode verify
