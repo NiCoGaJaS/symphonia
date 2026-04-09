@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NavbarComponent } from './components/global/navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
-import {NavbarComponent} from './components/global/navbar/navbar.component';
 
 @Component({
     selector: 'app-root',
