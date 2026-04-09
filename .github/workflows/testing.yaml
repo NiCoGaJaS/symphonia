@@ -4,6 +4,7 @@ on: [pull_request]
 
 env:
   JAVA_VERSION: 25
+  NODE_VERSION: 25
 
 jobs:
   backend:
@@ -28,3 +29,29 @@ jobs:
       - name: Build & Test
         working-directory: backend
         run: ./mvnw --batch-mode verify
+
+  frontend:
+    name: Run frontend tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Frontend
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: 'frontend'
+          sparse-checkout-cone-mode: 'true'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run Tests
+        working-directory: frontend
+        run: npm run test:ci
