@@ -45,3 +45,16 @@ Run this command to automatically apply the required formatting to the backend s
 ```shell
 ./mvnw spotless:apply
 ```
+
+### Frontend 
+
+The frontend uses Prettier to ensure consistent code formatting.
+To format the codebase, run `npm run format` inside the `frontend` subfolder.
+
+The frontend uses ESLint to enforce coding standards and best practices.
+Inside the `frontend` subfolder, run `npm run lint` to fix issues.
+
+To format the codebase and run the linter in one step, use the following command:
+```bash
+  npm run fix
+```
