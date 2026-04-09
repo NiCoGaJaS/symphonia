@@ -38,7 +38,7 @@
         "@angular/compiler-cli": "^19.2.0",
         "@types/express": "^4.17.17",
         "@types/jasmine": "~5.1.0",
-        "@types/node": "^18.18.0",
+        "@types/node": "^25.5.2",
         "angular-eslint": "21.0.1",
         "eslint": "^9.39.1",
         "eslint-config-prettier": "^10.1.8",
