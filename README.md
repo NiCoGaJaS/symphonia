@@ -1,4 +1,4 @@
-# Projekt: App-Entwicklung
+# Symphonia
 
 ## Backend
 - Java 25
