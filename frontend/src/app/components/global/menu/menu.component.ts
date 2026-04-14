@@ -15,12 +15,10 @@ export class MenuComponent implements OnInit {
     ngOnInit(): void {
         this.items = [
             {
-                label: 'Category I',
-                icon: 'pi pi-question',
+                label: 'Gitarren',
                 items: [
                     [
                         {
-                            label: 'Category I',
                             items: [
                                 { label: 'Item', routerLink: '/' },
                                 { label: 'Item', routerLink: '/' },
@@ -30,12 +28,49 @@ export class MenuComponent implements OnInit {
                 ],
             },
             {
-                label: 'Category II',
-                icon: 'pi pi-question',
+                label: 'Klaviere',
                 items: [
                     [
                         {
-                            label: 'Category II',
+                            items: [
+                                { label: 'Item', routerLink: '/' },
+                                { label: 'Item', routerLink: '/' },
+                            ],
+                        },
+                    ],
+                ],
+            },
+            {
+                label: 'Drums',
+                items: [
+                    [
+                        {
+                            items: [
+                                { label: 'Item', routerLink: '/' },
+                                { label: 'Item', routerLink: '/' },
+                            ],
+                        },
+                    ],
+                ],
+            },
+            {
+                label: 'Schallplatten',
+                items: [
+                    [
+                        {
+                            items: [
+                                { label: 'Item', routerLink: '/' },
+                                { label: 'Item', routerLink: '/' },
+                            ],
+                        },
+                    ],
+                ],
+            },
+            {
+                label: 'Zubehör',
+                items: [
+                    [
+                        {
                             items: [
                                 { label: 'Item', routerLink: '/' },
                                 { label: 'Item', routerLink: '/' },

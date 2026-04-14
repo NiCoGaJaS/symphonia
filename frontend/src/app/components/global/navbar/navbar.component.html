@@ -1,10 +1,18 @@
 <div class="wrapper">
-    <i class="pi pi-home" routerLink="/"></i>
+    <a routerLink="/"
+        ><img
+            class="navbar-left"
+            ngSrc="/logo.svg"
+            alt=""
+            height="44"
+            width="102"
+    /></a>
 
     <app-menu />
 
     <div class="navbar-right">
         <!-- <p-toggle-switch ngModel [(ngModel)]="darkMode"  (onChange)="toggleTheme()"/> -->
+        <i class="pi pi-search" routerLink="/"></i>
         <i class="pi pi-shopping-cart" routerLink="/cart"></i>
         <i class="pi pi-user" routerLink="/profile"></i>
     </div>

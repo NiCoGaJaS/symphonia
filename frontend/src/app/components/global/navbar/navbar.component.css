@@ -2,7 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 2vh;
+    height: 10vh;
+    width: 100%;
+    margin: 0;
+    padding: 2vh;
+    background: var(--primary-black);
 }
 
 .wrapper > app-menu {
@@ -12,9 +16,19 @@
 }
 
 .pi {
-    font-size: 2rem;
+    font-size: 1.25rem;
+}
+
+.navbar-left {
+    margin-left: 2vw;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
 }
 
 .navbar-right > i {
     margin-left: 4vh;
+    color: var(--primary-white);
 }
