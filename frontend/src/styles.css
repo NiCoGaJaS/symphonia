@@ -1,14 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'primeicons/primeicons.css';
 
-.html,
-body {
-    margin: 0;
-}
-
 :root {
     --primary-black: #000000;
     --primary-blue: #12a6e1;
     --primary-white: #ffffff;
     --primary-grey: #e0e0e0;
+    --menu-hover: #1f1f1f;
+}
+
+.html,
+body {
+    margin: 0;
+}
+
+.p-megamenu,
+.p-megamenu-panel,
+.p-megamenu-submenu,
+.p-megamenu .p-megamenu-overlay,
+.p-megamenu .p-megamenu-submenu-label {
+    background: var(--primary-black) !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.p-megamenu .p-megamenu-item-content,
+.p-megamenu .p-megamenu-item-link {
+    background: transparent;
+    color: var(--primary-white);
+}
+
+.p-megamenu
+    :is(.p-megamenu-item-content, .p-megamenu-item-link):is(
+        :hover,
+        :focus,
+        :focus-within,
+        .p-focus,
+        .p-highlight
+    ),
+.p-megamenu .p-megamenu-item-active > .p-megamenu-item-content {
+    background: var(--menu-hover) !important;
+    color: var(--primary-white) !important;
 }
