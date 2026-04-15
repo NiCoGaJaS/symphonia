@@ -73,7 +73,7 @@ export class MenuComponent implements OnInit {
                         {
                             items: [
                                 { label: 'Item', routerLink: '/' },
-                                { label: 'Item', routerLink: '/' },
+                                { label: 'Item2', routerLink: '/' },
                             ],
                         },
                     ],
