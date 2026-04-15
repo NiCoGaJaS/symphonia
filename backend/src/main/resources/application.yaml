@@ -1,3 +1,9 @@
 spring:
   application:
     name: backend
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  web:
+    error:
+      whitelabel:
+        enabled: false
