@@ -1,33 +1,33 @@
-<div class="catalog-title" >
-    Bestseller
-</div>
+<div class="catalog-title">Bestseller</div>
 
 <div class="catalog">
-    <div class="product" *ngFor="let product of (products | async)">
-        <img
-            class="product-image"
-            [ngSrc]="product.image.url"
-            [alt]="product.image.alternative_text"
-            width="300"
-            height="200"
-        />
+    @for (product of products | async; track product.id) {
+        <div class="product">
+            <img
+                class="product-image"
+                [ngSrc]="product.image.url"
+                [alt]="product.image.alternative_text"
+                width="300"
+                height="200"
+            />
 
-        <div class="product-name">
-            {{ product.name }}
-        </div>
+            <div class="product-name">
+                {{ product.name }}
+            </div>
 
-        <div class="product-price">
-            {{ product.price | number:'1.2-2' }} €
-        </div>
+            <div class="product-price">
+                {{ product.price | number: '1.2-2' }} €
+            </div>
 
-        <div class="product-actions">
-            <button class="product-order">
-                <i class="pi pi-shopping-cart"></i>
-                Bestellen
-            </button>
-            <button class="product-heart">
-                <i class="pi pi-heart"></i>
-            </button>
+            <div class="product-actions">
+                <button class="product-order" type="button">
+                    <i class="pi pi-shopping-cart"></i>
+                    Bestellen
+                </button>
+                <button class="product-heart" type="button">
+                    <i class="pi pi-heart"></i>
+                </button>
+            </div>
         </div>
-    </div>
+    } @empty {}
 </div>
