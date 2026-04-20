@@ -1,5 +1,5 @@
 .app-footer {
-    background-color: #000000;
+    background-color: var(--primary-black);
     padding: 20px 0;
     margin: 0;
 }
@@ -22,7 +22,7 @@
 
 .footer-column h4 {
     font-size: 18px;
-    color: #ffffff;
+    color: var(--primary-white);
     margin-bottom: 35px;
     font-weight: 500;
     position: relative;
@@ -32,7 +32,7 @@
     content: '';
     position: absolute;
     bottom: -10px;
-    background-color: #12a6e1;
+    background-color: var(--primary-blue);
     height: 2px;
     width: 30%;
     left: 50%;
@@ -52,13 +52,13 @@
     margin-bottom: 10px;
     text-decoration: none;
     font-weight: 300;
-    color: #cccccc;
+    color: var(--primary-grey);
     display: block;
     transition: all 0.3s ease;
 }
 
 .footer-column ul li a:hover {
-    color: #ffffff;
+    color: var(--primary-white);
     padding-left: 8px;
 }
 
@@ -92,13 +92,13 @@
 }
 
 .footer-column .socials a:hover {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--primary-white);
+    color: var(--primary-black);
 }
 
 .footer-bottom {
     text-align: center;
-    border-top: 2px solid #cccccc;
+    border-top: 2px solid var(--primary-grey);
     margin-top: 30px;
     color: #aaaaaa;
     max-width: 80%;
