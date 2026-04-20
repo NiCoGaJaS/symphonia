@@ -1,0 +1,9 @@
+spring:
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:db/sample/data-sample.sql
+
+logging:
+  level:
+    de.nicogajas: DEBUG
