@@ -58,7 +58,7 @@ describe('Product Catalog Component', () => {
         const product = {
             id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
             name: 'Fender Player II Strat RW BCG',
-            price: 772.0,
+            price: 772,
             image: {
                 id: '9feb793e-7c2c-453d-89e2-1975e67bddef',
                 url: 'https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg',
