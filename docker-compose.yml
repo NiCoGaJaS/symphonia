@@ -1,5 +1,8 @@
+name: symphonia
+
 services:
   database:
+    container_name: database
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB:?error}
@@ -24,6 +27,8 @@ services:
     ports:
       - "8080:8080"
     environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
+      LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:?error}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?error}
@@ -42,7 +47,7 @@ services:
       context: ./frontend/
       dockerfile: Dockerfile
     ports:
-      - "4000:4000"
+      - "4200:4200"
     depends_on:
       backend:
         condition: service_healthy

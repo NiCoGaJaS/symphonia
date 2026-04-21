@@ -16,18 +16,33 @@
 - TypeScript
 
 ## Running the Application with Docker
+
+This project provides two main Docker setups:
+- **Production:** full build of backend and frontend, served as in real deployment
+- **Development:** optimized for local development, hot reloading for frontend and remote debugging on port 7070 for the backend
+
 1. Install [Docker](https://www.docker.com/) and start the Docker Engine
-2. Create a `.env` file in the root directory and add configuration settings:
+2. Create a `.env` file in the project's root directory and define the required settings for the PostgreSQL database
+   and optional Spring configuration:
    ```dotenv
    POSTGRES_DB=...
    POSTGRES_USER=...
    POSTGRES_PASSWORD=...
-   ```
-3. Start the application:
-   ```shell
-   docker compose up --build
-   ```
    
+   # Optionally:
+   LOGGING_LEVEL_ROOT=...
+   SPRING_PROFILES_ACTIVE=...
+   ```
+3. Start the application
+   1. Production Environment
+      ```shell
+      docker compose up --build
+      ```
+   2. Development Environment
+      ```shell
+      docker compose -f docker-compose.develop.yaml up --build
+      ```
+
 ## Code Formatter/Linting
 
 ### Backend
