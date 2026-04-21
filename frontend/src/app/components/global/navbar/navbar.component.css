@@ -19,16 +19,39 @@
     font-size: 1.25rem;
 }
 
-.navbar-left {
-    margin-left: 2vw;
-}
-
-.navbar-right {
+.navbar-buttons {
     display: flex;
     align-items: center;
+    z-index: 2000;
 }
 
-.navbar-right > i {
+.navbar-buttons > i {
     margin-left: 4vh;
     color: var(--primary-white);
+}
+
+@media (max-width: 768px) {
+    .logo {
+        width: 20vw;
+    }
+
+    .wrapper {
+        height: 8vh;
+        padding: 0 1rem;
+        align-items: center;
+    }
+
+    .navbar-buttons {
+        order: 2;
+        margin-left: auto;
+        margin-right: 0.75rem;
+    }
+
+    .wrapper > app-menu {
+        order: 3;
+        position: static;
+        left: auto;
+        transform: none;
+        margin-left: 0;
+    }
 }
