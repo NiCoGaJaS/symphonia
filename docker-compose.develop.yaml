@@ -51,10 +51,12 @@ services:
         condition: service_healthy
     volumes:
       - ./frontend:/frontend/:ro
-      - /frontend/node_modules
-      - /frontend/.angular
+      - node_modules:/frontend/node_modules
+      - angular_cache:/frontend/.angular
     environment:
       NODE_ENV: development
 
 volumes:
   database_data:
+  node_modules:
+  angular_cache:
