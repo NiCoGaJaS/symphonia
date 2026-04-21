@@ -22,6 +22,14 @@
     padding: 1rem;
 }
 
+.empty-products {
+    text-align: center;
+    font-size: xx-large;
+
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
 .product {
     display: flex;
     flex-direction: column;

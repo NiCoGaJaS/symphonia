@@ -7,3 +7,7 @@ spring:
     error:
       whitelabel:
         enabled: false
+  flyway:
+    enabled: true
+    locations:
+      - classpath:db/migration
