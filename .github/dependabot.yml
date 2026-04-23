@@ -5,42 +5,6 @@ updates:
     directory: /backend
     schedule:
       interval: daily
-  - package-ecosystem: npm
-    directory: /frontend
-    schedule:
-      interval: daily
-    groups:
-      angular-core:
-        patterns:
-          - "@angular/*"
-          - "zone.js"
-          - "rxjs"
-          - "tslib"
-      angular-tooling:
-        patterns:
-          - "@angular-devkit/*"
-          - "@angular/cli"
-          - "@angular/compiler-cli"
-          - "typescript"
-        dependency-type: development
-      eslint:
-        patterns:
-          - "eslint*"
-          - "angular-eslint"
-          - "typescript-eslint"
-          - "prettier"
-        dependency-type: development
-      testing:
-        patterns:
-          - "jasmine-core"
-          - "@types/jasmine"
-          - "karma*"
-        dependency-type: development
-      node-express:
-        patterns:
-          - "express"
-          - "@types/express"
-          - "@types/node"
   - package-ecosystem: github-actions
     directory: /
     schedule:
