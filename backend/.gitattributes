@@ -1,2 +1,10 @@
-/mvnw text eol=lf
+*.java text diff=java
+*.yaml text
+*.xml text
+*.sql text
+
+*.class binary
+*.jar binary
+
+mvnw text eol=lf
 *.cmd text eol=crlf
