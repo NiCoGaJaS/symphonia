@@ -2,7 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 2vh;
+    height: 10vh;
+    width: 100%;
+    margin: 0;
+    padding: 2vh;
+    background: var(--primary-black);
 }
 
 .wrapper > app-menu {
@@ -12,9 +16,42 @@
 }
 
 .pi {
-    font-size: 2rem;
+    font-size: 1.25rem;
 }
 
-.navbar-right > i {
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    z-index: 2000;
+}
+
+.navbar-buttons > i {
     margin-left: 4vh;
+    color: var(--primary-white);
+}
+
+@media (max-width: 768px) {
+    .logo {
+        width: 20vw;
+    }
+
+    .wrapper {
+        height: 8vh;
+        padding: 0 1rem;
+        align-items: center;
+    }
+
+    .navbar-buttons {
+        order: 2;
+        margin-left: auto;
+        margin-right: 0.75rem;
+    }
+
+    .wrapper > app-menu {
+        order: 3;
+        position: static;
+        left: auto;
+        transform: none;
+        margin-left: 0;
+    }
 }
