@@ -133,13 +133,6 @@
 							<file>${project.basedir}/meta/eclipse-style.xml</file>
 						</eclipse>
 					</java>
-
-					<sql>
-						<includes>
-							<include>src/main/resources/**/*.sql</include>
-						</includes>
-						<dbeaver/>
-					</sql>
 				</configuration>
 			</plugin>
 		</plugins>

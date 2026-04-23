@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { DataviewLayoutDemo } from './products/products.component';
+import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 
 @Component({
     selector: 'app-home',
-    imports: [DataviewLayoutDemo],
+    imports: [ProductCatalog],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })

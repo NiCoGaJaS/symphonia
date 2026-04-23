@@ -1,0 +1,39 @@
+<div class="catalog-title">Bestseller</div>
+
+@let productsLists = products | async;
+
+@if (productsLists?.length) {
+    <div class="catalog">
+        @for (product of productsLists; track product.id) {
+            <div class="product">
+                <img
+                    class="product-image"
+                    [ngSrc]="product.image.url"
+                    [alt]="product.image.alternative_text"
+                    width="300"
+                    height="200"
+                />
+
+                <div class="product-name">
+                    {{ product.name }}
+                </div>
+
+                <div class="product-price">
+                    {{ product.price | number: '1.2-2' }} €
+                </div>
+
+                <div class="product-actions">
+                    <button class="product-order" type="button">
+                        <i class="pi pi-shopping-cart"></i>
+                        Bestellen
+                    </button>
+                    <button class="product-heart" type="button">
+                        <i class="pi pi-heart"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+} @else {
+    <div class="empty-products">Keine Produkte gefunden</div>
+}

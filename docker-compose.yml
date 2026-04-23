@@ -1,5 +1,6 @@
 services:
   database:
+    container_name: database
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB:?error}
