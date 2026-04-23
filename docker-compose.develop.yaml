@@ -1,4 +1,4 @@
-name: symphonia
+name: symphonia-develop
 
 services:
   database:
@@ -23,9 +23,10 @@ services:
     init: true # run additional init process to avoid having java process with PID 1: https://bugs.openjdk.org/browse/JMC-8296
     build:
       context: ./backend/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.develop
     ports:
       - "8080:8080"
+      - "7070:7070"
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
       LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
@@ -45,12 +46,20 @@ services:
     container_name: frontend
     build:
       context: ./frontend/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.develop
     ports:
       - "4200:4200"
     depends_on:
       backend:
         condition: service_healthy
+    volumes:
+      - ./frontend:/frontend/:ro
+      - node_modules:/frontend/node_modules
+      - angular_cache:/frontend/.angular
+    environment:
+      NODE_ENV: development
 
 volumes:
   database_data:
+  node_modules:
+  angular_cache:

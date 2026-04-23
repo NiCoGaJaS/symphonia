@@ -13,5 +13,5 @@ ENV NODE_ENV=production
 WORKDIR /frontend
 COPY --from=build /build/dist ./dist
 
-EXPOSE 4000
+EXPOSE 4200
 CMD ["node", "dist/frontend/server/server.mjs"]
