@@ -75,10 +75,18 @@
     transition: all 0.5s ease;
 }
 
-.footer-column .socials .ft-facebook  { background-color: #07445c; }
-.footer-column .socials .ft-linkedin  { background-color: #085675; }
-.footer-column .socials .ft-youtube   { background-color: #5c0707; }
-.footer-column .socials .ft-instagram { background-color: #5c0729; }
+.footer-column .socials .ft-facebook {
+    background-color: #07445c;
+}
+.footer-column .socials .ft-linkedin {
+    background-color: #085675;
+}
+.footer-column .socials .ft-youtube {
+    background-color: #5c0707;
+}
+.footer-column .socials .ft-instagram {
+    background-color: #5c0729;
+}
 
 .footer-column .socials a:hover {
     background-color: var(--primary-white);
