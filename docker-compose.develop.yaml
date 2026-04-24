@@ -2,7 +2,7 @@ name: symphonia-develop
 
 services:
   database:
-    container_name: database
+    container_name: database_develop
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB:?error}
@@ -19,7 +19,7 @@ services:
       timeout: 20s
       retries: 3
   backend:
-    container_name: backend
+    container_name: backend_develop
     init: true # run additional init process to avoid having java process with PID 1: https://bugs.openjdk.org/browse/JMC-8296
     build:
       context: ./backend/
@@ -43,7 +43,7 @@ services:
       database:
         condition: service_healthy
   frontend:
-    container_name: frontend
+    container_name: frontend_develop
     build:
       context: ./frontend/
       dockerfile: Dockerfile.develop
