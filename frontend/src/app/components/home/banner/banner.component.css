@@ -10,7 +10,7 @@
     position: absolute;
     z-index: 1;
     inset: 0;
-    content: "";
+    content: '';
 
     background: linear-gradient(
         to right,
@@ -19,7 +19,6 @@
         rgba(0, 0, 0, 0) 100%
     );
 }
-
 
 .banner-image-wrapper {
     width: 100%;
@@ -30,7 +29,6 @@
     object-fit: cover;
     object-position: center;
 }
-
 
 .banner-content {
     position: absolute;
@@ -45,7 +43,8 @@
     z-index: 1;
 }
 
-.banner-title, .banner-paragraph {
+.banner-title,
+.banner-paragraph {
     color: white;
 }
 
@@ -106,4 +105,3 @@
         }
     }
 }
-

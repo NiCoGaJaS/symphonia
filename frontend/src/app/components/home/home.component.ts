@@ -1,6 +1,6 @@
+import { BannerComponent } from '@components/home/banner/banner.component';
 import { Component } from '@angular/core';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
-import {BannerComponent} from '@components/home/banner/banner.component';
 
 @Component({
     selector: 'app-home',

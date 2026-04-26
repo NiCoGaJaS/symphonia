@@ -1,14 +1,10 @@
-import {Component} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
+import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
     selector: 'app-banner',
     templateUrl: 'banner.component.html',
     styleUrl: 'banner.component.css',
-    imports: [
-        NgOptimizedImage
-    ]
+    imports: [NgOptimizedImage],
 })
-export class BannerComponent {
-
-}
+export class BannerComponent {}
