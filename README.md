@@ -1,6 +1,6 @@
 # Symphonia
 
-<img width="1920" height="1365" alt="Homepage" src="https://github.com/user-attachments/assets/6df44c87-b0a0-44c6-8d2d-a42fa5555749" />
+<img src="/docs/assets/homepage.png" alt="Homepage Preview"/>
 
 ## Backend
 - Java 25
