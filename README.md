@@ -1,5 +1,7 @@
 # Symphonia
 
+<img src="/docs/assets/homepage.png" alt="Homepage Preview"/>
+
 ## Backend
 - Java 25
 - Maven
