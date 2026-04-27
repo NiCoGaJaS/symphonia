@@ -1,6 +1,6 @@
 <div class="catalog-title">Bestseller</div>
 
-@let productsLists = products | async;
+@let productsLists = filteredProducts();
 
 @if (productsLists?.length) {
     <div class="catalog">

@@ -23,7 +23,22 @@
 
     i {
         color: var(--primary-white);
+        cursor: pointer;
     }
+}
+
+.search-bar {
+    width: 100%;
+    background: var(--primary-black);
+    padding: 0.75rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--primary-grey);
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {
