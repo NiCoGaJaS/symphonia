@@ -10,12 +10,18 @@ export class Products {
     all(): Observable<Product[]> {
         return this.http.get<Product[]>(this.url);
     }
+
+    byId(id: string): Observable<Product> {
+        return this.http.get<Product>(`${this.url}/${id}`);
+    }
 }
 
 export interface Product {
     id: string;
     name: string;
     price: number;
+    short_description: string;
+    description: string;
     image: ProductImage;
 }
 

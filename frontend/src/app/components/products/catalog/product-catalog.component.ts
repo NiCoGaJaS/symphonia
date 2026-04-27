@@ -2,11 +2,12 @@ import { AsyncPipe, DecimalPipe, NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Product, Products } from '@app/api/products/products.api';
 import { Observable } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-product-catalog',
     templateUrl: 'product-catalog.component.html',
-    imports: [AsyncPipe, NgOptimizedImage, DecimalPipe],
+    imports: [AsyncPipe, NgOptimizedImage, DecimalPipe, RouterLink],
     styleUrl: 'product-catalog.component.css',
 })
 export class ProductCatalog {

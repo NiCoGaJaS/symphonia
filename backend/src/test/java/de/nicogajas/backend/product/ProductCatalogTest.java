@@ -42,6 +42,8 @@ public class ProductCatalogTest {
                 Instant.now(),
                 "Fender Player II Strat RW BCG",
                 new BigDecimal("772.00"),
+                "Short Description",
+                "Description",
                 image);
         
         when(products.findAll()).thenReturn(List.of(fender));

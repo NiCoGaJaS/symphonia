@@ -3,15 +3,20 @@
 
 :root {
     --primary-black: #000000;
-    --primary-blue: #12a6e1;
-    --primary-white: #ffffff;
+    --primary-blue: #0989c4;
+    --primary-green: #68b13b;
     --primary-grey: #e0e0e0;
+    --primary-white: #ffffff;
     --menu-hover: #1f1f1f;
 }
 
 .html,
 body {
     margin: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
 }
 
 .p-megamenu,
@@ -85,4 +90,8 @@ body {
         color: var(--primary-white) !important;
         background: transparent !important;
     }
+}
+
+.button-blue {
+    background: var(--primary-blue);
 }
