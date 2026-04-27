@@ -22,9 +22,9 @@ import { TabsModule } from 'primeng/tabs';
     standalone: true,
 })
 export class DetailComponent {
-    private activatedRoute = inject(ActivatedRoute);
+    private readonly activatedRoute = inject(ActivatedRoute);
     private readonly products = inject(Products);
 
-    readonly id: any = this.activatedRoute.snapshot.paramMap.get('id');
+    readonly id: string = this.activatedRoute.snapshot.paramMap.get('id')!;
     readonly product: Observable<Product> = this.products.byId(this.id);
 }

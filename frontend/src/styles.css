@@ -95,3 +95,11 @@ body {
 .button-blue {
     background: var(--primary-blue);
 }
+
+.not-found {
+    margin: 20vh 5vw 20vh 5vw;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: x-large;
+}
