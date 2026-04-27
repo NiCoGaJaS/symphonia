@@ -34,6 +34,6 @@ export class ProductCatalog {
     });
 
     private normalize(value: string): string {
-        return value.toLowerCase().replace(/[^a-z0-9]/g, '');
+        return value.toLowerCase().replaceAll(/[^a-z0-9]/g, '');
     }
 }
