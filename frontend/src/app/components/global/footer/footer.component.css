@@ -6,7 +6,7 @@
 
 .footer-container {
     display: grid;
-    gap: 30px;
+    column-gap: 30px;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     max-width: 1400px;
     margin: 0 auto;
@@ -44,7 +44,6 @@
 
 .footer-column p {
     font-size: 16px;
-    margin-bottom: 10px;
     font-weight: 300;
     color: #cccccc;
 }
@@ -69,7 +68,8 @@
     height: 40px;
     width: 40px;
     background-color: #555555;
-    margin: 10px 10px 10px 0;
+    margin-left: 10px;
+    margin-top: auto;
     text-align: center;
     line-height: 40px;
     border-radius: 25%;
