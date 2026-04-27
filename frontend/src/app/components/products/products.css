@@ -1,0 +1,17 @@
+.product-order {
+    flex-grow: 1;
+    padding: 0.5rem;
+
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    font-size: large;
+
+    border-radius: 8px;
+    border: 0;
+}
+
+.product-image {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+}

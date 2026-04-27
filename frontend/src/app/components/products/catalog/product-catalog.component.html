@@ -5,7 +5,7 @@
 @if (productsLists?.length) {
     <div class="catalog">
         @for (product of productsLists; track product.id) {
-            <div class="product">
+            <div class="product" [routerLink]="['/product', product.id]">
                 <img
                     class="product-image"
                     [ngSrc]="product.image.url"
