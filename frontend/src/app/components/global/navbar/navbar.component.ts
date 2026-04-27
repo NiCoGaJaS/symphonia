@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { NgOptimizedImage } from '@angular/common';
@@ -17,4 +17,28 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+    showSearch = false;
+    searchText = '';
+
+    static searchQuery = signal<string>('');
+
+    @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+
+    toggleSearch(): void {
+        this.showSearch = !this.showSearch;
+
+        if (this.showSearch) {
+            setTimeout(() => {
+                this.searchInput?.nativeElement.focus();
+            });
+        } else {
+            this.searchText = '';
+            NavbarComponent.searchQuery.set('');
+        }
+    }
+
+    onSearchChange(): void {
+        NavbarComponent.searchQuery.set(this.searchText);
+    }
+}

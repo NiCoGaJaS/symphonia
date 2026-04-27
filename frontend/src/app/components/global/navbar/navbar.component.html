@@ -6,8 +6,25 @@
     <app-menu />
 
     <div class="navbar-buttons">
-        <i class="pi pi-search" routerLink="/"></i>
+        <i
+            class="pi pi-search"
+            tabindex="0"
+            (click)="toggleSearch()"
+            (keydown.press)="toggleSearch()"
+        ></i>
         <i class="pi pi-shopping-cart" routerLink="/cart"></i>
         <i class="pi pi-user" routerLink="/profile"></i>
     </div>
 </div>
+
+@if (showSearch) {
+    <div class="search-bar">
+        <input
+            #searchInput
+            type="text"
+            [(ngModel)]="searchText"
+            (input)="onSearchChange()"
+            placeholder="Search products..."
+        />
+    </div>
+}
