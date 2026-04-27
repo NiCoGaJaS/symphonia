@@ -21,7 +21,7 @@ export class NavbarComponent {
     showSearch = false;
     searchText = '';
 
-    static searchQuery = signal<string>('');
+    static readonly searchQuery = signal<string>('');
 
     @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
 

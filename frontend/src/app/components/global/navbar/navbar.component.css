@@ -27,6 +27,14 @@
     }
 }
 
+.navbar-buttons button {
+    margin-left: 4vh;
+    color: var(--primary-white);
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
 .search-bar {
     width: 100%;
     background: var(--primary-black);
