@@ -6,6 +6,7 @@ import {
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { Product } from '@app/api/products/products.api';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
+import { provideRouter } from '@angular/router';
 
 describe('Product Catalog Component', () => {
     let component: ProductCatalog;
@@ -19,6 +20,7 @@ describe('Product Catalog Component', () => {
             providers: [
                 provideHttpClient(withFetch()),
                 provideHttpClientTesting(),
+                provideRouter([]),
             ],
         }).compileComponents();
 
