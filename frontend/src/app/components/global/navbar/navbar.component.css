@@ -28,6 +28,29 @@
 .navbar-buttons > i {
     margin-left: 4vh;
     color: var(--primary-white);
+    cursor: pointer;
+}
+
+.navbar-buttons button {
+    margin-left: 4vh;
+    color: var(--primary-white);
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.search-bar {
+    width: 100%;
+    background: var(--primary-black);
+    padding: 0.75rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--primary-grey);
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {
