@@ -2,6 +2,12 @@ import { Component, OnInit, input } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { Product } from '@app/api/products/products.api';
 
+type TabType = {
+    title: string;
+    value: string;
+    content: string;
+};
+
 @Component({
     selector: 'app-product-detail-description',
     imports: [Tab, TabList, TabPanel, TabPanels, Tabs],
@@ -11,9 +17,9 @@ import { Product } from '@app/api/products/products.api';
 export class DescriptionComponent implements OnInit {
     readonly product = input.required<Product>();
 
-    tabs: any[] = [];
+    tabs: TabType[] = [];
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.tabs = [
             {
                 title: 'Produktbeschreibung',
