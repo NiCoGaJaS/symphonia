@@ -1,0 +1,49 @@
+.general,
+.bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+.general {
+    width: 30vw;
+}
+
+.product-price-wrapper {
+    display: flex;
+    margin-bottom: 2vh;
+}
+
+.product-price-add {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.product-name,
+.product-price {
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.product-order-information > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.product-order-information p {
+    margin: 0;
+}
+
+.product-order-status {
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .general {
+        width: 100%;
+    }
+}

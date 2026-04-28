@@ -1,0 +1,17 @@
+@if (product | async; as productDetails) {
+    <div class="wrapper">
+        <div class="top">
+            <div class="image">
+                <app-product-detail-image [product]="productDetails" />
+            </div>
+            <div class="text">
+                <app-product-detail-general [product]="productDetails" />
+            </div>
+        </div>
+        <div class="details">
+            <app-product-detail-description [product]="productDetails" />
+        </div>
+    </div>
+} @else {
+    <div class="not-found">Produkt konnte nicht gefunden werden.</div>
+}

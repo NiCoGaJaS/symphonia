@@ -1,0 +1,34 @@
+.wrapper {
+    width: 100%;
+}
+
+p-tab {
+    color: var(--primary-black);
+}
+
+.p-tab-active {
+    color: var(--primary-blue);
+}
+
+:host ::ng-deep .p-tablist-active-bar {
+    background: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+    .p-tabs-scrollable .p-tablist-content {
+        scrollbar-width: none;
+    }
+
+    .p-tabs-scrollable .p-tablist-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .p-tablist-tab-list {
+        width: max-content;
+    }
+
+    .p-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+}
