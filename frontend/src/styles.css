@@ -9,9 +9,15 @@
     --menu-hover: #1f1f1f;
 }
 
-.html,
+html {
+    box-sizing: border-box;
+}
+
+html,
 body {
     margin: 0;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 body {
