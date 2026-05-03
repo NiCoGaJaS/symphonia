@@ -12,6 +12,8 @@ services:
       - database_data:/var/lib/postgresql
     ports:
       - "5432:5432"
+    networks:
+      database_network:
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready" ]
       start_period: 5s
@@ -27,6 +29,9 @@ services:
     ports:
       - "8080:8080"
       - "7070:7070"
+    networks:
+      database_network:
+      default:
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
       LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
@@ -49,6 +54,8 @@ services:
       dockerfile: Dockerfile.develop
     ports:
       - "4200:4200"
+    networks:
+      default:
     depends_on:
       backend:
         condition: service_healthy
@@ -63,3 +70,7 @@ volumes:
   database_data:
   node_modules:
   angular_cache:
+
+networks:
+  database_network:
+    driver: bridge
