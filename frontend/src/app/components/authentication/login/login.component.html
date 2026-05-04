@@ -6,10 +6,10 @@
 
     <p-inputgroup class="email-input">
         <p-inputgroup-addon>
-            <i class="pi pi-envelope" ></i>
+            <i class="pi pi-envelope"></i>
         </p-inputgroup-addon>
         <p-floatlabel variant="on">
-            <p-inputmask class="email-mask" id="email" mask="_@_._" placeholder="max@mustermann.de"></p-inputmask>
+            <input pInputText [(ngModel)]="value" type="text" />
             <label for="email">E-Mail-Adresse</label>
         </p-floatlabel>
     </p-inputgroup>
