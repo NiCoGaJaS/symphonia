@@ -3,7 +3,6 @@ import { GeneralComponent } from './product-info.component';
 import { Product } from '@app/api/products/products.api';
 
 describe('GeneralComponent', () => {
-    let component: GeneralComponent;
     let fixture: ComponentFixture<GeneralComponent>;
 
     const product: Product = {
@@ -25,12 +24,31 @@ describe('GeneralComponent', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(GeneralComponent);
-        component = fixture.componentInstance;
         fixture.componentRef.setInput('product', product);
         fixture.detectChanges();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('renders the product name, summary and formatted price', () => {
+        const component = fixture.nativeElement as HTMLElement;
+
+        expect(
+            component.querySelector('.product-name')?.textContent?.trim(),
+        ).toBe(product.name);
+        expect(component.textContent).toContain(product.summary);
+        expect(
+            component.querySelector('.product-price')?.textContent?.trim(),
+        ).toBe('772.00€');
+    });
+
+    it('shows the static order information and call to action', () => {
+        const component = fixture.nativeElement as HTMLElement;
+
+        expect(component.textContent).toContain('Kostenloser Versand');
+        expect(component.textContent).toContain('1-3 Tage Lieferzeit');
+        expect(component.textContent).toContain('Hochwertige Verarbeitung');
+        expect(component.textContent).toContain('Sofort lieferbar');
+        expect(
+            component.querySelector('.product-order')?.textContent?.trim(),
+        ).toBe('In den Warenkorb');
     });
 });

@@ -21,7 +21,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(ProductDetailController.class)
-public class ProductDetailedTest {
+public class ProductDetailTest {
     
     @Autowired
     MockMvc mvc;
@@ -55,11 +55,22 @@ public class ProductDetailedTest {
                         jsonPath("$.id").value(fender.id().toString()),
                         jsonPath("$.name").value(fender.name()),
                         jsonPath("$.price").value(fender.price().doubleValue()),
-                        jsonPath("$.short_description").value(fender.summary()),
+                        jsonPath("$.summary").value(fender.summary()),
                         jsonPath("$.description").value(fender.description()),
                         jsonPath("$.image.id").value(fender.image().id().toString()),
                         jsonPath("$.image.url").value(fender.image().url()),
                         jsonPath("$.image.alternative_text").value(fender.image().alternativeText()));
+    }
+    
+    
+    @Test
+    void returns404IfProductWasNotFound() throws Exception {
+        UUID unknownId = UUID.randomUUID();
+        
+        when(products.findById(unknownId)).thenReturn(Optional.empty());
+        
+        mvc.perform(get("/api/products/{id}", unknownId))
+                .andExpect(status().isNotFound());
     }
     
 }

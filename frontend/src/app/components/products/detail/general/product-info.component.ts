@@ -4,7 +4,7 @@ import { Divider } from 'primeng/divider';
 import { Product } from '@app/api/products/products.api';
 
 @Component({
-    selector: 'app-product-detail-general',
+    selector: 'app-product-info',
     imports: [DecimalPipe, Divider],
     templateUrl: './product-info.component.html',
     styleUrls: [

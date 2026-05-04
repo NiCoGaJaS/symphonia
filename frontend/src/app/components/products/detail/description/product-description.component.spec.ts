@@ -30,7 +30,38 @@ describe('DescriptionComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('builds the description tabs from the product data', () => {
+        expect(component.tabs).toEqual([
+            {
+                key: 'description',
+                title: 'Produktbeschreibung',
+                content: product.description,
+            },
+            {
+                key: 'technical',
+                title: 'Technische Daten',
+                content: 'n/a',
+            },
+            {
+                key: 'rating',
+                title: 'Bewertungen',
+                content: 'n/a',
+            },
+            {
+                key: 'shipping',
+                title: 'Versand & Rückgabe',
+                content: 'n/a',
+            },
+        ]);
+    });
+
+    it('renders the tab labels and the description content', () => {
+        const compiled = fixture.nativeElement as HTMLElement;
+
+        expect(compiled.textContent).toContain('Produktbeschreibung');
+        expect(compiled.textContent).toContain('Technische Daten');
+        expect(compiled.textContent).toContain('Bewertungen');
+        expect(compiled.textContent).toContain('Versand & Rückgabe');
+        expect(compiled.textContent).toContain(product.description);
     });
 });
