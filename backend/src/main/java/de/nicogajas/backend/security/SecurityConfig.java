@@ -52,6 +52,10 @@ public class SecurityConfig implements WebMvcConfigurer {
                             
                             json.writeValue(response.getWriter(), new LoginResponse(account.id(), account.role()));
                         }))
+                .logout(logout ->
+                        logout.logoutUrl("/auth/logout")
+                                .deleteCookies("JSESSIONID")
+                                .logoutSuccessUrl("/"))
                 .build();
     }
     
