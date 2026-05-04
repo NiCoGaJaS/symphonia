@@ -6,9 +6,9 @@ import { Product } from '@app/api/products/products.api';
 @Component({
     selector: 'app-product-detail-general',
     imports: [DecimalPipe, Divider],
-    templateUrl: './general.component.html',
+    templateUrl: './product-info.component.html',
     styleUrls: [
-        './general.component.css',
+        './product-info.component.css',
         '../../products.css',
         '../../../../../styles.css',
     ],

@@ -1,7 +1,7 @@
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Product, Products } from '@app/api/products/products.api';
-import { DetailComponent } from './detail.component';
+import { DetailComponent } from './product-detail.component';
 import { of } from 'rxjs';
 
 describe('DetailComponent', () => {

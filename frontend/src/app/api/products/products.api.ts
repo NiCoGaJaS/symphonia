@@ -20,7 +20,7 @@ export class Products {
         return this.http.get<Product[]>(`${this.base}/api/products`);
     }
 
-    byId(id: string): Observable<Product> {
+    detailsOf(id: string): Observable<Product> {
         return this.http.get<Product>(`${this.url}/${id}`);
     }
 }
@@ -29,7 +29,7 @@ export interface Product {
     id: string;
     name: string;
     price: number;
-    short_description: string;
+    summary: string;
     description: string;
     image: ProductImage;
 }

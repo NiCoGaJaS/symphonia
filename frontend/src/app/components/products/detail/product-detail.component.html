@@ -2,7 +2,11 @@
     <div class="wrapper">
         <div class="top">
             <div class="image">
-                <app-product-detail-image [product]="productDetails" />
+                <app-product-image
+                    [productImage]="productDetails.image"
+                    [height]="300"
+                    [width]="200"
+                />
             </div>
             <div class="text">
                 <app-product-detail-general [product]="productDetails" />

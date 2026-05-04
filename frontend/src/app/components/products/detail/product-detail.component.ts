@@ -2,10 +2,10 @@ import { Component, inject } from '@angular/core';
 import { Product, Products } from '@app/api/products/products.api';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { DescriptionComponent } from '@components/products/detail/description/description.component';
-import { GeneralComponent } from '@components/products/detail/general/general.component';
-import { ImageComponent } from '@components/products/detail/image/image.component';
+import { DescriptionComponent } from '@components/products/detail/description/product-description.component';
+import { GeneralComponent } from '@components/products/detail/general/product-info.component';
 import { Observable } from 'rxjs';
+import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
@@ -15,16 +15,16 @@ import { TabsModule } from 'primeng/tabs';
         DescriptionComponent,
         GeneralComponent,
         AsyncPipe,
-        ImageComponent,
+        ProductImageComponent,
     ],
-    templateUrl: './detail.component.html',
-    styleUrl: './detail.component.css',
+    templateUrl: './product-detail.component.html',
+    styleUrl: './product-detail.component.css',
     standalone: true,
 })
-export class DetailComponent {
+export class ProductDetailComponent {
     private readonly activatedRoute = inject(ActivatedRoute);
     private readonly products = inject(Products);
 
     readonly id: string = this.activatedRoute.snapshot.paramMap.get('id')!;
-    readonly product: Observable<Product> = this.products.byId(this.id);
+    readonly product: Observable<Product> = this.products.detailsOf(this.id);
 }

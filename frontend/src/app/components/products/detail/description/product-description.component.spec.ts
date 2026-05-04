@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ImageComponent } from './image.component';
+import { DescriptionComponent } from './product-description.component';
 import { Product } from '@app/api/products/products.api';
 
-describe('ImageComponent', () => {
-    let component: ImageComponent;
-    let fixture: ComponentFixture<ImageComponent>;
+describe('DescriptionComponent', () => {
+    let component: DescriptionComponent;
+    let fixture: ComponentFixture<DescriptionComponent>;
 
     const product: Product = {
         id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
         name: 'Fender Player II Strat RW BCG',
         price: 772,
-        short_description: 'Short description',
+        summary: 'Short description',
         description: 'Description',
         image: {
             id: '9feb793e-7c2c-453d-89e2-1975e67bddef',
@@ -21,10 +21,10 @@ describe('ImageComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageComponent],
+            imports: [DescriptionComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ImageComponent);
+        fixture = TestBed.createComponent(DescriptionComponent);
         component = fixture.componentInstance;
         fixture.componentRef.setInput('product', product);
         fixture.detectChanges();

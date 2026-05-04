@@ -16,7 +16,7 @@ public record Product(
         @ReadOnlyProperty @Column("created_at") Instant createdAt,
         String name,
         BigDecimal price,
-        @Column("shortdescription") String shortDescription,
+        @Column("summary") String summary,
         String description,
         @MappedCollection(idColumn = "product_id") ProductImage image
 ) {

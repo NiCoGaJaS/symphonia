@@ -1,0 +1,16 @@
+<div class="wrapper">
+    <p-tabs value="description" [scrollable]="true" [showNavigators]="false">
+        <p-tablist>
+            @for (tab of tabs; track tab.key) {
+                <p-tab [value]="tab.key">{{ tab.title }}</p-tab>
+            }
+        </p-tablist>
+        <p-tabpanels>
+            @for (tab of tabs; track tab.key) {
+                <p-tabpanel [value]="tab.key">
+                    <p class="m-0">{{ tab.content }}</p>
+                </p-tabpanel>
+            }
+        </p-tabpanels>
+    </p-tabs>
+</div>

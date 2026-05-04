@@ -6,12 +6,10 @@
     <div class="catalog">
         @for (product of productsLists; track product.id) {
             <div class="product" [routerLink]="['/product', product.id]">
-                <img
-                    class="product-image"
-                    [ngSrc]="product.image.url"
-                    [alt]="product.image.alternative_text"
-                    width="300"
-                    height="200"
+                <app-product-image
+                    [productImage]="product.image"
+                    [height]="200"
+                    [width]="300"
                 />
 
                 <div class="product-name">

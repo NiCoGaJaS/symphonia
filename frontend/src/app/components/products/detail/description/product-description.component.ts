@@ -2,33 +2,33 @@ import { Component, OnInit, input } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { Product } from '@app/api/products/products.api';
 
-type TabType = {
+type TabItem = {
+    key: string;
     title: string;
-    value: string;
     content: string;
 };
 
 @Component({
     selector: 'app-product-detail-description',
     imports: [Tab, TabList, TabPanel, TabPanels, Tabs],
-    templateUrl: './description.component.html',
-    styleUrl: './description.component.css',
+    templateUrl: './product-description.component.html',
+    styleUrl: './product-description.component.css',
 })
 export class DescriptionComponent implements OnInit {
     readonly product = input.required<Product>();
 
-    tabs: TabType[] = [];
+    tabs: TabItem[] = [];
 
     ngOnInit(): void {
         this.tabs = [
             {
+                key: 'description',
                 title: 'Produktbeschreibung',
-                value: '0',
                 content: `${this.product().description}`,
             },
-            { title: 'Technische Daten', value: '1', content: 'n/a' },
-            { title: 'Bewertungen', value: '2', content: 'n/a' },
-            { title: 'Versand & Rückgabe', value: '3', content: 'n/a' },
+            { key: 'technical', title: 'Technische Daten', content: 'n/a' },
+            { key: 'rating', title: 'Bewertungen', content: 'n/a' },
+            { key: 'shipping', title: 'Versand & Rückgabe', content: 'n/a' },
         ];
     }
 }
