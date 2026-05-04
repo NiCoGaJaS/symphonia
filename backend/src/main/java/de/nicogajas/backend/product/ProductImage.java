@@ -11,4 +11,10 @@ public record ProductImage(
         @Id UUID id,
         String url,
         @Column("alternative_text") String alternativeText
-) {}
+) {
+    
+    public ProductImage(String url, String alternativeText) {
+        this(null, url, alternativeText);
+    }
+    
+}

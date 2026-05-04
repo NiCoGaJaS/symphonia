@@ -17,4 +17,10 @@ public record Product(
         String name,
         BigDecimal price,
         @MappedCollection(idColumn = "product_id") ProductImage image
-) {}
+) {
+    
+    public Product(String name, BigDecimal price, ProductImage image) {
+        this(null, null, name, price, image);
+    }
+    
+}
