@@ -25,6 +25,10 @@ export class Products {
             `${this.base}/api/products/${id}`,
         );
     }
+
+    filter(query: String): Observable<Product[]> {
+        return this.http.get<Product[]>(this.url + '?query=' + query);
+    }
 }
 
 export interface GetProductResponse {
