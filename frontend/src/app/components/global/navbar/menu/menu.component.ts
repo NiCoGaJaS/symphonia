@@ -7,7 +7,6 @@ import { MegaMenuModule } from 'primeng/megamenu';
     standalone: true,
     imports: [MegaMenuModule],
     templateUrl: './menu.component.html',
-    styleUrl: './menu.component.css',
 })
 export class MenuComponent implements OnInit {
     items: MegaMenuItem[] | undefined;
@@ -17,66 +16,36 @@ export class MenuComponent implements OnInit {
             {
                 label: 'Gitarren',
                 items: [
-                    [
-                        {
-                            items: [
-                                { label: 'Item', routerLink: '/' },
-                                { label: 'Item', routerLink: '/' },
-                            ],
-                        },
-                    ],
+                    [{ label: 'Item', routerLink: '/' }],
+                    [{ label: 'Item', routerLink: '/' }],
                 ],
             },
             {
                 label: 'Klaviere',
                 items: [
-                    [
-                        {
-                            items: [
-                                { label: 'Item', routerLink: '/' },
-                                { label: 'Item', routerLink: '/' },
-                            ],
-                        },
-                    ],
+                    [{ label: 'Item', routerLink: '/' }],
+                    [{ label: 'Item', routerLink: '/' }],
                 ],
             },
             {
                 label: 'Drums',
                 items: [
-                    [
-                        {
-                            items: [
-                                { label: 'Item', routerLink: '/' },
-                                { label: 'Item', routerLink: '/' },
-                            ],
-                        },
-                    ],
+                    [{ label: 'Item', routerLink: '/' }],
+                    [{ label: 'Item', routerLink: '/' }],
                 ],
             },
             {
                 label: 'Schallplatten',
                 items: [
-                    [
-                        {
-                            items: [
-                                { label: 'Item', routerLink: '/' },
-                                { label: 'Item', routerLink: '/' },
-                            ],
-                        },
-                    ],
+                    [{ label: 'Item', routerLink: '/' }],
+                    [{ label: 'Item', routerLink: '/' }],
                 ],
             },
             {
                 label: 'Zubehör',
                 items: [
-                    [
-                        {
-                            items: [
-                                { label: 'Item', routerLink: '/' },
-                                { label: 'Item2', routerLink: '/' },
-                            ],
-                        },
-                    ],
+                    [{ label: 'Item', routerLink: '/' }],
+                    [{ label: 'Item2', routerLink: '/' }],
                 ],
             },
         ];
