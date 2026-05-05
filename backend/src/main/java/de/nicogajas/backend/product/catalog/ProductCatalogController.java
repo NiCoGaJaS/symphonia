@@ -6,6 +6,7 @@ import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,7 @@ public class ProductCatalogController {
     ) {
         
         public static GetProductResponse fromProduct(Product product) {
-            return new GetProductResponse(product.id(), product.name(), product.price(),
-                    product.image() == null ? null : ProductImageResponse.fromProductImage(product.image()));
+            return new GetProductResponse(product.id(), product.name(), product.price(), ProductImageResponse.fromProductImage(product.image()));
         }
         
     }
@@ -55,11 +55,12 @@ public class ProductCatalogController {
     
     
     @GetMapping
-    public List<GetProductResponse> getProducts(@RequestParam(required = false) String query) {
-        List<Product> list = (query == null || query.isBlank())
-                ? products.findAll()
-                : products.filter(query);
-        return list.stream().map(GetProductResponse::fromProduct).toList();
+    public List<GetProductResponse> getProducts(@RequestParam(required = false) Optional<String> query) {
+        return query.map(this.products::findAllByNameContainsIgnoreCase)
+                .orElseGet(this.products::findAll)
+                .stream()
+                .map(GetProductResponse::fromProduct)
+                .toList();
     }
     
 }

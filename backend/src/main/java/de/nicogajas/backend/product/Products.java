@@ -10,13 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Products extends ListCrudRepository<Product, UUID> {
-    
-    @Query("""
-               SELECT * FROM products p
-               FULL JOIN product_images i ON i.product_id=p.id
-               WHERE LOWER(regexp_replace(p.name, '[^a-z0-9]', ''))
-               LIKE LOWER(CONCAT('%', regexp_replace(:query, '[^a-z0-9]', ''), '%'))
-           """)
-    List<Product> filter(@Param("query") String query);
-    
+
+    List<Product> findAllByNameContainsIgnoreCase(String name);
+
 }

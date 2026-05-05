@@ -1,8 +1,13 @@
-import { Component, ElementRef, ViewChild, signal } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    ViewChild,
+    inject,
+} from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { NgOptimizedImage } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
@@ -18,27 +23,30 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-    showSearch = false;
-    searchText = '';
 
-    static readonly searchQuery = signal<string>('');
+    private readonly router = inject(Router);
 
-    @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+    protected showSearch= false;
 
-    toggleSearch(): void {
-        this.showSearch = !this.showSearch;
-
-        if (this.showSearch) {
-            setTimeout(() => {
-                this.searchInput?.nativeElement.focus();
-            });
-        } else {
-            this.searchText = '';
-            NavbarComponent.searchQuery.set('');
+    @ViewChild('searchInput')
+    set searchInput(input: ElementRef<HTMLInputElement>) {
+        if (input) {
+            input.nativeElement.focus();
         }
     }
 
-    onSearchChange(): void {
-        NavbarComponent.searchQuery.set(this.searchText);
+    toggleSearch(): void {
+        this.showSearch = !this.showSearch;
     }
+
+    onSearch(query: string): void {
+        query = query.trim();
+
+        this.router.navigate(['/search'], {
+            queryParams: {
+                'query': query
+            }
+        });
+    }
+
 }

@@ -1,5 +1,5 @@
+import {HttpClient, HttpParams} from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
 
@@ -16,8 +16,13 @@ export class Products {
         }
     }
 
-    all(): Observable<GetProductResponse[]> {
-        return this.http.get<GetProductResponse[]>(`${this.base}/api/products`);
+    search(query: string | null): Observable<GetProductResponse[]> {
+        let params = new HttpParams();
+        if (query) {
+            params = params.set('query', query);
+        }
+
+        return this.http.get<GetProductResponse[]>(`${this.base}/api/products`, { params: params });
     }
 
     detailsOf(id: string): Observable<GetProductDetailResponse> {
@@ -26,9 +31,6 @@ export class Products {
         );
     }
 
-    filter(query: String): Observable<Product[]> {
-        return this.http.get<Product[]>(this.url + '?query=' + query);
-    }
 }
 
 export interface GetProductResponse {

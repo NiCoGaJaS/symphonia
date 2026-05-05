@@ -15,13 +15,11 @@
 </div>
 
 @if (showSearch) {
-    <div class="search-bar">
+    <form class="search-bar" (ngSubmit)="onSearch(searchInput.value)">
         <input
             #searchInput
-            type="text"
-            [(ngModel)]="searchText"
-            (input)="onSearchChange()"
+            type="search"
             placeholder="Suche Produkte..."
         />
-    </div>
+    </form>
 }

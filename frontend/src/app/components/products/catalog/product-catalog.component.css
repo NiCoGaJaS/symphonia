@@ -1,4 +1,6 @@
 .catalog-title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     text-align: center;
     font-size: xxx-large;
     font-weight: bold;
@@ -39,7 +41,7 @@
     padding: 1rem;
 
     border-radius: 8px;
-    border: 1px solid var(--primary-grey);
+    border: 2px solid var(--primary-grey);
 }
 
 .product-image {
