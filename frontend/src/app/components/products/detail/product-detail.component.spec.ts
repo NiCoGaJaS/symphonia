@@ -1,4 +1,8 @@
-import { ActivatedRoute, provideRouter } from '@angular/router';
+import {
+    ActivatedRoute,
+    convertToParamMap,
+    provideRouter,
+} from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
     HttpTestingController,
@@ -7,7 +11,6 @@ import {
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { Product } from '@app/api/products/products.api';
 import { ProductDetailComponent } from './product-detail.component';
-import { convertToParamMap } from '@angular/router';
 
 describe('ProductDetailComponent', () => {
     let component: ProductDetailComponent;
