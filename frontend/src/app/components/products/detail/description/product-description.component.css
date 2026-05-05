@@ -1,5 +1,11 @@
 .wrapper {
     width: 100%;
+    --p-tabs-tablist-background: var(--primary-grey);
+    --p-tabs-tab-font-weight: 400;
+}
+
+:host ::ng-deep .p-tabs {
+    border: 2px solid var(--primary-grey);
 }
 
 p-tab {
