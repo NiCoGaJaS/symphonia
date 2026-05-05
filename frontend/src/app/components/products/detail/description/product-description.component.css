@@ -1,0 +1,40 @@
+.wrapper {
+    width: 100%;
+    --p-tabs-tablist-background: var(--primary-grey);
+    --p-tabs-tab-font-weight: 400;
+}
+
+:host ::ng-deep .p-tabs {
+    border: 2px solid var(--primary-grey);
+}
+
+p-tab {
+    color: var(--primary-black);
+}
+
+.p-tab-active {
+    color: var(--primary-blue);
+}
+
+:host ::ng-deep .p-tablist-active-bar {
+    background: var(--primary-blue);
+}
+
+@media (max-width: 768px) {
+    .p-tabs-scrollable .p-tablist-content {
+        scrollbar-width: none;
+    }
+
+    .p-tabs-scrollable .p-tablist-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .p-tablist-tab-list {
+        width: max-content;
+    }
+
+    .p-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+}

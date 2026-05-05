@@ -1,10 +1,10 @@
 package de.nicogajas.backend.product;
 
-import de.nicogajas.backend.product.catalog.ProductCatalogController;
+import de.nicogajas.backend.product.detail.ProductDetailController;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
@@ -20,8 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(ProductCatalogController.class)
-public class ProductCatalogTest {
+@WebMvcTest(ProductDetailController.class)
+public class ProductDetailTest {
     
     @Autowired
     MockMvc mvc;
@@ -31,7 +31,7 @@ public class ProductCatalogTest {
     
     
     @Test
-    void getAllProducts() throws Exception {
+    void getProductById() throws Exception {
         ProductImage image = new ProductImage(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
@@ -46,18 +46,31 @@ public class ProductCatalogTest {
                 "Description",
                 image);
         
-        when(products.findAll()).thenReturn(List.of(fender));
+        when(products.findById(fender.id())).thenReturn(Optional.of(fender));
         
-        mvc.perform(get("/api/products"))
+        mvc.perform(get("/api/products/{id}", fender.id()))
                 .andExpectAll(
                         status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$[0].id").value(fender.id().toString()),
-                        jsonPath("$[0].name").value(fender.name()),
-                        jsonPath("$[0].price").value(fender.price().doubleValue()),
-                        jsonPath("$[0].image.id").value(fender.image().id().toString()),
-                        jsonPath("$[0].image.url").value(fender.image().url()),
-                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText()));
+                        jsonPath("$.id").value(fender.id().toString()),
+                        jsonPath("$.name").value(fender.name()),
+                        jsonPath("$.price").value(fender.price().doubleValue()),
+                        jsonPath("$.summary").value(fender.summary()),
+                        jsonPath("$.description").value(fender.description()),
+                        jsonPath("$.image.id").value(fender.image().id().toString()),
+                        jsonPath("$.image.url").value(fender.image().url()),
+                        jsonPath("$.image.alternative_text").value(fender.image().alternativeText()));
+    }
+    
+    
+    @Test
+    void returns404IfProductWasNotFound() throws Exception {
+        UUID unknownId = UUID.randomUUID();
+        
+        when(products.findById(unknownId)).thenReturn(Optional.empty());
+        
+        mvc.perform(get("/api/products/{id}", unknownId))
+                .andExpect(status().isNotFound());
     }
     
 }

@@ -3,9 +3,10 @@
 
 :root {
     --primary-black: #000000;
-    --primary-blue: #12a6e1;
+    --primary-blue: #0989c4;
+    --primary-green: #68b13b;
+    --primary-grey: #f4f4f4;
     --primary-white: #ffffff;
-    --primary-grey: #e0e0e0;
     --menu-hover: #1f1f1f;
 }
 
@@ -95,4 +96,20 @@ body {
         color: var(--primary-white) !important;
         background: transparent !important;
     }
+}
+
+.color-blue {
+    color: var(--primary-blue);
+}
+
+.button-blue {
+    background: var(--primary-blue);
+}
+
+.not-found {
+    margin: 20vh 5vw 20vh 5vw;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: x-large;
 }

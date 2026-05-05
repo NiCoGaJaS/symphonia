@@ -19,12 +19,18 @@ export class Products {
     all(): Observable<Product[]> {
         return this.http.get<Product[]>(`${this.base}/api/products`);
     }
+
+    detailsOf(id: string): Observable<Product> {
+        return this.http.get<Product>(`${this.base}/api/products/${id}`);
+    }
 }
 
 export interface Product {
     id: string;
     name: string;
     price: number;
+    summary: string;
+    description: string;
     image: ProductImage;
 }
 

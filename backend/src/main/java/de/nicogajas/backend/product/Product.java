@@ -16,11 +16,13 @@ public record Product(
         @ReadOnlyProperty @Column("created_at") Instant createdAt,
         String name,
         BigDecimal price,
+        String summary,
+        String description,
         @MappedCollection(idColumn = "product_id") ProductImage image
 ) {
     
-    public Product(String name, BigDecimal price, ProductImage image) {
-        this(null, null, name, price, image);
+    public Product(String name, BigDecimal price, String summary, String description, ProductImage image) {
+        this(null, null, name, price, summary, description, image);
     }
     
 }
