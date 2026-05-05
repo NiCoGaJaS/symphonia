@@ -7,7 +7,6 @@ import { MegaMenuModule } from 'primeng/megamenu';
     standalone: true,
     imports: [MegaMenuModule],
     templateUrl: './menu.component.html',
-    styleUrl: './menu.component.css',
 })
 export class MenuComponent implements OnInit {
     items: MegaMenuItem[] | undefined;
