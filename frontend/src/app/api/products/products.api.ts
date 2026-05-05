@@ -21,7 +21,7 @@ export class Products {
     }
 
     detailsOf(id: string): Observable<Product> {
-        return this.http.get<Product>(`${this.url}/${id}`);
+        return this.http.get<Product>(`${this.base}/api/products/${id}`);
     }
 }
 
