@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 10vh;
     width: 100%;
     margin: 0;
     padding: 2vh;
@@ -10,9 +9,7 @@
 }
 
 .wrapper > app-menu {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    z-index: 100; /* Needed so the menu popup is above other elements */
 }
 
 .pi {
@@ -22,12 +19,11 @@
 .navbar-buttons {
     display: flex;
     align-items: center;
-    z-index: 2000;
-}
+    gap: 2rem;
 
-.navbar-buttons > i {
-    margin-left: 4vh;
-    color: var(--primary-white);
+    i {
+        color: var(--primary-white);
+    }
 }
 
 @media (max-width: 768px) {
