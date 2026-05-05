@@ -29,10 +29,12 @@ public class SampleDataConfiguration {
                             "Fender Player II Strat RW BCG",
                             new BigDecimal("772.00"),
                             "Vielseitige Stratocaster mit modernem Halsprofil und klassischem Fender-Sound.",
-                            "Die Fender Player II Strat RW BCG bietet den vertrauten Strat-Ton mit klaren Höhen, "
-                                    + "direkter Ansprache und hohem Spielkomfort. Das moderne C-Halsprofil, das "
-                                    + "Palisandergriffbrett und die drei Single-Coils machen sie zur flexiblen "
-                                    + "Wahl für Clean, Blues, Pop und druckvolle Rock-Sounds.",
+                            """
+                            Die Fender Player II Strat RW BCG bietet den vertrauten Strat-Ton mit klaren Höhen, \
+                            direkter Ansprache und hohem Spielkomfort. Das moderne C-Halsprofil, das \
+                            Palisandergriffbrett und die drei Single-Coils machen sie zur flexiblen \
+                            Wahl für Clean, Blues, Pop und druckvolle Rock-Sounds.\
+                            """
                             new ProductImage(
                                     "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                                     "Fender Player II Strat RW BCG - Front")),
