@@ -3,10 +3,17 @@ import {
     bootstrapApplication,
 } from '@angular/platform-browser';
 import { AppComponent } from '@app/app.component';
-import { ApplicationRef } from '@angular/core';
+import { ApplicationRef, provideZoneChangeDetection } from '@angular/core';
 import { config } from '@app/app.config.server';
 
 const bootstrap = (context: BootstrapContext): Promise<ApplicationRef> =>
-    bootstrapApplication(AppComponent, config, context);
+    bootstrapApplication(
+        AppComponent,
+        {
+            ...config,
+            providers: [provideZoneChangeDetection(), ...config.providers],
+        },
+        context,
+    );
 
 export default bootstrap;
