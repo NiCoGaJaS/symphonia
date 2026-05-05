@@ -36,7 +36,8 @@ public class ProductCatalogController {
     ) {
         
         public static GetProductResponse fromProduct(Product product) {
-            return new GetProductResponse(product.id(), product.name(), product.price(), ProductImageResponse.fromProductImage(product.image()));
+            return new GetProductResponse(product.id(), product.name(), product.price(),
+                    ProductImageResponse.fromProductImage(product.image()));
         }
         
     }
