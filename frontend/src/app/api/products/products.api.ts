@@ -1,4 +1,4 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
@@ -30,7 +30,6 @@ export class Products {
             `${this.base}/api/products/${id}`,
         );
     }
-
 }
 
 export interface GetProductResponse {

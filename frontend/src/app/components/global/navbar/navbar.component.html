@@ -16,10 +16,6 @@
 
 @if (showSearch) {
     <form class="search-bar" (ngSubmit)="onSearch(searchInput.value)">
-        <input
-            #searchInput
-            type="search"
-            placeholder="Suche Produkte..."
-        />
+        <input #searchInput type="search" placeholder="Suche Produkte..." />
     </form>
 }

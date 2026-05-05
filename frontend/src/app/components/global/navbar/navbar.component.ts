@@ -1,9 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    ViewChild,
-    inject,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
@@ -23,10 +18,9 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-
     private readonly router = inject(Router);
 
-    protected showSearch= false;
+    protected showSearch = false;
 
     @ViewChild('searchInput')
     set searchInput(input: ElementRef<HTMLInputElement>) {
@@ -44,9 +38,8 @@ export class NavbarComponent {
 
         this.router.navigate(['/search'], {
             queryParams: {
-                'query': query
-            }
+                query: query,
+            },
         });
     }
-
 }
