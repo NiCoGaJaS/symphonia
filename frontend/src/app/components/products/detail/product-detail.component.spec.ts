@@ -1,13 +1,18 @@
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Product, Products } from '@app/api/products/products.api';
+import {
+    HttpTestingController,
+    provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { Product } from '@app/api/products/products.api';
 import { ProductDetailComponent } from './product-detail.component';
-import { of } from 'rxjs';
+import { convertToParamMap } from '@angular/router';
 
 describe('ProductDetailComponent', () => {
     let component: ProductDetailComponent;
     let fixture: ComponentFixture<ProductDetailComponent>;
-    let detailsOf: jasmine.Spy;
+    let backend: HttpTestingController;
 
     const product: Product = {
         id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
@@ -23,11 +28,12 @@ describe('ProductDetailComponent', () => {
     };
 
     beforeEach(async () => {
-        detailsOf = jasmine.createSpy('detailsOf').and.returnValue(of(product));
-
         await TestBed.configureTestingModule({
             imports: [ProductDetailComponent],
             providers: [
+                provideHttpClient(withFetch()),
+                provideHttpClientTesting(),
+                provideRouter([]),
                 {
                     provide: ActivatedRoute,
                     useValue: {
@@ -36,32 +42,35 @@ describe('ProductDetailComponent', () => {
                         },
                     },
                 },
-                {
-                    provide: Products,
-                    useValue: {
-                        detailsOf,
-                    },
-                },
             ],
         }).compileComponents();
-    });
 
-    function createComponent(): void {
+        backend = TestBed.inject(HttpTestingController);
+
         fixture = TestBed.createComponent(ProductDetailComponent);
         component = fixture.componentInstance;
-        fixture.detectChanges();
-    }
 
-    beforeEach(() => {
-        createComponent();
+        fixture.detectChanges();
+    });
+
+    afterEach(() => {
+        backend.verify();
     });
 
     it('loads the product by route id', () => {
         expect(component.id).toBe(product.id);
-        expect(detailsOf).toHaveBeenCalledWith(product.id);
+
+        const call = backend.expectOne(
+            `http://localhost:8080/api/products/${product.id}`,
+        );
+        expect(call.request.method).toBe('GET');
     });
 
     it('renders the product image, info and description components', async () => {
+        backend
+            .expectOne(`http://localhost:8080/api/products/${product.id}`)
+            .flush(product);
+
         await fixture.whenStable();
         await fixture.whenRenderingDone();
         fixture.detectChanges();
@@ -77,9 +86,10 @@ describe('ProductDetailComponent', () => {
     });
 
     it('shows a fallback message when the product is not found', async () => {
-        detailsOf.and.returnValue(of(undefined as unknown as Product));
+        backend
+            .expectOne(`http://localhost:8080/api/products/${product.id}`)
+            .flush(null);
 
-        createComponent();
         await fixture.whenStable();
         await fixture.whenRenderingDone();
         fixture.detectChanges();

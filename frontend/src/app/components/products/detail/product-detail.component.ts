@@ -3,9 +3,9 @@ import { Product, Products } from '@app/api/products/products.api';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { DescriptionComponent } from '@components/products/detail/description/product-description.component';
-import { GeneralComponent } from '@components/products/detail/general/product-info.component';
 import { Observable } from 'rxjs';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
+import { ProductInfoComponent } from '@components/products/detail/general/product-info.component';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
@@ -13,7 +13,7 @@ import { TabsModule } from 'primeng/tabs';
     imports: [
         TabsModule,
         DescriptionComponent,
-        GeneralComponent,
+        ProductInfoComponent,
         AsyncPipe,
         ProductImageComponent,
     ],

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GeneralComponent } from './product-info.component';
 import { Product } from '@app/api/products/products.api';
+import { ProductInfoComponent } from './product-info.component';
 
 describe('GeneralComponent', () => {
-    let fixture: ComponentFixture<GeneralComponent>;
+    let fixture: ComponentFixture<ProductInfoComponent>;
 
     const product: Product = {
         id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
@@ -20,10 +20,10 @@ describe('GeneralComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [GeneralComponent],
+            imports: [ProductInfoComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(GeneralComponent);
+        fixture = TestBed.createComponent(ProductInfoComponent);
         fixture.componentRef.setInput('product', product);
         fixture.detectChanges();
     });

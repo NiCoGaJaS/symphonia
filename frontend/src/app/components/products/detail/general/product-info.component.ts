@@ -13,6 +13,6 @@ import { Product } from '@app/api/products/products.api';
         '../../../../../styles.css',
     ],
 })
-export class GeneralComponent {
+export class ProductInfoComponent {
     readonly product = input.required<Product>();
 }
