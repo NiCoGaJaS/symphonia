@@ -10,9 +10,9 @@ export class Products {
 
     constructor() {
         if (isPlatformServer(inject(PLATFORM_ID))) {
-            this.base = 'http://backend:8080'
+            this.base = 'http://backend:8080';
         } else {
-            this.base = 'http://localhost:8080'
+            this.base = 'http://localhost:8080';
         }
     }
 

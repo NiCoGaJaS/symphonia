@@ -1,9 +1,9 @@
+import { ApplicationRef, provideZoneChangeDetection } from '@angular/core';
 import {
     BootstrapContext,
     bootstrapApplication,
 } from '@angular/platform-browser';
 import { AppComponent } from '@app/app.component';
-import { ApplicationRef, provideZoneChangeDetection } from '@angular/core';
 import { config } from '@app/app.config.server';
 
 const bootstrap = (context: BootstrapContext): Promise<ApplicationRef> =>
