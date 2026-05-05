@@ -36,7 +36,7 @@ public class ProductCatalogController {
         
         public static GetProductResponse fromProduct(Product product) {
             return new GetProductResponse(product.id(), product.name(), product.price(),
-                    ProductImageResponse.fromProductImage(product.image()));
+                    product.image() == null ? null : ProductImageResponse.fromProductImage(product.image()));
         }
         
     }
@@ -53,11 +53,12 @@ public class ProductCatalogController {
         
     }
     
+    
     @GetMapping
-    public List<GetProductResponse> getProducts(@RequestParam(required=false) String query) {
+    public List<GetProductResponse> getProducts(@RequestParam(required = false) String query) {
         List<Product> list = (query == null || query.isBlank())
-            ? products.findAll()
-            : products.filter(query);
+                ? products.findAll()
+                : products.filter(query);
         return list.stream().map(GetProductResponse::fromProduct).toList();
     }
     
