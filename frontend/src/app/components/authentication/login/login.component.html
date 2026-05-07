@@ -1,16 +1,59 @@
-<section class="login-form">
-    <p-avatar icon="pi pi-user" shape="circle" size="xlarge" />
+<div class="form-background">
+    <section class="form">
+        <div class="form-info">
+            <p-avatar class="user-icon" icon="pi pi-user" shape="circle" size="xlarge" />
 
-    <div>Willkommen zurück</div>
-    <div>Melde dich bei deinem Konto an</div>
+            <div class="form-introduction">
+                <div class="form-title">Willkommen zurück</div>
+                <div>Melde dich bei deinem Konto an</div>
+            </div>
+        </div>
 
-    <p-inputgroup class="email-input">
-        <p-inputgroup-addon>
-            <i class="pi pi-envelope"></i>
-        </p-inputgroup-addon>
-        <p-floatlabel variant="on">
-            <input pInputText [(ngModel)]="value" type="text" />
-            <label for="email">E-Mail-Adresse</label>
-        </p-floatlabel>
-    </p-inputgroup>
-</section>
+        <form class="login-form" (submit)="onLogin($event)">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-envelope"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel>
+                    <input
+                        pInputText
+                        id="email"
+                        name="email"
+                        [(ngModel)]="email"
+                        placeholder="max@mustermann.de"
+                    />
+                    <label for="email">E-Mail-Adresse</label>
+                </p-floatlabel>
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-lock"></i>
+                </p-inputgroup-addon>
+                <p-floatlabel>
+                    <p-password
+                        id="password"
+                        name="password"
+                        [(ngModel)]="password"
+                        feedback="false"
+                        placeholder="******"
+                        toggleMask="true"
+                        autocomplete="off"
+                    />
+                    <label for="password">Passwort</label>
+                </p-floatlabel>
+            </p-inputgroup>
+
+            <button class="login-button button-blue" type="submit">Anmelden</button>
+
+            <p-divider align="center">
+                <b>oder</b>
+            </p-divider>
+
+            <button type="button">
+                <i class="pi pi-user-plus"></i>
+                Konto erstellen
+            </button>
+        </form>
+    </section>
+</div>
