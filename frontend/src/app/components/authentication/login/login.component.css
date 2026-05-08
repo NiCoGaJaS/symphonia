@@ -25,7 +25,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .user-icon {
@@ -61,10 +60,6 @@
 
 .form-actions {
     width: 100%;
-    
-    button {
-        cursor: pointer;
-    }
 }
 
 .login-button {
@@ -74,6 +69,12 @@
     font-size: larger;
     color: var(--primary-white);
     padding: 0.5rem;
+    cursor: pointer;
+}
+
+.login-button:disabled {
+    background: var(--primary-dark-grey);
+    cursor: not-allowed;
 }
 
 .register-button {
@@ -84,9 +85,10 @@
     background: var(--primary-white);
     color: var(--primary-blue);
     padding: 0.5rem;
+    cursor: pointer;
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
     .form-background {
         background: transparent;
         padding: 0;

@@ -1,4 +1,9 @@
-import { CanActivateFn, RedirectCommand, Router, Routes } from '@angular/router';
+import {
+    CanActivateFn,
+    RedirectCommand,
+    Router,
+    Routes,
+} from '@angular/router';
 import { CartComponent } from '@components/cart/cart.component';
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
@@ -26,8 +31,8 @@ const isLoggedOut: CanActivateFn = () => {
         return true;
     }
 
-    return new RedirectCommand(router.parseUrl('/'))
-}
+    return new RedirectCommand(router.parseUrl('/'));
+};
 
 export const routes: Routes = [
     {
@@ -45,7 +50,7 @@ export const routes: Routes = [
     {
         path: 'login',
         component: Login,
-        canActivate: [isLoggedOut]
+        canActivate: [isLoggedOut],
     },
     {
         path: 'profile',

@@ -1,4 +1,10 @@
-import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import {
+    Injectable,
+    PLATFORM_ID,
+    computed,
+    inject,
+    signal,
+} from '@angular/core';
 import { Role } from './role.model';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -11,10 +17,9 @@ interface UserSession {
 
 @Injectable({ providedIn: 'root' })
 export class User {
-
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-    private readonly session = signal<UserSession | null>(null)
+    private readonly session = signal<UserSession | null>(null);
 
     readonly id = computed(() => this.session()?.id ?? null);
     readonly role = computed(() => this.session()?.role ?? null);
@@ -29,8 +34,8 @@ export class User {
     set(id: string, role: Role): void {
         this.session.set({
             id: id,
-            role: role
-        } as UserSession)
+            role: role,
+        } as UserSession);
 
         if (this.isBrowser) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(this.session()));
@@ -54,5 +59,4 @@ export class User {
 
         return JSON.parse(raw) as UserSession;
     }
-
 }

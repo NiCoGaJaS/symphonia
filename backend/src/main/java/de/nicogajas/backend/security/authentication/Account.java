@@ -26,11 +26,12 @@ public record Account(
         String password,
         Role role
 ) implements UserDetails {
-
+    
     public Account(String email, String password, Role role) {
         this(null, null, email, password, role);
     }
-
+    
+    
     @Override
     public @NonNull Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_%s".formatted(role.name())));

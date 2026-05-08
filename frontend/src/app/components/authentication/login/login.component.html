@@ -1,7 +1,12 @@
 <div class="form-background">
     <section class="form">
         <div class="form-info">
-            <p-avatar class="user-icon" icon="pi pi-user" shape="circle" size="xlarge" />
+            <p-avatar
+                class="user-icon"
+                icon="pi pi-user"
+                shape="circle"
+                size="xlarge"
+            />
 
             <div class="form-introduction">
                 <div class="form-title">Willkommen zurück</div>
@@ -53,7 +58,11 @@
             }
 
             <div class="form-actions">
-                <button class="login-button button-blue" type="submit" [disabled]="(form.touched && form.invalid) || isLoggingIn">
+                <button
+                    class="button-blue login-button"
+                    type="submit"
+                    [disabled]="(form.touched && form.invalid) || isLoggingIn"
+                >
                     Anmelden
                 </button>
 

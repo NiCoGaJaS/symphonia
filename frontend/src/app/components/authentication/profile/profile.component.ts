@@ -10,7 +10,6 @@ import { finalize } from 'rxjs';
     templateUrl: './profile.component.html',
 })
 export class Profile {
-
     private readonly user = inject(User);
     private readonly authentication = inject(Authentication);
     private readonly router = inject(Router);
@@ -24,12 +23,15 @@ export class Profile {
 
         this.isLoggingOut = true;
 
-        this.authentication.logout()
-            .pipe(finalize(() => {
-                this.user.clear();
-                this.isLoggingOut = false;
-                this.router.navigate(['/']);
-            })); // ToDO: doesnt work
+        this.authentication
+            .logout()
+            .pipe(
+                finalize(() => {
+                    this.user.clear();
+                    this.isLoggingOut = false;
+                    this.router.navigate(['/']);
+                }),
+            )
+            .subscribe();
     }
-
 }

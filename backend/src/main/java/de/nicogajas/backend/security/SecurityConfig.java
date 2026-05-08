@@ -53,12 +53,15 @@ public class SecurityConfig implements WebMvcConfigurer {
                             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                             
                             json.writeValue(response.getWriter(), new LoginResponse(account.id(), account.role()));
+                        })
+                        .failureHandler((_, response, exception) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                         }))
-                .logout(logout ->
-                        logout.logoutUrl("/auth/logout")
-                                .deleteCookies("JSESSIONID")
-                                .logoutSuccessHandler((_, response, _) ->
-                                        response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
+                .logout(logout -> logout.logoutUrl("/auth/logout")
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessHandler(
+                                (_, response, _) -> response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
                 .build();
     }
     

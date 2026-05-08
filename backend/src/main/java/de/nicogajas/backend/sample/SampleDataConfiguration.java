@@ -4,13 +4,13 @@ import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
+import de.nicogajas.backend.security.authentication.Account;
+import de.nicogajas.backend.security.authentication.Accounts;
+import de.nicogajas.backend.security.authentication.Role;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import de.nicogajas.backend.security.authentication.Account;
-import de.nicogajas.backend.security.authentication.Accounts;
-import de.nicogajas.backend.security.authentication.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
@@ -99,15 +99,15 @@ public class SampleDataConfiguration {
             }
         };
     }
-
+    
+    
     @Bean
     public ApplicationRunner fillAccounts(Accounts accounts, PasswordEncoder encoder) {
         return _ -> {
             List<Account> demoAccounts = List.of(
                     new Account("admin@symphonia.de", encoder.encode("1234"), Role.ADMIN),
-                    new Account("customer@symphonia.de", encoder.encode("1234"), Role.CUSTOMER)
-            );
-
+                    new Account("customer@symphonia.de", encoder.encode("1234"), Role.CUSTOMER));
+            
             if (accounts.count() == 0) {
                 logger.info("No accounts found. Inserting {} demo accounts.", demoAccounts.size());
                 List<Account> saved = accounts.saveAll(demoAccounts);
@@ -117,4 +117,5 @@ public class SampleDataConfiguration {
             }
         };
     }
+    
 }

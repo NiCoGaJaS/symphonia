@@ -1,13 +1,21 @@
-import { Authentication, LoginResponse } from '@api/authentication/authentication.api';
+import {
+    Authentication,
+    LoginResponse,
+} from '@api/authentication/authentication.api';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+    FormBuilder,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { Avatar } from 'primeng/avatar';
 import { Divider } from 'primeng/divider';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { InputText } from 'primeng/inputtext';
-import { Password} from 'primeng/password';
+import { Password } from 'primeng/password';
 import { Router } from '@angular/router';
 import { User } from '@api/authentication/user.store';
 import { finalize } from 'rxjs';
@@ -30,7 +38,6 @@ import { finalize } from 'rxjs';
     styleUrl: 'login.component.css',
 })
 export class Login {
-
     private readonly router = inject(Router);
     private readonly authentication = inject(Authentication);
     private readonly user = inject(User);
@@ -51,8 +58,9 @@ export class Login {
         this.isLoggingIn = true;
         const { email, password } = this.form.value;
 
-        this.authentication.login(email!, password!)
-            .pipe(finalize(() => this.isLoggingIn = false))
+        this.authentication
+            .login(email!, password!)
+            .pipe(finalize(() => (this.isLoggingIn = false)))
             .subscribe({
                 next: (response: LoginResponse) => {
                     this.user.set(response.id, response.role);
@@ -61,12 +69,12 @@ export class Login {
                 error: (error) => {
                     if (error.status === 401 || error.status === 400) {
                         this.form.setErrors({
-                            invalidCredentials: true
-                        })
+                            invalidCredentials: true,
+                        });
                     }
 
                     this.form.markAllAsTouched();
-                }
+                },
             });
     }
 }

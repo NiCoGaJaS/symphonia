@@ -1,6 +1,7 @@
 package de.nicogajas.backend.product;
 
 import de.nicogajas.backend.product.detail.ProductDetailController;
+import de.nicogajas.backend.security.authentication.Accounts;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -28,6 +29,9 @@ public class ProductDetailTest {
     
     @MockitoBean
     Products products;
+    
+    @MockitoBean
+    Accounts accounts;
     
     
     @Test
