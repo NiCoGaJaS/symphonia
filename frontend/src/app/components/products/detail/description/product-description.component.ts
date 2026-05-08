@@ -1,6 +1,6 @@
 import { Component, OnInit, input } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
-import { GetProductDetailResponse } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@api/products/products.api';
 
 type TabItem = {
     key: string;

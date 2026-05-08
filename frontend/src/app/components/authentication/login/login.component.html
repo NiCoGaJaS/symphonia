@@ -9,18 +9,19 @@
             </div>
         </div>
 
-        <form class="login-form" (submit)="onLogin($event)">
+        <form class="login-form" [formGroup]="form" (submit)="onLogin()">
             <p-inputgroup>
                 <p-inputgroup-addon>
                     <i class="pi pi-envelope"></i>
                 </p-inputgroup-addon>
+
                 <p-floatlabel>
                     <input
                         pInputText
                         id="email"
-                        name="email"
-                        [(ngModel)]="email"
+                        formControlName="email"
                         placeholder="max@mustermann.de"
+                        required
                     />
                     <label for="email">E-Mail-Adresse</label>
                 </p-floatlabel>
@@ -30,30 +31,41 @@
                 <p-inputgroup-addon>
                     <i class="pi pi-lock"></i>
                 </p-inputgroup-addon>
+
                 <p-floatlabel>
                     <p-password
                         id="password"
-                        name="password"
-                        [(ngModel)]="password"
+                        formControlName="password"
                         feedback="false"
                         placeholder="******"
                         toggleMask="true"
                         autocomplete="off"
+                        required
                     />
                     <label for="password">Passwort</label>
                 </p-floatlabel>
             </p-inputgroup>
 
-            <button class="login-button button-blue" type="submit">Anmelden</button>
+            @if (form.touched && form.invalid) {
+                <div class="form-validation">
+                    E-Mail-Adresse oder Passwort ungültig
+                </div>
+            }
 
-            <p-divider align="center">
-                <b>oder</b>
-            </p-divider>
+            <div class="form-actions">
+                <button class="login-button button-blue" type="submit" [disabled]="(form.touched && form.invalid) || isLoggingIn">
+                    Anmelden
+                </button>
 
-            <button type="button">
-                <i class="pi pi-user-plus"></i>
-                Konto erstellen
-            </button>
+                <p-divider align="center">
+                    <b>oder</b>
+                </p-divider>
+
+                <button class="register-button" type="button">
+                    <i class="pi pi-user-plus"></i>
+                    Konto erstellen
+                </button>
+            </div>
         </form>
     </section>
 </div>

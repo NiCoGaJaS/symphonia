@@ -1,0 +1,7 @@
+<button type="button" (click)="onLogout()" [disabled]="isLoggingOut">
+    @if (isLoggingOut) {
+        Wird abgemeldet...
+    } @else {
+        Ausloggen
+    }
+</button>

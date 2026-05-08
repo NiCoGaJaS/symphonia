@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import {
     GetProductDetailResponse,
     Products,
-} from '@app/api/products/products.api';
+} from '@api/products/products.api';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { DescriptionComponent } from '@components/products/detail/description/product-description.component';

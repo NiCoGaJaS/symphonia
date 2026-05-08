@@ -2,6 +2,8 @@
     background: var(--primary-grey);
     width: 100%;
     height: 100%;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 .form {
@@ -9,8 +11,9 @@
     flex-direction: column;
     align-items: center;
     gap: 4rem;
-    border-radius: 8px;
-    padding: 3vw;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    padding: 3rem;
 
     background: var(--primary-white);
     width: min-content;
@@ -45,6 +48,23 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
+
+    label {
+        --p-floatlabel-focus-color: var(--primary-blue);
+    }
+}
+
+.form-validation {
+    color: red;
+    font-size: small;
+}
+
+.form-actions {
+    width: 100%;
+    
+    button {
+        cursor: pointer;
+    }
 }
 
 .login-button {
@@ -54,4 +74,28 @@
     font-size: larger;
     color: var(--primary-white);
     padding: 0.5rem;
+}
+
+.register-button {
+    border: 2px solid var(--primary-blue);
+    border-radius: 8px;
+    width: 100%;
+    font-size: larger;
+    background: var(--primary-white);
+    color: var(--primary-blue);
+    padding: 0.5rem;
+}
+
+@media(max-width: 768px) {
+    .form-background {
+        background: transparent;
+        padding: 0;
+    }
+
+    .form {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: none;
+        padding: 3rem 1rem;
+    }
 }

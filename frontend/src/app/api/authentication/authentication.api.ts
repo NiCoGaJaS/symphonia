@@ -1,6 +1,7 @@
-import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable, inject} from '@angular/core';
 import {Observable} from 'rxjs';
+import { Role } from './role.model';
 
 @Injectable({ providedIn: 'root' })
 export class Authentication {
@@ -36,8 +37,6 @@ export class Authentication {
     }
 
 }
-
-export type Role = 'ROLE_ADMIN' | 'ROLE_CUSTOMER';
 
 export interface LoginResponse {
     id: string;

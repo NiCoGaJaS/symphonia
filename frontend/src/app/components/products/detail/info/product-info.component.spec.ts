@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GetProductDetailResponse } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@api/products/products.api';
 import { ProductInfoComponent } from './product-info.component';
 
 describe('GeneralComponent', () => {

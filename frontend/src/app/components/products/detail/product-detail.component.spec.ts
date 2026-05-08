@@ -9,7 +9,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { GetProductDetailResponse } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@api/products/products.api';
 import { ProductDetailComponent } from './product-detail.component';
 
 describe('ProductDetailComponent', () => {

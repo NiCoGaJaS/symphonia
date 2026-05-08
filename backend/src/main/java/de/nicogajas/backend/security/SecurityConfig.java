@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,6 +36,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain filter(HttpSecurity http, ObjectMapper json) {
         return http.csrf(CsrfConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(
@@ -55,7 +57,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .logout(logout ->
                         logout.logoutUrl("/auth/logout")
                                 .deleteCookies("JSESSIONID")
-                                .logoutSuccessUrl("/"))
+                                .logoutSuccessHandler((_, response, _) ->
+                                        response.setStatus(HttpServletResponse.SC_NO_CONTENT)))
                 .build();
     }
     
