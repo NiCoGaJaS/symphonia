@@ -44,7 +44,7 @@ public class ProductCatalogTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.ZUBEHOER,
+                Category.KEINE,
                 image);
         
         when(products.findAll()).thenReturn(List.of(fender));

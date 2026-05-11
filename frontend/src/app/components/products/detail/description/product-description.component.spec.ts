@@ -12,6 +12,7 @@ describe('DescriptionComponent', () => {
         price: 772,
         summary: 'Short description',
         description: 'Description',
+        category: 'Keine',
         image: {
             id: '9feb793e-7c2c-453d-89e2-1975e67bddef',
             url: 'https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg',
