@@ -31,7 +31,6 @@ export interface Product {
     price: number;
     summary: string;
     description: string;
-    category: string;
     image: ProductImage;
 }
 

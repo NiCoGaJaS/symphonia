@@ -30,12 +30,11 @@ public class ProductCatalogController {
             UUID id,
             String name,
             BigDecimal price,
-            String category,
             ProductImageResponse image
     ) {
         
         public static GetProductResponse fromProduct(Product product) {
-            return new GetProductResponse(product.id(), product.name(), product.price(), product.category().label(),
+            return new GetProductResponse(product.id(), product.name(), product.price(),
                     ProductImageResponse.fromProductImage(product.image()));
         }
         

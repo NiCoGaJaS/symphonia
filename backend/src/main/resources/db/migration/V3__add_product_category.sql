@@ -1,2 +1,2 @@
 ALTER TABLE products
-ADD column category TEXT NOT NULL DEFAULT 'KEINE';
+ADD column category TEXT NOT NULL DEFAULT 'Other';
