@@ -1,5 +1,6 @@
 package de.nicogajas.backend.sample;
 
+import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
@@ -35,6 +36,7 @@ public class SampleDataConfiguration {
                             Palisandergriffbrett und die drei Single-Coils machen sie zur flexiblen \
                             Wahl für Clean, Blues, Pop und druckvolle Rock-Sounds.\
                             """,
+                            Category.GUITAR,
                             new ProductImage(
                                     "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                                     "Fender Player II Strat RW BCG - Front")),
@@ -49,6 +51,7 @@ public class SampleDataConfiguration {
                             waehrend hochwertige Tonhoelzer und die klassische Martin-Verarbeitung \
                             den professionellen Anspruch unterstreichen. \
                             """,
+                            Category.GUITAR,
                             new ProductImage(
                                     "https://fast-images.static-thomann.de/pics/bdb/_60/605644/20167029_800.jpg",
                                     "Martin Guitar 00028 - Front")),
@@ -63,6 +66,7 @@ public class SampleDataConfiguration {
                             charakterstarke Clean-Sounds, offene Crunch-Texturen und klassische \
                             Vintage-Voicings suchen.\
                             """,
+                            Category.EXTRA,
                             new ProductImage(
                                     "https://bdbo2.thomann.de/thumb/bdb3000/pics/bdbo/20718091.jpg",
                                     "Vox AC30 Handwired - Front")),
@@ -77,6 +81,7 @@ public class SampleDataConfiguration {
                             singende Leads, durchsetzungsfaehige Rhythmusparts und moderne \
                             Rock-Setups.\
                             """,
+                            Category.EXTRA,
                             new ProductImage(
                                     "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_17/172711/14519744_800.jpg",
                                     "Seymour Duncan SSL-5 Custom Staggered - Front")));

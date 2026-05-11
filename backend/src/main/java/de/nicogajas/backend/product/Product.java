@@ -18,11 +18,14 @@ public record Product(
         BigDecimal price,
         String summary,
         String description,
+        Category category,
         @MappedCollection(idColumn = "product_id") ProductImage image
 ) {
     
-    public Product(String name, BigDecimal price, String summary, String description, ProductImage image) {
-        this(null, null, name, price, summary, description, image);
+    public Product(
+            String name, BigDecimal price, String summary, String description, Category category, ProductImage image
+    ) {
+        this(null, null, name, price, summary, description, category, image);
     }
     
 }
