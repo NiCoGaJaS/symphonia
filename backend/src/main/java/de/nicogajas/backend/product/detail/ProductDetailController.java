@@ -34,12 +34,13 @@ public class ProductDetailController {
             BigDecimal price,
             String summary,
             String description,
+            String category,
             ProductImageResponse image
     ) {
         
         public static GetProductDetailResponse fromProduct(Product product) {
             return new GetProductDetailResponse(product.id(), product.name(), product.price(),
-                    product.summary(), product.description(),
+                    product.summary(), product.description(), product.category().label(),
                     ProductImageResponse.fromProductImage(product.image()));
         }
         

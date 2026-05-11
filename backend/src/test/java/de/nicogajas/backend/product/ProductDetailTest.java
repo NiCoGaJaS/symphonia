@@ -44,6 +44,7 @@ public class ProductDetailTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
+                Category.ZUBEHOER,
                 image);
         
         when(products.findById(fender.id())).thenReturn(Optional.of(fender));
