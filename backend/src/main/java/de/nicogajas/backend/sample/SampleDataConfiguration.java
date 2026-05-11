@@ -105,8 +105,8 @@ public class SampleDataConfiguration {
     public ApplicationRunner fillAccounts(Accounts accounts, PasswordEncoder encoder) {
         return _ -> {
             List<Account> demoAccounts = List.of(
-                    new Account("admin@symphonia.de", encoder.encode("1234"), Role.ADMIN),
-                    new Account("customer@symphonia.de", encoder.encode("1234"), Role.CUSTOMER));
+                    new Account("admin@symphonia.com", encoder.encode("1234"), Role.ADMIN),
+                    new Account("customer@symphonia.com", encoder.encode("1234"), Role.CUSTOMER));
             
             if (accounts.count() == 0) {
                 logger.info("No accounts found. Inserting {} demo accounts.", demoAccounts.size());
