@@ -25,7 +25,8 @@ logo {
     align-items: center;
     gap: 2rem;
 
-    i, button {
+    i,
+    button {
         color: var(--primary-white);
         cursor: pointer;
     }
@@ -97,5 +98,4 @@ logo {
     .navbar-buttons {
         order: 2;
     }
-
 }

@@ -27,7 +27,6 @@ body {
 }
 
 @media (max-width: 768px) {
-
     .p-menubar-root-list {
         position: fixed !important;
         top: 0 !important;
@@ -43,7 +42,6 @@ body {
     .p-menubar-button {
         z-index: 1101 !important;
     }
-
 }
 
 .color-blue {

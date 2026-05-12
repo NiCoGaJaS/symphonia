@@ -7,11 +7,17 @@
 
     <div class="navbar-buttons">
         @if (showSearch) {
-            <form class="search-bar desktop-search-bar" (ngSubmit)="onSearch(searchInput.value)">
-                <input #searchInput type="search" placeholder="Suche Produkte..." />
+            <form
+                class="search-bar desktop-search-bar"
+                (ngSubmit)="onSearch(searchInput.value)"
+            >
+                <input
+                    #searchInput
+                    type="search"
+                    placeholder="Suche Produkte..."
+                />
             </form>
         }
-
 
         <button type="button" (click)="toggleSearch()">
             <i class="pi pi-search"></i>
@@ -26,7 +32,10 @@
 </div>
 
 @if (showSearch) {
-    <form class="search-bar mobile-search-bar" (ngSubmit)="onSearch(searchInput.value)">
+    <form
+        class="search-bar mobile-search-bar"
+        (ngSubmit)="onSearch(searchInput.value)"
+    >
         <input #searchInput type="search" placeholder="Suche Produkte..." />
     </form>
 }
