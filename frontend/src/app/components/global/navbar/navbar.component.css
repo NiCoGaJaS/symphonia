@@ -9,7 +9,7 @@
     background: var(--primary-black);
 }
 
-logo {
+.logo {
     justify-self: left;
 }
 
@@ -93,9 +93,5 @@ logo {
 
     .p-menubar-mobile {
         padding: 0;
-    }
-
-    .navbar-buttons {
-        order: 2;
     }
 }
