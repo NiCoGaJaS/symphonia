@@ -46,7 +46,7 @@ describe('Login Component', () => {
         const validation = compiled.querySelector('.form-validation');
         expect(validation).toBeTruthy();
         expect(validation!.textContent).toContain(
-            'E-Mail-Adresse oder Passwort ungültig',
+            'E-Mail-Adresse oder Passwort ungültig.',
         );
 
         const submitButton = compiled.querySelector(
