@@ -75,6 +75,7 @@ public class ProductCatalogTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
+                Category.GUITAR,
                 new ProductImage(
                         UUID.randomUUID(),
                         "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
