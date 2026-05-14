@@ -1,5 +1,7 @@
 package de.nicogajas.backend.media;
 
+import java.io.InputStream;
+
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
@@ -7,8 +9,6 @@ import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.MinioException;
 import jakarta.annotation.PostConstruct;
-
-import java.io.InputStream;
 
 /**
  * Abstraction for working with single buckets in the underlying media/object storage (e.g. MinIO, S3).
@@ -39,26 +39,30 @@ import java.io.InputStream;
  * }</pre>
  */
 public abstract class BucketStorage {
-
+    
     private final MinioClient minio;
-
+    
+    
     public BucketStorage(MinioClient minio) {
         this.minio = minio;
-
+        
         createIfNotExists();
     }
-
+    
+    
     public abstract String bucket();
-
+    
+    
     @PostConstruct
     void init() {
         createIfNotExists();
     }
-
+    
+    
     private void createIfNotExists() {
         try {
             boolean exists = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket()).build());
-
+            
             if (!exists) {
                 minio.makeBucket(MakeBucketArgs.builder().bucket(bucket()).build());
             }
@@ -66,9 +70,11 @@ public abstract class BucketStorage {
             throw new RuntimeException("Failed to create %s as a bucket.".formatted(bucket()), exception);
         }
     }
-
+    
+    
     /**
      * Uploads an object to this bucket.
+     * 
      * @param name the object key inside the bucket
      * @param data the content of the object
      * @param size the size of the object in bytes
@@ -82,15 +88,16 @@ public abstract class BucketStorage {
                             .object(name)
                             .stream(data, size, -1L)
                             .contentType(type)
-                            .build()
-            );
+                            .build());
         } catch (MinioException exception) {
             throw new RuntimeException("Failed to upload %s to %s.".formatted(name, bucket()), exception);
         }
     }
-
+    
+    
     /**
      * Deletes an object from this bucket.
+     * 
      * @param name the object key inside the bucket
      */
     public void delete(String name) {
@@ -99,11 +106,10 @@ public abstract class BucketStorage {
                     RemoveObjectArgs.builder()
                             .bucket(bucket())
                             .object(name)
-                            .build()
-            );
+                            .build());
         } catch (MinioException exception) {
             throw new RuntimeException("Failed to delete", exception);
         }
     }
-
+    
 }

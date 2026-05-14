@@ -1,8 +1,8 @@
 package de.nicogajas.backend.media;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import java.net.URL;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "mediastorage", ignoreUnknownFields = false)
 public record MediaStorageProperties(

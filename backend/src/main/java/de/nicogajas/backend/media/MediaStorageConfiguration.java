@@ -7,14 +7,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MediaStorageConfiguration {
-
+    
     private final MediaStorageProperties properties;
-
+    
+    
     @Autowired
     public MediaStorageConfiguration(MediaStorageProperties properties) {
         this.properties = properties;
     }
-
+    
+    
     @Bean
     public MinioClient minio() {
         return MinioClient.builder()
@@ -22,5 +24,5 @@ public class MediaStorageConfiguration {
                 .credentials(properties.user(), properties.password())
                 .build();
     }
-
+    
 }
