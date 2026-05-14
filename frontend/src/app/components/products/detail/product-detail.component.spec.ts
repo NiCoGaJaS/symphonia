@@ -9,7 +9,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { Product } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@app/api/products/products.api';
 import { ProductDetailComponent } from './product-detail.component';
 
 describe('ProductDetailComponent', () => {
@@ -17,7 +17,7 @@ describe('ProductDetailComponent', () => {
     let fixture: ComponentFixture<ProductDetailComponent>;
     let backend: HttpTestingController;
 
-    const product: Product = {
+    const product: GetProductDetailResponse = {
         id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
         name: 'Fender Player II Strat RW BCG',
         price: 772,

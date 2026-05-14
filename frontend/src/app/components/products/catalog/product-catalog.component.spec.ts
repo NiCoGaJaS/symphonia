@@ -4,7 +4,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { Product } from '@app/api/products/products.api';
+import { GetProductResponse } from '@app/api/products/products.api';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 import { provideRouter } from '@angular/router';
 
@@ -66,7 +66,7 @@ describe('Product Catalog Component', () => {
                 url: 'https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg',
                 alternative_text: 'Fender Player II Strat RW BCG - Front',
             },
-        } as Product;
+        } as GetProductResponse;
 
         const call = backend.expectOne('http://localhost:8080/api/products');
         expect(call.request.method).toBe('GET');

@@ -1,6 +1,6 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Product, Products } from '@app/api/products/products.api';
+import { GetProductResponse, Products } from '@app/api/products/products.api';
 import { Observable } from 'rxjs';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { RouterLink } from '@angular/router';
@@ -12,5 +12,6 @@ import { RouterLink } from '@angular/router';
     styleUrl: 'product-catalog.component.css',
 })
 export class ProductCatalog {
-    readonly products: Observable<Product[]> = inject(Products).all();
+    readonly products: Observable<GetProductResponse[]> =
+        inject(Products).all();
 }
