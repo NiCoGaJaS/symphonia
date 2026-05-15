@@ -1,6 +1,6 @@
 import { Component, OnInit, input } from '@angular/core';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
-import { Product } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@app/api/products/products.api';
 
 type TabItem = {
     key: string;
@@ -15,7 +15,7 @@ type TabItem = {
     styleUrl: './product-description.component.css',
 })
 export class DescriptionComponent implements OnInit {
-    readonly product = input.required<Product>();
+    readonly product = input.required<GetProductDetailResponse>();
 
     tabs: TabItem[] = [];
 

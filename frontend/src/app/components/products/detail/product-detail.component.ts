@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Product, Products } from '@app/api/products/products.api';
+import {
+    GetProductDetailResponse,
+    Products,
+} from '@app/api/products/products.api';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { DescriptionComponent } from '@components/products/detail/description/product-description.component';
@@ -26,5 +29,6 @@ export class ProductDetailComponent {
     private readonly products = inject(Products);
 
     readonly id: string = this.activatedRoute.snapshot.paramMap.get('id')!;
-    readonly product: Observable<Product> = this.products.detailsOf(this.id);
+    readonly product: Observable<GetProductDetailResponse> =
+        this.products.detailsOf(this.id);
 }

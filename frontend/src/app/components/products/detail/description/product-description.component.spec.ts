@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DescriptionComponent } from './product-description.component';
-import { Product } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@app/api/products/products.api';
 
 describe('DescriptionComponent', () => {
     let component: DescriptionComponent;
     let fixture: ComponentFixture<DescriptionComponent>;
 
-    const product: Product = {
+    const product: GetProductDetailResponse = {
         id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
         name: 'Fender Player II Strat RW BCG',
         price: 772,

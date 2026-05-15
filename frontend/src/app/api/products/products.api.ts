@@ -16,26 +16,37 @@ export class Products {
         }
     }
 
-    all(): Observable<Product[]> {
-        return this.http.get<Product[]>(`${this.base}/api/products`);
+    all(): Observable<GetProductResponse[]> {
+        return this.http.get<GetProductResponse[]>(`${this.base}/api/products`);
     }
 
-    detailsOf(id: string): Observable<Product> {
-        return this.http.get<Product>(`${this.base}/api/products/${id}`);
+    detailsOf(id: string): Observable<GetProductDetailResponse> {
+        return this.http.get<GetProductDetailResponse>(
+            `${this.base}/api/products/${id}`,
+        );
     }
 }
 
-export interface Product {
+export interface GetProductResponse {
+    id: string;
+    name: string;
+    price: number;
+    image: {
+        id: string;
+        url: string;
+        alternative_text: string;
+    };
+}
+
+export interface GetProductDetailResponse {
     id: string;
     name: string;
     price: number;
     summary: string;
     description: string;
-    image: ProductImage;
-}
-
-export interface ProductImage {
-    id: string;
-    url: string;
-    alternative_text: string;
+    image: {
+        id: string;
+        url: string;
+        alternative_text: string;
+    };
 }

@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Divider } from 'primeng/divider';
-import { Product } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@app/api/products/products.api';
 
 @Component({
     selector: 'app-product-info',
@@ -14,5 +14,5 @@ import { Product } from '@app/api/products/products.api';
     ],
 })
 export class ProductInfoComponent {
-    readonly product = input.required<Product>();
+    readonly product = input.required<GetProductDetailResponse>();
 }

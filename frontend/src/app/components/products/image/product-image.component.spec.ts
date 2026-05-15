@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductImage } from '@app/api/products/products.api';
 import { ProductImageComponent } from './product-image.component';
 
 describe('ProductImageComponent', () => {
     let fixture: ComponentFixture<ProductImageComponent>;
 
-    const productImage: ProductImage = {
+    const productImage = {
         id: '9feb793e-7c2c-453d-89e2-1975e67bddef',
         url: 'https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg',
         alternative_text: 'Fender Player II Strat RW BCG - Front',
