@@ -1,4 +1,8 @@
-<div class="wrapper">
+<div
+    class="wrapper"
+    [style.inline-size.px]="width()"
+    [style.block-size.px]="height()"
+>
     <img
         class="product-image"
         [ngSrc]="productImage().url"

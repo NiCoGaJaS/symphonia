@@ -23,7 +23,12 @@
             <i class="pi pi-search"></i>
         </button>
         <a routerLink="/cart">
-            <i class="pi pi-shopping-cart"></i>
+            <i
+                class="pi pi-shopping-cart"
+                pBadge
+                [value]="this.cartService.totalItems()"
+                badgeStyleClass="cart-badge"
+            ></i>
         </a>
         <a routerLink="/profile">
             <i class="pi pi-user"></i>

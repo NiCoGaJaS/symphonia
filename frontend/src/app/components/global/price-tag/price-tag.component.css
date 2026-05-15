@@ -1,0 +1,22 @@
+.cart-price-tax {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.cart-price-tax.align-end {
+    align-items: flex-end;
+}
+
+.cart-price-tax > p {
+    margin-bottom: 0;
+}
+
+.cart-price-tax-text {
+    font-size: x-small;
+    margin: 0;
+}
+
+.text-bold {
+    font-weight: bold;
+}

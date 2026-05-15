@@ -1,0 +1,6 @@
+<div class="cart-price-tax" [class.align-end]="alignRight">
+    <p [class.text-bold]="priceBold">{{ price() | number: '1.2-2' }} €</p>
+    @if (!noTax) {
+        <p class="cart-price-tax-text">inkl. MwSt.</p>
+    }
+</div>
