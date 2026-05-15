@@ -70,12 +70,6 @@
     text-align: right;
 }
 
-@media (max-width: 420px) {
-    .cart-summary-entry > :nth-child(2) {
-        flex-basis: 100%;
-    }
-}
-
 .text-bold {
     font-weight: bold;
 }
