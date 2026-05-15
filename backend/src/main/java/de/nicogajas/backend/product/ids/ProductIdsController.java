@@ -31,5 +31,4 @@ public class ProductIdsController {
                 .toList();
     }
     
-
 }
