@@ -1,8 +1,10 @@
 # Symphonia
+![Homepage Preview](/docs/assets/homepage.png)
 
-<img src="/docs/assets/homepage.png" alt="Homepage Preview"/>
+## Architecture
+![Architecture](/docs/architecture/Architecture.drawio.png)
 
-## Backend
+### Backend
 - Java 25
 - Maven
 - Spring Boot 4
@@ -13,7 +15,7 @@
 - Flyway
 - Spring Boot Actuator
 
-## Frontend
+### Frontend
 - Angular
 - TypeScript
 
