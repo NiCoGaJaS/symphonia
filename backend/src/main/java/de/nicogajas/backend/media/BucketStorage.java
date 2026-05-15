@@ -9,6 +9,8 @@ import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.errors.MinioException;
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstraction for working with single buckets in the underlying media/object storage (e.g. MinIO, S3).
@@ -39,14 +41,14 @@ import jakarta.annotation.PostConstruct;
  * }</pre>
  */
 public abstract class BucketStorage {
-    
+
+    private static final Logger logger = LoggerFactory.getLogger(BucketStorage.class);
+
     private final MinioClient minio;
     
     
     public BucketStorage(MinioClient minio) {
         this.minio = minio;
-        
-        createIfNotExists();
     }
     
     
@@ -60,14 +62,21 @@ public abstract class BucketStorage {
     
     
     private void createIfNotExists() {
+        String bucket = bucket();
+
         try {
-            boolean exists = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket()).build());
+            logger.debug("Checking if bucket '{}' exists.", bucket);
+            boolean exists = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
             
             if (!exists) {
-                minio.makeBucket(MakeBucketArgs.builder().bucket(bucket()).build());
+                logger.debug("Bucket '{}' does not exist. Creating...", bucket);
+                minio.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
+                logger.debug("Bucket '{}' created successfully.", bucket);
+            } else {
+                logger.debug("Bucket '{}' already exists.", bucket);
             }
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to create %s as a bucket.".formatted(bucket()), exception);
+            throw new RuntimeException("Bucket %s failed to create or verify.".formatted(bucket), exception);
         }
     }
     
@@ -81,16 +90,20 @@ public abstract class BucketStorage {
      * @param type the content type of the object
      */
     public void upload(String name, InputStream data, long size, String type) {
+        String bucket = bucket();
+
         try {
+            logger.debug("Uploading object '{}' to bucket '{}' as type={} with size={} bytes.", name, bucket, type, size);
             minio.putObject(
                     PutObjectArgs.builder()
-                            .bucket(bucket())
+                            .bucket(bucket)
                             .object(name)
                             .stream(data, size, -1L)
                             .contentType(type)
                             .build());
+            logger.debug("Successfully uploaded object '{}' to bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to upload %s to %s.".formatted(name, bucket()), exception);
+            throw new RuntimeException("Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket), exception);
         }
     }
     
@@ -101,14 +114,18 @@ public abstract class BucketStorage {
      * @param name the object key inside the bucket
      */
     public void delete(String name) {
+        String bucket = bucket();
+
         try {
+            logger.debug("Deleting object '{}' from bucket '{}'.", name, bucket);
             minio.removeObject(
                     RemoveObjectArgs.builder()
                             .bucket(bucket())
                             .object(name)
                             .build());
+            logger.debug("Successfully deleted object '{}' from bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to delete", exception);
+            throw new RuntimeException("Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket), exception);
         }
     }
     
