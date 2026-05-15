@@ -4,6 +4,8 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
   web:
+    resources:
+      add-mappings: false
     error:
       whitelabel:
         enabled: false

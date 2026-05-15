@@ -41,9 +41,9 @@ import org.slf4j.LoggerFactory;
  * }</pre>
  */
 public abstract class BucketStorage {
-
+    
     private static final Logger logger = LoggerFactory.getLogger(BucketStorage.class);
-
+    
     private final MinioClient minio;
     
     
@@ -63,7 +63,7 @@ public abstract class BucketStorage {
     
     private void createIfNotExists() {
         String bucket = bucket();
-
+        
         try {
             logger.debug("Checking if bucket '{}' exists.", bucket);
             boolean exists = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
@@ -91,9 +91,10 @@ public abstract class BucketStorage {
      */
     public void upload(String name, InputStream data, long size, String type) {
         String bucket = bucket();
-
+        
         try {
-            logger.debug("Uploading object '{}' to bucket '{}' as type={} with size={} bytes.", name, bucket, type, size);
+            logger.debug("Uploading object '{}' to bucket '{}' as type={} with size={} bytes.", name, bucket, type,
+                    size);
             minio.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucket)
@@ -103,7 +104,8 @@ public abstract class BucketStorage {
                             .build());
             logger.debug("Successfully uploaded object '{}' to bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket), exception);
+            throw new RuntimeException("Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket),
+                    exception);
         }
     }
     
@@ -115,7 +117,7 @@ public abstract class BucketStorage {
      */
     public void delete(String name) {
         String bucket = bucket();
-
+        
         try {
             logger.debug("Deleting object '{}' from bucket '{}'.", name, bucket);
             minio.removeObject(
@@ -125,7 +127,8 @@ public abstract class BucketStorage {
                             .build());
             logger.debug("Successfully deleted object '{}' from bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket), exception);
+            throw new RuntimeException("Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket),
+                    exception);
         }
     }
     

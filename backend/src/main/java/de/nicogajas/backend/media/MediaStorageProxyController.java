@@ -28,9 +28,9 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/public")
 public class MediaStorageProxyController {
-
+    
     private static final Logger logger = LoggerFactory.getLogger(MediaStorageProxyController.class);
-
+    
     private final MinioClient minio;
     
     
@@ -51,16 +51,17 @@ public class MediaStorageProxyController {
                     .statObject(StatObjectArgs.builder().bucket(bucket).object(object).build());
             String type = metadata.contentType();
             long size = metadata.size();
-
+            
             logger.debug("Media {}/{} as type={} with size={} successfully found.", bucket, object, type, size);
-
+            
             InputStream image = minio.getObject(GetObjectArgs.builder().bucket(bucket).object(object).build());
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(type))
                     .contentLength(metadata.size())
                     .body(new InputStreamResource(image));
         } catch (MinioException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Failed to retrieve object '%s' in bucket '%s'.".formatted(object, bucket),
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to retrieve object '%s' in bucket '%s'.".formatted(object, bucket),
                     exception);
         }
     }
