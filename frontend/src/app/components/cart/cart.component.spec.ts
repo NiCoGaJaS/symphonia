@@ -1,6 +1,9 @@
 import { CartItem, CartService } from '@app/services/cart.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Product, Products } from '@app/api/products/products.api';
+import {
+    GetProductDetailResponse,
+    Products,
+} from '@app/api/products/products.api';
 import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
 import { signal } from '@angular/core';
@@ -28,7 +31,7 @@ describe('CartComponent', () => {
                 {
                     provide: Products,
                     useValue: {
-                        all: () => of([] as Product[]),
+                        all: () => of([] as GetProductDetailResponse[]),
                     } satisfies Partial<Products>,
                 },
             ],
@@ -45,7 +48,7 @@ describe('CartComponent', () => {
     });
 
     it('renders only products that exist in the catalog and computes total price', async () => {
-        const products: Product[] = [
+        const products: GetProductDetailResponse[] = [
             {
                 id: 'p1',
                 name: 'Product 1',

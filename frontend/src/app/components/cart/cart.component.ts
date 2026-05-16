@@ -1,12 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
-import { Product, Products } from '@app/api/products/products.api';
+import { GetProductResponse, Products } from '@app/api/products/products.api';
 import { CartService } from '@app/services/cart.service';
 import { Divider } from 'primeng/divider';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-type CardProduct = Product & {
+type CardProduct = GetProductResponse & {
     quantity: number;
 };
 
@@ -24,15 +24,17 @@ export class CartComponent {
     readonly cart = this.cartService.cart;
 
     readonly products = toSignal(this.productsApi.all(), {
-        initialValue: [] as Product[],
+        initialValue: [] as GetProductResponse[],
     });
 
     private readonly productsMap = computed(() => {
         return new Map(
-            this.products().map((product: Product): [string, Product] => [
-                product.id,
-                product,
-            ]),
+            this.products().map(
+                (product: GetProductResponse): [string, GetProductResponse] => [
+                    product.id,
+                    product,
+                ],
+            ),
         );
     });
 
