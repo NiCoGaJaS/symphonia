@@ -5,17 +5,17 @@ import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
 import { signal } from '@angular/core';
 
+function createCartService(cart: CartItem[]): CartService {
+    const cartState = signal<CartItem[]>(cart);
+    return {
+        cart: cartState.asReadonly(),
+        getAmountOf: (id: string) =>
+            cartState().find((i) => i.id === id)?.quantity ?? 0,
+    } as unknown as CartService;
+}
+
 describe('CartComponent', () => {
     let fixture: ComponentFixture<CartComponent>;
-
-    function createCartService(cart: CartItem[]): CartService {
-        const cartState = signal<CartItem[]>(cart);
-        return {
-            cart: cartState.asReadonly(),
-            getAmountOf: (id: string) =>
-                cartState().find((i) => i.id === id)?.quantity ?? 0,
-        } as unknown as CartService;
-    }
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
