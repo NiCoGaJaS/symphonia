@@ -22,7 +22,10 @@ export class Products {
             params = params.set('query', query);
         }
 
-        return this.http.get<GetProductResponse[]>(`${this.base}/api/products`, { params: params });
+        return this.http.get<GetProductResponse[]>(
+            `${this.base}/api/products`,
+            { params: params },
+        );
     }
 
     detailsOf(id: string): Observable<GetProductDetailResponse> {
