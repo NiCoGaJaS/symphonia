@@ -4,6 +4,7 @@ import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
+import de.nicogajas.backend.security.authentication.Accounts;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -32,6 +33,9 @@ public class CartValidationTest {
     
     @MockitoBean
     Products products;
+    
+    @MockitoBean
+    Accounts accounts;
     
     
     @Test
