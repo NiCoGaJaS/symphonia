@@ -31,7 +31,7 @@ describe('CartComponent', () => {
                 {
                     provide: Products,
                     useValue: {
-                        all: () => of([] as GetProductDetailResponse[]),
+                        search: () => of([] as GetProductDetailResponse[]),
                     } satisfies Partial<Products>,
                 },
             ],
@@ -85,7 +85,9 @@ describe('CartComponent', () => {
             useValue: createCartService(cart),
         });
         TestBed.overrideProvider(Products, {
-            useValue: { all: () => of(products) } satisfies Partial<Products>,
+            useValue: {
+                search: () => of(products),
+            } satisfies Partial<Products>,
         });
 
         fixture = TestBed.createComponent(CartComponent);

@@ -21,7 +21,7 @@ export class CartComponent {
     private readonly cartService = inject(Cart);
     private readonly productsApi = inject(Products);
 
-    readonly products = toSignal(this.productsApi.all(), {
+    readonly products = toSignal(this.productsApi.search(null), {
         initialValue: [] as GetProductResponse[],
     });
 
