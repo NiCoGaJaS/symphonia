@@ -6,7 +6,7 @@ import { PriceTagComponent } from '@components/global/price-tag/price-tag.compon
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-type CardProduct = GetProductResponse & {
+type CartProduct = GetProductResponse & {
     quantity: number;
 };
 
@@ -36,7 +36,7 @@ export class CartComponent {
         );
     });
 
-    readonly cartProducts = computed<CardProduct[]>(() =>
+    readonly cartProducts = computed<CartProduct[]>(() =>
         this.cart
             .getItems()
             .map(({ id, quantity }: CartItem) => {
@@ -49,7 +49,7 @@ export class CartComponent {
                       }
                     : null;
             })
-            .filter((item): item is CardProduct => item !== null),
+            .filter((item): item is CartProduct => item !== null),
     );
 
     readonly totalPrice = computed(() =>
