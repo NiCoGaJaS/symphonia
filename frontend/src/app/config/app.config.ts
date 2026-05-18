@@ -13,7 +13,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import Aura from '@primeuix/themes/aura';
 import { Cart } from '@app/api/cart/cart.store';
-import { CartApi } from '@app/api/cart/cart.api';
+import { CartValidation } from '@app/api/cart/cart.api';
 import { firstValueFrom } from 'rxjs';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './routing/app.routes';
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
         provideClientHydration(withEventReplay()),
         provideAppInitializer(async () => {
             const cart: Cart = inject(Cart);
-            const cartApi = inject(CartApi);
+            const cartValidation = inject(CartValidation);
 
             if (!cart.isBrowser) {
                 return;
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
 
             const ids = [...new Set(items.map((i) => i.id))];
             const invalidIds = new Set(
-                await firstValueFrom(cartApi.invalidIds(ids)),
+                await firstValueFrom(cartValidation.invalidIds(ids)),
             );
 
             cart.pruneToExistingIds(

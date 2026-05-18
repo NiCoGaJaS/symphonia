@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { isPlatformServer } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
-export class CartApi {
+export class CartValidation {
     private readonly http = inject(HttpClient);
     private readonly base: string;
 

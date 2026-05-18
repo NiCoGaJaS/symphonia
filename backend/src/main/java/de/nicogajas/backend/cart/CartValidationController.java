@@ -28,7 +28,8 @@ public class CartValidationController {
     
     @PostMapping
     public Set<UUID> invalidIds(@RequestBody Set<UUID> requestedProductIds) {
-        Set<UUID> existingIds = products.findAll().stream()
+        Set<UUID> existingIds = products.findAllById(requestedProductIds)
+                .stream()
                 .map(Product::id)
                 .collect(Collectors.toSet());
         

@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -60,9 +61,9 @@ public class CartValidationTest {
                 Category.OTHER,
                 image);
         
-        when(products.findAll()).thenReturn(List.of(fender, fenderToo));
-        
         UUID invalidId = UUID.randomUUID();
+        
+        when(products.findAllById(any())).thenReturn(List.of(fender, fenderToo));
         
         mvc.perform(post("/api/cart/validate")
                 .contentType(MediaType.APPLICATION_JSON)

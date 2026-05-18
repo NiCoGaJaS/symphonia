@@ -28,10 +28,6 @@ export class Products {
         );
     }
 
-    allIds(): Observable<string[]> {
-        return this.http.get<string[]>(`${this.base}/api/productIds`);
-    }
-
     detailsOf(id: string): Observable<GetProductDetailResponse> {
         return this.http.get<GetProductDetailResponse>(
             `${this.base}/api/products/${id}`,
