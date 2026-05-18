@@ -26,17 +26,8 @@ This project provides two main Docker setups:
 - **Development:** optimized for local development, hot reloading for frontend and remote debugging on port 7070 for the backend
 
 1. Install [Docker](https://www.docker.com/) and start the Docker Engine
-2. Create a `.env` file in the project's root directory and define the required settings for the PostgreSQL database
-   and optional Spring configuration:
-   ```dotenv
-   POSTGRES_DB=...
-   POSTGRES_USER=...
-   POSTGRES_PASSWORD=...
-   
-   # Optionally:
-   LOGGING_LEVEL_ROOT=...
-   SPRING_PROFILES_ACTIVE=...
-   ```
+2. Create a `.env` file in the project's root directory and define the required settings.
+   Use the `.env.template` as a starting point for required and optional environment variables.
 3. Start the application
    1. Production Environment
       ```shell

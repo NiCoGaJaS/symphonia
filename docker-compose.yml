@@ -52,8 +52,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:?error}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?error}
-      MINIO_ROOT_USER: ${MEDIASTORAGE_USER:-minio}
-      MINIO_ROOT_PASSWORD: ${MEDIASTORAGE_PASSWORD:-development}
+      MINIO_ROOT_USER: ${MEDIASTORAGE_USER:?error}
+      MINIO_ROOT_PASSWORD: ${MEDIASTORAGE_PASSWORD:?error}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
       LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
     healthcheck:
