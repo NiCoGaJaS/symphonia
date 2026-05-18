@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { GetProductResponse, Products } from '@app/api/products/products.api';
-import { CartService } from '@app/services/cart.service';
+import { Cart } from '@app/api/cart/cart.store';
 import { Divider } from 'primeng/divider';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
@@ -18,7 +18,7 @@ type CardProduct = GetProductResponse & {
     imports: [ProductImageComponent, Divider, PriceTagComponent],
 })
 export class CartComponent {
-    private readonly cartService = inject(CartService);
+    private readonly cartService = inject(Cart);
     private readonly productsApi = inject(Products);
 
     readonly cart = this.cartService.cart;

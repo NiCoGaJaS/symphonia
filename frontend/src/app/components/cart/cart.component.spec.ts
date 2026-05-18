@@ -1,4 +1,4 @@
-import { CartItem, CartService } from '@app/services/cart.service';
+import { Cart, CartItem } from '@app/api/cart/cart.store';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
     GetProductDetailResponse,
@@ -8,13 +8,13 @@ import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
 import { signal } from '@angular/core';
 
-function createCartService(cart: CartItem[]): CartService {
+function createCartService(cart: CartItem[]): Cart {
     const cartState = signal<CartItem[]>(cart);
     return {
         cart: cartState.asReadonly(),
         getAmountOf: (id: string) =>
             cartState().find((i) => i.id === id)?.quantity ?? 0,
-    } as unknown as CartService;
+    } as unknown as Cart;
 }
 
 describe('CartComponent', () => {
@@ -25,7 +25,7 @@ describe('CartComponent', () => {
             imports: [CartComponent],
             providers: [
                 {
-                    provide: CartService,
+                    provide: Cart,
                     useValue: createCartService([]),
                 },
                 {
@@ -43,7 +43,7 @@ describe('CartComponent', () => {
         fixture.detectChanges();
 
         expect(fixture.nativeElement.textContent).toContain(
-            'Your cart is empty.',
+            'Dein Warenkorb ist leer.',
         );
     });
 
@@ -81,7 +81,7 @@ describe('CartComponent', () => {
             { id: 'p2', quantity: 1 },
         ];
 
-        TestBed.overrideProvider(CartService, {
+        TestBed.overrideProvider(Cart, {
             useValue: createCartService(cart),
         });
         TestBed.overrideProvider(Products, {

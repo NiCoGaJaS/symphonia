@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Cart } from '@api/cart';
+import { Cart } from '@app/api/cart/cart.store';
 import { DecimalPipe } from '@angular/common';
 import { Divider } from 'primeng/divider';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ import { InputNumber } from 'primeng/inputnumber';
 export class ProductInfoComponent {
     readonly product = input.required<GetProductDetailResponse>();
 
-    private readonly cart= inject(Cart);
+    private readonly cart = inject(Cart);
 
     addToCart(): void {
         this.cart.addToCart({

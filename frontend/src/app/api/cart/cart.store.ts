@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
+const STORAGE_KEY = 'shopping_cart';
+
 export interface CartItem {
     id: string;
     quantity: number;
@@ -15,26 +17,37 @@ export interface CartItem {
 @Injectable({
     providedIn: 'root',
 })
-export class CartService {
-    private readonly STORAGE_KEY = 'shopping_cart';
-
+export class Cart {
     readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-    private readonly cartState = signal<CartItem[]>(this.getCart());
 
+    private readonly cartState = signal<CartItem[]>([]);
     readonly cart = this.cartState.asReadonly();
 
     readonly totalItems = computed(() =>
         this.cartState().reduce((total, item) => total + item.quantity, 0),
     );
 
-    getAmountOf(id: string): number {
-        return this.cartState().find((i) => i.id === id)?.quantity ?? 0;
+    constructor() {
+        if (this.isBrowser) {
+            this.cartState.set(Cart.loadCartFromStorage());
+        }
+    }
+
+    private static loadCartFromStorage(): CartItem[] {
+        const cart = localStorage.getItem(STORAGE_KEY);
+
+        if (!cart) {
+            return [];
+        }
+
+        return JSON.parse(cart) as CartItem[];
     }
 
     private persistCart(cart: CartItem[]): void {
-        if (this.isBrowser) {
-            localStorage.setItem(this.STORAGE_KEY, JSON.stringify(cart));
+        if (!this.isBrowser) {
+            return;
         }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     }
 
     addToCart(item: CartItem): void {
@@ -62,14 +75,8 @@ export class CartService {
         });
     }
 
-    getCart(): CartItem[] {
-        if (!this.isBrowser) {
-            return [];
-        }
-
-        const cart = localStorage.getItem(this.STORAGE_KEY);
-
-        return cart ? (JSON.parse(cart) as CartItem[]) : [];
+    getAmountOf(id: string): number {
+        return this.cartState().find((i) => i.id === id)?.quantity ?? 0;
     }
 
     pruneToExistingIds(existingProductIds: Set<string>): void {

@@ -12,8 +12,8 @@ import {
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import Aura from '@primeuix/themes/aura';
-import { CartService } from '@app/services/cart.service';
-import { Products } from '@app/api/products/products.api';
+import { Cart } from '@app/api/cart/cart.store';
+import { CartApi } from '@app/api/cart/cart.api';
 import { firstValueFrom } from 'rxjs';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './routing/app.routes';
@@ -25,22 +25,27 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes, withComponentInputBinding()),
         provideClientHydration(withEventReplay()),
         provideAppInitializer(async () => {
-            const cartService = inject(CartService);
-            const productApi = inject(Products);
+            const cart: Cart = inject(Cart);
+            const cartApi = inject(CartApi);
 
-            if (!cartService.isBrowser) {
+            if (!cart.isBrowser) {
                 return;
             }
 
-            const cart = cartService.cart();
+            const items = cart.cart();
 
-            if (cart.length === 0) {
+            if (items.length === 0) {
                 return;
             }
 
-            const ids = await firstValueFrom(productApi.allIds());
+            const ids = [...new Set(items.map((i) => i.id))];
+            const invalidIds = new Set(
+                await firstValueFrom(cartApi.invalidIds(ids)),
+            );
 
-            cartService.pruneToExistingIds(new Set(ids));
+            cart.pruneToExistingIds(
+                new Set(ids.filter((id) => !invalidIds.has(id))),
+            );
         }),
         providePrimeNG({
             theme: {

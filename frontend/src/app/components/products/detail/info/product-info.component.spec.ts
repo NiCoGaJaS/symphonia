@@ -1,4 +1,4 @@
-import { CartItem, CartService } from '@app/services/cart.service';
+import { Cart, CartItem } from '@app/api/cart/cart.store';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GetProductDetailResponse } from '@api/products/products.api';
 import { ProductInfoComponent } from './product-info.component';
@@ -29,12 +29,12 @@ describe('GeneralComponent', () => {
             imports: [ProductInfoComponent],
             providers: [
                 {
-                    provide: CartService,
+                    provide: Cart,
                     useValue: {
                         cart: cartState.asReadonly(),
                         addToCart: (item: { id: string; quantity: number }) =>
                             addToCartCalls.push(item),
-                    } satisfies Partial<CartService>,
+                    } satisfies Partial<Cart>,
                 },
             ],
         }).compileComponents();
