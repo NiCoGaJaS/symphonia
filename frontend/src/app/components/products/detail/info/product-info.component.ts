@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Divider } from 'primeng/divider';
-import { GetProductDetailResponse } from '@app/api/products/products.api';
+import { GetProductDetailResponse } from '@api/products/products.api';
 
 @Component({
     selector: 'app-product-info',

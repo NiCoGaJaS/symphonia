@@ -1,14 +1,11 @@
 import { Component, inject } from '@angular/core';
-import {
-    GetProductDetailResponse,
-    Products,
-} from '@app/api/products/products.api';
+import { GetProductDetailResponse, Products } from '@api/products/products.api';
 import { ActivatedRoute } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { DescriptionComponent } from '@components/products/detail/description/product-description.component';
 import { Observable } from 'rxjs';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
-import { ProductInfoComponent } from '@components/products/detail/general/product-info.component';
+import { ProductInfoComponent } from './info/product-info.component';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({

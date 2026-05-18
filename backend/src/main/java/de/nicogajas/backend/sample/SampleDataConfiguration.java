@@ -4,6 +4,9 @@ import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
+import de.nicogajas.backend.security.authentication.Account;
+import de.nicogajas.backend.security.authentication.Accounts;
+import de.nicogajas.backend.security.authentication.Role;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,6 +17,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @Profile("sample-data")
@@ -91,7 +95,25 @@ public class SampleDataConfiguration {
                 List<Product> saved = products.saveAll(sampleProducts);
                 logger.info("Successfully inserted {} sample products.", saved.size());
             } else {
-                logger.info("Skipping sample data insertions because products already exist.");
+                logger.info("Skipping sample products insertion because products already exist.");
+            }
+        };
+    }
+    
+    
+    @Bean
+    public ApplicationRunner fillAccounts(Accounts accounts, PasswordEncoder encoder) {
+        return _ -> {
+            List<Account> demoAccounts = List.of(
+                    new Account("admin@symphonia.com", encoder.encode("1234"), Role.ADMIN),
+                    new Account("customer@symphonia.com", encoder.encode("1234"), Role.CUSTOMER));
+            
+            if (accounts.count() == 0) {
+                logger.info("No accounts found. Inserting {} demo accounts.", demoAccounts.size());
+                List<Account> saved = accounts.saveAll(demoAccounts);
+                logger.info("Successfully inserted {} demo accounts.", saved.size());
+            } else {
+                logger.info("Skipping demo accounts insertion because accounts already exist.");
             }
         };
     }

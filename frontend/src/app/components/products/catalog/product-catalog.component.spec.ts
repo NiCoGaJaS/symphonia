@@ -4,7 +4,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { GetProductResponse } from '@app/api/products/products.api';
+import { GetProductResponse } from '@api/products/products.api';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 import { provideRouter } from '@angular/router';
 

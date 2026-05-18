@@ -6,6 +6,7 @@
     --primary-blue: #0989c4;
     --primary-green: #68b13b;
     --primary-grey: #f4f4f4;
+    --primary-dark-grey: #a4a4a4;
     --primary-white: #ffffff;
     --menu-hover: #1f1f1f;
 }
@@ -112,4 +113,8 @@ body {
     justify-content: center;
     font-weight: bold;
     font-size: x-large;
+}
+
+input {
+    --p-inputtext-focus-border-color: var(--primary-blue);
 }

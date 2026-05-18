@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
 import { provideRouter } from '@angular/router';
-import { routes } from '@app/app.routes';
+import { routes } from '@config/routing/app.routes';
 
 describe('NavbarComponent', () => {
     let component: NavbarComponent;

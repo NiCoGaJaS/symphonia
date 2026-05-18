@@ -8,7 +8,7 @@ import Aura from '@primeuix/themes/aura';
 
 import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
+import { routes } from './routing/app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
