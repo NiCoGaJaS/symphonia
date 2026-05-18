@@ -42,6 +42,13 @@
     gap: 0.5rem;
 }
 
+.product-order-group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    height: 3rem;
+}
+
 @media (max-width: 768px) {
     .general {
         width: 100%;

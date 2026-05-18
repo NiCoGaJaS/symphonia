@@ -36,7 +36,32 @@
         <p class="">Sofort lieferbar</p>
     </div>
 
-    <button class="product-order button-blue" type="button">
-        In den Warenkorb
-    </button>
+    <div class="product-order-group">
+        <p-inputnumber
+            [(ngModel)]="amount"
+            [min]="1"
+            [max]="5"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            spinnerMode="horizontal"
+            [step]="1"
+            [inputStyle]="{ width: '3.25rem', textAlign: 'center' }"
+        >
+            <ng-template #incrementbuttonicon>
+                <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template #decrementbuttonicon>
+                <span class="pi pi-minus"></span>
+            </ng-template>
+        </p-inputnumber>
+
+        <button
+            class="product-order button-blue"
+            type="button"
+            (click)="addToCart()"
+        >
+            In den Warenkorb
+        </button>
+    </div>
 </div>

@@ -1,5 +1,7 @@
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { BadgeDirective } from 'primeng/badge';
+import { Cart } from '@app/api/cart/cart.store';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { NgOptimizedImage } from '@angular/common';
@@ -13,12 +15,14 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
         ToggleSwitchModule,
         FormsModule,
         NgOptimizedImage,
+        BadgeDirective,
     ],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
     private readonly router = inject(Router);
+    protected cart: Cart = inject(Cart);
 
     protected showSearch = false;
 

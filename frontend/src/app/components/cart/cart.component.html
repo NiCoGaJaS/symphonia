@@ -1,0 +1,88 @@
+<div class="wrapper">
+    <div class="cart-table">
+        @if (this.cart.getAmount() === 0) {
+            <p>Dein Warenkorb ist leer.</p>
+        } @else {
+            @let items = cartProducts();
+
+            <div class="header text-bold">
+                <div>Produkt</div>
+                <div></div>
+                <div>Preis</div>
+                <div>Anzahl</div>
+                <div>Gesamt</div>
+            </div>
+
+            @for (item of items ?? []; track item.id; let first = $first) {
+                <p-divider [class.mobile-hide]="first" />
+                <div class="cart-table-row">
+                    <div class="cart-table-product">
+                        <app-product-image
+                            [height]="100"
+                            [width]="200"
+                            [productImage]="item.image"
+                        />
+                    </div>
+
+                    <div>
+                        {{ item.name }}
+                    </div>
+
+                    <div class="cart-table-single-price">
+                        <span class="mobile-label">Preis:</span>
+                        <app-price-tag [price]="item.price" />
+                    </div>
+
+                    <div class="cart-table-amount">
+                        <span class="mobile-label">Menge:</span>
+                        <span class="cart-table-value">
+                            {{ this.cart.getAmountOf(item.id) }} St.
+                        </span>
+                    </div>
+
+                    <div class="cart-table-total-price">
+                        <span class="mobile-label">Gesamt:</span>
+                        <app-price-tag
+                            [price]="
+                                item.price * this.cart.getAmountOf(item.id)
+                            "
+                        />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="cart-summary">
+        <p class="text-bold margin-top-0">Zusammenfassung</p>
+
+        <div class="cart-summary-entry">
+            <p>Zwischensumme</p>
+            <app-price-tag
+                [price]="totalPrice()"
+                [alignRight]="true"
+                [noTax]="true"
+            />
+        </div>
+
+        <div class="cart-summary-entry">
+            <p>Versand</p>
+            <p>Kostenlos</p>
+        </div>
+
+        <p-divider />
+
+        <div class="cart-summary-entry">
+            <p>Gesamtsumme</p>
+            <app-price-tag
+                [price]="totalPrice()"
+                [priceBold]="true"
+                [alignRight]="true"
+            />
+        </div>
+
+        <p-divider />
+        <button class="button-blue cart-button-submit" type="button">
+            Zur Kasse
+        </button>
+    </div>
+</div>
