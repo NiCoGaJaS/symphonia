@@ -35,9 +35,39 @@
 
                     <div class="cart-table-amount">
                         <span class="mobile-label">Menge:</span>
-                        <span class="cart-table-value">
-                            {{ this.cart.getAmountOf(item.id) }} St.
-                        </span>
+                        <div class="cart-amount-controls">
+                            <p-inputnumber
+                                [ngModel]="this.cart.getAmountOf(item.id)"
+                                (ngModelChange)="
+                                    this.cart.setAmountOf(item.id, $event)
+                                "
+                                [min]="1"
+                                [max]="99"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                spinnerMode="horizontal"
+                                [step]="1"
+                                [inputStyle]="{
+                                    width: '2.75rem',
+                                    textAlign: 'center',
+                                }"
+                            >
+                                <ng-template #incrementbuttonicon>
+                                    <span class="pi pi-plus"></span>
+                                </ng-template>
+                                <ng-template #decrementbuttonicon>
+                                    <span class="pi pi-minus"></span>
+                                </ng-template>
+                            </p-inputnumber>
+                            <button
+                                type="button"
+                                (click)="confirmDelete($event, item.id)"
+                                class="cart-remove-product"
+                            >
+                                Entfernen
+                            </button>
+                            <p-confirmdialog />
+                        </div>
                     </div>
 
                     <div class="cart-table-total-price">

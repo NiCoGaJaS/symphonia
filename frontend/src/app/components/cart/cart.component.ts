@@ -1,7 +1,11 @@
 import { Cart, CartItem } from '@app/api/cart/cart.store';
 import { Component, computed, inject } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { GetProductResponse, Products } from '@app/api/products/products.api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Divider } from 'primeng/divider';
+import { FormsModule } from '@angular/forms';
+import { InputNumber } from 'primeng/inputnumber';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -15,11 +19,22 @@ type CartProduct = GetProductResponse & {
     standalone: true,
     templateUrl: './cart.component.html',
     styleUrl: './cart.component.css',
-    imports: [ProductImageComponent, Divider, PriceTagComponent],
+    imports: [
+        ProductImageComponent,
+        Divider,
+        PriceTagComponent,
+        InputNumber,
+        FormsModule,
+        ConfirmDialogModule,
+    ],
+    providers: [ConfirmationService, MessageService],
 })
 export class CartComponent {
     private readonly productsApi = inject(Products);
-    protected readonly cart = inject(Cart);
+    private readonly confirmationService = inject(ConfirmationService);
+    private readonly messageService = inject(MessageService);
+
+    readonly cart = inject(Cart);
 
     readonly products = toSignal(this.productsApi.search(null), {
         initialValue: [] as GetProductResponse[],
@@ -58,4 +73,35 @@ export class CartComponent {
             0,
         ),
     );
+
+    confirmDelete(event: Event, productId: string): void {
+        this.confirmationService.confirm({
+            target: event.target as HTMLElement,
+            message:
+                'Möchten Sie dieses Produkt wirklich aus dem Warenkorb entfernen?',
+            header: 'Produkt entfernen',
+            icon: 'pi pi-info-circle',
+            rejectButtonProps: {
+                label: 'Abbrechen',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Entfernen',
+                severity: 'danger',
+            },
+
+            accept: () => {
+                this.cart.setAmountOf(productId, 0);
+
+                this.confirmationService.close();
+
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Entfernt.',
+                    detail: 'Produkt entfernt.',
+                });
+            },
+        });
+    }
 }
