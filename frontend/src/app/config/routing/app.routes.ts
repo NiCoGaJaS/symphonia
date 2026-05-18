@@ -7,6 +7,7 @@ import {
 import { CartComponent } from '@components/cart/cart.component';
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
+import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 import { ProductDetailComponent } from '@components/products/detail/product-detail.component';
 import { Profile } from '@components/authentication/profile/profile.component';
 import { User } from '@api/authentication/user.store';
@@ -56,5 +57,10 @@ export const routes: Routes = [
         path: 'profile',
         component: Profile,
         canActivate: [isLoggedIn],
+    },
+    {
+        path: 'search',
+        component: ProductCatalog,
+        data: { title: 'Produkte' },
     },
 ];
