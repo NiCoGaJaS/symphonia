@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { BadgeDirective } from 'primeng/badge';
 import { Cart } from '@app/api/cart/cart.store';
