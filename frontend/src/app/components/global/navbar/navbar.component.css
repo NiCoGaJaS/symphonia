@@ -1,53 +1,97 @@
-.wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+
     width: 100%;
-    margin: 0;
     padding: 2vh;
+
     background: var(--primary-black);
 }
 
-.wrapper > app-menu {
+.logo {
+    justify-self: left;
+}
+
+.menu {
+    justify-self: center;
     z-index: 100; /* Needed so the menu popup is above other elements */
 }
 
-.pi {
-    font-size: 1.25rem;
-}
-
 .navbar-buttons {
+    justify-self: right;
+
     display: flex;
     align-items: center;
     gap: 2rem;
 
-    i {
+    i,
+    button {
         color: var(--primary-white);
+        cursor: pointer;
+    }
+
+    button {
+        background: none;
+        border: none;
+        padding: 0;
     }
 }
 
+.search-bar input {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--primary-grey);
+}
+
+.desktop-search-bar {
+    display: block;
+}
+
+.mobile-search-bar {
+    display: none;
+}
+
+.pi {
+    font-size: 1.5rem;
+}
+
 @media (max-width: 768px) {
-    .logo {
-        width: 20vw;
+    .mobile-search-bar {
+        display: block;
+        width: 100%;
+        background: var(--primary-black);
+        padding: 0 0.75rem 0.75rem;
+
+        input {
+            width: 100%;
+        }
     }
 
-    .wrapper {
-        height: 8vh;
-        padding: 0 1rem;
-        align-items: center;
+    .desktop-search-bar {
+        display: none;
+    }
+
+    .logo {
+        margin-right: auto;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: row;
     }
 
     .navbar-buttons {
         order: 2;
-        margin-left: auto;
-        margin-right: 0.75rem;
+        gap: 1rem;
+        z-index: 1000;
     }
 
-    .wrapper > app-menu {
+    .menu {
         order: 3;
-        position: static;
-        left: auto;
-        transform: none;
-        margin-left: 0;
+    }
+
+    .p-menubar-mobile {
+        padding: 0;
     }
 }

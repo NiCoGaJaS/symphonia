@@ -1,13 +1,41 @@
-<div class="wrapper">
-    <a routerLink="/">
-        <img ngSrc="/logo.svg" alt="" class="logo" height="44" width="102" />
+<div class="navbar">
+    <a class="logo" routerLink="/">
+        <img ngSrc="/logo.svg" alt="" height="44" width="102" />
     </a>
 
-    <app-menu />
+    <app-menu class="menu" />
 
     <div class="navbar-buttons">
-        <i class="pi pi-search" routerLink="/"></i>
-        <i class="pi pi-shopping-cart" routerLink="/cart"></i>
-        <i class="pi pi-user" routerLink="/profile"></i>
+        @if (showSearch) {
+            <form
+                class="search-bar desktop-search-bar"
+                (ngSubmit)="onSearch(searchInput.value)"
+            >
+                <input
+                    #searchInput
+                    type="search"
+                    placeholder="Suche Produkte..."
+                />
+            </form>
+        }
+
+        <button type="button" (click)="toggleSearch()">
+            <i class="pi pi-search"></i>
+        </button>
+        <a routerLink="/cart">
+            <i class="pi pi-shopping-cart"></i>
+        </a>
+        <a routerLink="/profile">
+            <i class="pi pi-user"></i>
+        </a>
     </div>
 </div>
+
+@if (showSearch) {
+    <form
+        class="search-bar mobile-search-bar"
+        (ngSubmit)="onSearch(searchInput.value)"
+    >
+        <input #searchInput type="search" placeholder="Suche Produkte..." />
+    </form>
+}

@@ -3,6 +3,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { HomeComponent } from './home.component';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
@@ -14,6 +15,7 @@ describe('HomeComponent', () => {
             providers: [
                 provideHttpClient(withFetch()),
                 provideHttpClientTesting(),
+                provideRouter([]),
             ],
         }).compileComponents();
 

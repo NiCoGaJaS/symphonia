@@ -1,0 +1,19 @@
+.menu {
+    --p-menubar-background: var(--primary-black);
+    --p-menubar-border-color: var(--primary-black);
+    --p-menubar-item-color: var(--primary-white);
+}
+
+@media (max-width: 768px) {
+    .menu {
+        padding-right: 0;
+
+        --p-menubar-mobile-button-color: var(--primary-white);
+        --p-menubar-mobile-button-hover-color: var(--primary-white);
+        --p-menubar-mobile-button-hover-background: var(--primary-black);
+        --p-menubar-mobile-button-focus-ring-color: var(--primary-black);
+
+        --p-menubar-submenu-background: var(--primary-black);
+        --p-menubar-submenu-border-color: var(--primary-black);
+    }
+}

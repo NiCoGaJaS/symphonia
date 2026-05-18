@@ -1,6 +1,6 @@
-<div class="catalog-title">Bestseller</div>
+<div class="catalog-title" [textContent]="title()"></div>
 
-@let productsLists = products | async;
+@let productsLists = products$ | async;
 
 @if (productsLists?.length) {
     <div class="catalog">

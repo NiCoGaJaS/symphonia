@@ -1,53 +1,65 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
     HttpTestingController,
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { GetProductResponse } from '@api/products/products.api';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
-import { provideRouter } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
+import { TestBed } from '@angular/core/testing';
 
 describe('Product Catalog Component', () => {
-    let component: ProductCatalog;
-    let fixture: ComponentFixture<ProductCatalog>;
-
+    let harness: RouterTestingHarness;
     let backend: HttpTestingController;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ProductCatalog],
             providers: [
-                provideHttpClient(withFetch()),
                 provideHttpClientTesting(),
-                provideRouter([]),
+                provideRouter(
+                    [
+                        {
+                            path: 'search',
+                            component: ProductCatalog,
+                            data: {
+                                title: 'Produkte',
+                            },
+                        },
+                    ],
+                    withComponentInputBinding(),
+                ),
             ],
         }).compileComponents();
 
+        harness = await RouterTestingHarness.create();
         backend = TestBed.inject(HttpTestingController);
-
-        fixture = TestBed.createComponent(ProductCatalog);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
     });
 
     afterEach(() => {
         backend.verify();
     });
 
-    it('should create product catalog', () => {
+    it('should create product catalog', async () => {
+        const component = await harness.navigateByUrl(
+            '/search',
+            ProductCatalog,
+        );
+
         const call = backend.expectOne('http://localhost:8080/api/products');
         expect(call.request.method).toBe('GET');
         expect(component).toBeTruthy();
     });
 
-    it('shows no products found on empty response', () => {
+    it('shows no products found on empty response', async () => {
+        await harness.navigateByUrl('/search', ProductCatalog);
+
         const call = backend.expectOne('http://localhost:8080/api/products');
         expect(call.request.method).toBe('GET');
         call.flush([]);
 
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement as HTMLElement;
+        harness.fixture.detectChanges();
+        const compiled = harness.fixture.nativeElement as HTMLElement;
 
         const noProductsText = compiled.querySelector('.empty-products');
         expect(noProductsText).toBeTruthy();
@@ -56,7 +68,9 @@ describe('Product Catalog Component', () => {
         );
     });
 
-    it('shows products when backend returns data', () => {
+    it('shows products when backend returns data', async () => {
+        await harness.navigateByUrl('/search', ProductCatalog);
+
         const product = {
             id: '719b96f7-fcd4-4dce-85a0-9440d4bc6e62',
             name: 'Fender Player II Strat RW BCG',
@@ -72,8 +86,8 @@ describe('Product Catalog Component', () => {
         expect(call.request.method).toBe('GET');
         call.flush([product]);
 
-        fixture.detectChanges();
-        const compiled = fixture.nativeElement as HTMLElement;
+        harness.fixture.detectChanges();
+        const compiled = harness.fixture.nativeElement as HTMLElement;
 
         const products = compiled.querySelectorAll('.product');
         expect(products.length).toBe(1);
@@ -92,5 +106,16 @@ describe('Product Catalog Component', () => {
         expect(image).toBeTruthy();
         expect(image?.src).toBe(product.image.url);
         expect(image?.alt).toBe(product.image.alternative_text);
+    });
+
+    it('shows filtered products using query parameter', async () => {
+        const query = 'Fender';
+        await harness.navigateByUrl(`/search?query=${query}`, ProductCatalog);
+
+        const call = backend.expectOne(
+            `http://localhost:8080/api/products?query=${query}`,
+        );
+        expect(call.request.method).toBe('GET');
+        expect(call.request.params.get('query')).toBe(query);
     });
 });

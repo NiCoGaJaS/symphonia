@@ -65,4 +65,35 @@ public class ProductCatalogTest {
                         jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText()));
     }
     
+    
+    @Test
+    void getFilteredProducts() throws Exception {
+        Product fender = new Product(
+                UUID.randomUUID(),
+                Instant.now(),
+                "Fender Player II Strat RW BCG",
+                new BigDecimal("772.00"),
+                "Short Description",
+                "Description",
+                Category.GUITAR,
+                new ProductImage(
+                        UUID.randomUUID(),
+                        "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
+                        "Fender Player II Strat RW BCG - Front"));
+        
+        when(products.findAllByNameContainsIgnoreCase("Fender")).thenReturn(List.of(fender));
+        
+        mvc.perform(get("/api/products").param("query", "Fender"))
+                .andExpectAll(
+                        status().isOk(),
+                        content().contentType(MediaType.APPLICATION_JSON),
+                        jsonPath("$.size()").value(1),
+                        jsonPath("$[0].id").value(fender.id().toString()),
+                        jsonPath("$[0].name").value(fender.name()),
+                        jsonPath("$[0].price").value(fender.price().doubleValue()),
+                        jsonPath("$[0].image.id").value(fender.image().id().toString()),
+                        jsonPath("$[0].image.url").value(fender.image().url()),
+                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText()));
+    }
+    
 }

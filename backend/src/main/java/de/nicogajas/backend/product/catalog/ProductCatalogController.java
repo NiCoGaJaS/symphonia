@@ -6,11 +6,13 @@ import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -54,8 +56,10 @@ public class ProductCatalogController {
     
     
     @GetMapping
-    public List<GetProductResponse> all() {
-        return products.findAll().stream()
+    public List<GetProductResponse> getProducts(@RequestParam(required = false) Optional<String> query) {
+        return query.map(this.products::findAllByNameContainsIgnoreCase)
+                .orElseGet(this.products::findAll)
+                .stream()
                 .map(GetProductResponse::fromProduct)
                 .toList();
     }
