@@ -19,6 +19,7 @@ export class ProductManagement {
     private products = inject(Products);
     private cdr = inject(ChangeDetectorRef);
 
+    protected readonly categoryToLabel = categoryToLabel;
     protected readonly DEFAULT_ITEMS_PER_PAGE = 25;
 
     protected page: PageResponse<GetProductAdminResponse> | undefined;
@@ -43,6 +44,4 @@ export class ProductManagement {
             },
         });
     }
-
-    protected readonly categoryToLabel = categoryToLabel;
 }
