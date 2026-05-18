@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
 import { provideRouter } from '@angular/router';
-import { routes } from '../../../app.routes';
+import { routes } from '@app/app.routes';
 
 describe('FooterComponent', () => {
     let component: FooterComponent;
