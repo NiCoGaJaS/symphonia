@@ -4,6 +4,16 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
   web:
+    resources:
+      add-mappings: false
     error:
       whitelabel:
         enabled: false
+  servlet:
+    multipart:
+      max-file-size: 5MB
+
+mediastorage:
+  endpoint: http://mediastorage:9000
+  user: ${MINIO_ROOT_USER}
+  password: ${MINIO_ROOT_PASSWORD}

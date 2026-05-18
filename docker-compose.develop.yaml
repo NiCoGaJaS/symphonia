@@ -20,6 +20,23 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+  mediastorage:
+    container_name: mediastorage_develop
+    image: quay.io/minio/aistor/minio:latest
+    environment:
+      MINIO_ROOT_USER: ${MEDIASTORAGE_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MEDIASTORAGE_PASSWORD:-development}
+    volumes:
+      - mediastorage_data:/mnt/storage
+      - ./docs/mediastorage/minio.license:/licenses/minio.license:ro
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      mediastorage_network:
+    command: >
+      minio server /mnt/storage
+      --license /licenses/minio.license
   backend:
     container_name: backend_develop
     init: true # run additional init process to avoid having java process with PID 1: https://bugs.openjdk.org/browse/JMC-8296
@@ -31,13 +48,16 @@ services:
       - "7070:7070"
     networks:
       database_network:
+      mediastorage_network:
       default:
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
-      LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:?error}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:?error}
+      MINIO_ROOT_USER: ${MEDIASTORAGE_USER:-minio}
+      MINIO_ROOT_PASSWORD: ${MEDIASTORAGE_PASSWORD:-development}
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-} # activate no additional profile if none specified in .env
+      LOGGING_LEVEL_ROOT: ${LOGGING_LEVEL_ROOT:-INFO}
     healthcheck:
       test: [ "CMD-SHELL", "curl -fsS http://localhost:8080/actuator/health || exit 1" ]
       start_period: 15s
@@ -47,6 +67,8 @@ services:
     depends_on:
       database:
         condition: service_healthy
+      mediastorage:
+        condition: service_started
   frontend:
     container_name: frontend_develop
     build:
@@ -68,9 +90,12 @@ services:
 
 volumes:
   database_data:
+  mediastorage_data:
   node_modules:
   angular_cache:
 
 networks:
   database_network:
+    driver: bridge
+  mediastorage_network:
     driver: bridge
