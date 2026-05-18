@@ -38,7 +38,10 @@ public class SecurityConfig {
     public SecurityFilterChain filter(HttpSecurity http, CorsConfigurationSource cors, ObjectMapper json) {
         return http.csrf(CsrfConfigurer::disable)
                 .cors(configurer -> configurer.configurationSource(cors))
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/admin/**").hasRole("ADMIN")
+                                .anyRequest().permitAll()
+                )
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(
                                 (_, response, _) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
@@ -93,7 +96,7 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

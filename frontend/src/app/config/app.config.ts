@@ -11,8 +11,9 @@ import {
     provideClientHydration,
     withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { API_ORIGIN } from '@api/api.config';
 import Aura from '@primeuix/themes/aura';
 import { Cart } from '@app/api/cart/cart.store';
 import { CartValidation } from '@app/api/cart/cart.api';
@@ -26,6 +27,22 @@ registerLocaleData(localeDe);
 export const appConfig: ApplicationConfig = {
     providers: [
         { provide: LOCALE_ID, useValue: 'de-DE' },
+        { provide: API_ORIGIN, useValue: 'http://localhost:8080'},
+        provideHttpClient(
+            withFetch(),
+            withInterceptors([
+                (request, next) => {
+                    const api = inject(API_ORIGIN);
+                    const url = new URL(request.url);
+
+                    if (url.origin === api) {
+                        request = request.clone({ withCredentials: true });
+                    }
+
+                    return next(request);
+                }
+            ])
+        ),
         provideHttpClient(withFetch()),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes, withComponentInputBinding()),
