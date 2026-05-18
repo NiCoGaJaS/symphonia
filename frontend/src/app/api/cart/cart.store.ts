@@ -54,24 +54,25 @@ export class Cart {
         }
 
         this.items.update((cart: CartItem[]): CartItem[] => {
-            const existing = cart.find((i: CartItem) => i.id === item.id);
+            const exists = cart.some((i) => i.id === item.id);
 
-            const updatedCart: CartItem[] = existing
-                ? cart.map((i: CartItem): CartItem => {
-                      if (i.id === item.id) {
-                          return {
-                              ...i,
-                              quantity: i.quantity + item.quantity,
-                          };
-                      } else {
-                          return i;
-                      }
-                  })
-                : [...cart, item];
+            let updated;
+            if (exists) {
+                updated = cart.map((i) => {
+                    if (i.id === item.id) {
+                        return {
+                            ...i,
+                            quantity: i.quantity + item.quantity,
+                        };
+                    }
 
-            this.persistCart(updatedCart);
-
-            return updatedCart;
+                    return i;
+                });
+            } else {
+                updated = [...cart, item];
+            }
+            this.persistCart(updated);
+            return updated;
         });
     }
 
@@ -79,17 +80,17 @@ export class Cart {
         return this.items().find((i) => i.id === id)?.quantity ?? 0;
     }
 
-    getCart(): CartItem[] {
+    getItems(): CartItem[] {
         return this.items();
     }
 
-    pruneToExistingIds(existingProductIds: Set<string>): void {
+    pruneToExistingIds(invalidProductIds: Set<string>): void {
         if (!this.isBrowser) {
             return;
         }
 
-        const pruned = this.items().filter((item) =>
-            existingProductIds.has(item.id),
+        const pruned = this.items().filter(
+            (item) => !invalidProductIds.has(item.id),
         );
 
         if (pruned.length === this.items().length) {

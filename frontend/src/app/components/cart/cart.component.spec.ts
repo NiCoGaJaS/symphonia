@@ -4,14 +4,17 @@ import {
     GetProductDetailResponse,
     Products,
 } from '@app/api/products/products.api';
+import { computed, signal } from '@angular/core';
 import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
-import { signal } from '@angular/core';
 
 function createCartService(items: CartItem[]): Cart {
     const cart = signal<CartItem[]>(items);
     return {
-        getCart: () => cart(),
+        getItems: () => cart(),
+        getAmount: computed(() =>
+            cart().reduce((total, item) => total + item.quantity, 0),
+        ),
         getAmountOf: (id: string) =>
             cart().find((i) => i.id === id)?.quantity ?? 0,
     } as unknown as Cart;

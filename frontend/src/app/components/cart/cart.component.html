@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="cart-table">
-        @if (getCart().length === 0) {
+        @if (this.cart.getAmount() === 0) {
             <p>Dein Warenkorb ist leer.</p>
         } @else {
             @let items = cartProducts();
@@ -36,14 +36,16 @@
                     <div class="cart-table-amount">
                         <span class="mobile-label">Menge:</span>
                         <span class="cart-table-value">
-                            {{ getAmount(item.id) }} St.
+                            {{ this.cart.getAmountOf(item.id) }} St.
                         </span>
                     </div>
 
                     <div class="cart-table-total-price">
                         <span class="mobile-label">Gesamt:</span>
                         <app-price-tag
-                            [price]="item.price * getAmount(item.id)"
+                            [price]="
+                                item.price * this.cart.getAmountOf(item.id)
+                            "
                         />
                     </div>
                 </div>

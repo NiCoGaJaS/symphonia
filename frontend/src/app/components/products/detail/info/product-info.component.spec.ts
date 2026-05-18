@@ -31,7 +31,7 @@ describe('GeneralComponent', () => {
                 {
                     provide: Cart,
                     useValue: {
-                        getCart: cart.asReadonly(),
+                        getItems: cart.asReadonly(),
                         addToCart: (item: { id: string; quantity: number }) =>
                             addToCartCalls.push(item),
                     } satisfies Partial<Cart>,

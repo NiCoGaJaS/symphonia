@@ -22,6 +22,7 @@ import { routes } from './routing/app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        { provide: LOCALE_ID, useValue: 'de-DE' },
         provideHttpClient(withFetch()),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes, withComponentInputBinding()),
@@ -35,7 +36,7 @@ export const appConfig: ApplicationConfig = {
                 return;
             }
 
-            const items = cart.getCart();
+            const items = cart.getItems();
 
             if (items.length === 0) {
                 return;
@@ -46,9 +47,7 @@ export const appConfig: ApplicationConfig = {
                 await firstValueFrom(cartValidation.invalidIds(ids)),
             );
 
-            cart.pruneToExistingIds(
-                new Set(ids.filter((id) => !invalidIds.has(id))),
-            );
+            cart.pruneToExistingIds(invalidIds);
         }),
         providePrimeNG({
             theme: {
@@ -58,6 +57,5 @@ export const appConfig: ApplicationConfig = {
                 },
             },
         }),
-        { provide: LOCALE_ID, useValue: 'de-DE' },
     ],
 };

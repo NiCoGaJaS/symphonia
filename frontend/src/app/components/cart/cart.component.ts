@@ -18,8 +18,8 @@ type CardProduct = GetProductResponse & {
     imports: [ProductImageComponent, Divider, PriceTagComponent],
 })
 export class CartComponent {
-    private readonly cartService = inject(Cart);
     private readonly productsApi = inject(Products);
+    protected readonly cart = inject(Cart);
 
     readonly products = toSignal(this.productsApi.search(null), {
         initialValue: [] as GetProductResponse[],
@@ -37,7 +37,8 @@ export class CartComponent {
     });
 
     readonly cartProducts = computed<CardProduct[]>(() =>
-        this.getCart()
+        this.cart
+            .getItems()
             .map(({ id, quantity }: CartItem) => {
                 const product = this.productsMap().get(id);
 
@@ -57,12 +58,4 @@ export class CartComponent {
             0,
         ),
     );
-
-    getAmount(id: string): number {
-        return this.cartService.getAmountOf(id);
-    }
-
-    getCart(): CartItem[] {
-        return this.cartService.getCart();
-    }
 }
