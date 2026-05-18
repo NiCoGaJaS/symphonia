@@ -102,6 +102,10 @@ export class CartComponent {
                     detail: 'Produkt entfernt.',
                 });
             },
+
+            reject: () => {
+                this.confirmationService.close();
+            },
         });
     }
 }

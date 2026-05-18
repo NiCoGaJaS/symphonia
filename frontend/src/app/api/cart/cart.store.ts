@@ -59,7 +59,7 @@ export class Cart {
                 updated = cart.filter((i) => i.id !== id);
             } else if (existing) {
                 updated = cart.map((i) =>
-                    i.id === id ? { ...i, quantity: quantity } : i
+                    i.id === id ? { ...i, quantity: quantity } : i,
                 );
             } else {
                 updated = [...cart, { id, quantity: quantity }];
