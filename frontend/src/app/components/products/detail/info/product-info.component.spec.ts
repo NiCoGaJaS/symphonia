@@ -22,7 +22,7 @@ describe('GeneralComponent', () => {
     };
 
     beforeEach(async () => {
-        const cartState = signal<CartItem[]>([]);
+        const cart = signal<CartItem[]>([]);
         addToCartCalls = [];
 
         await TestBed.configureTestingModule({
@@ -31,7 +31,7 @@ describe('GeneralComponent', () => {
                 {
                     provide: Cart,
                     useValue: {
-                        cart: cartState.asReadonly(),
+                        getCart: cart.asReadonly(),
                         addToCart: (item: { id: string; quantity: number }) =>
                             addToCartCalls.push(item),
                     } satisfies Partial<Cart>,

@@ -18,18 +18,16 @@ export interface CartItem {
     providedIn: 'root',
 })
 export class Cart {
-    readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private readonly items = signal<CartItem[]>([]);
 
-    private readonly cartState = signal<CartItem[]>([]);
-    readonly cart = this.cartState.asReadonly();
-
-    readonly totalItems = computed(() =>
-        this.cartState().reduce((total, item) => total + item.quantity, 0),
+    readonly getAmount = computed(() =>
+        this.items().reduce((total, item) => total + item.quantity, 0),
     );
 
     constructor() {
         if (this.isBrowser) {
-            this.cartState.set(Cart.loadCartFromStorage());
+            this.items.set(Cart.loadCartFromStorage());
         }
     }
 
@@ -55,18 +53,20 @@ export class Cart {
             return;
         }
 
-        this.cartState.update((cart) => {
-            const existing = cart.find((i) => i.id === item.id);
+        this.items.update((cart: CartItem[]): CartItem[] => {
+            const existing = cart.find((i: CartItem) => i.id === item.id);
 
-            const updatedCart = existing
-                ? cart.map((i) =>
-                      i.id === item.id
-                          ? {
-                                ...i,
-                                quantity: i.quantity + item.quantity,
-                            }
-                          : i,
-                  )
+            const updatedCart: CartItem[] = existing
+                ? cart.map((i: CartItem): CartItem => {
+                      if (i.id === item.id) {
+                          return {
+                              ...i,
+                              quantity: i.quantity + item.quantity,
+                          };
+                      } else {
+                          return i;
+                      }
+                  })
                 : [...cart, item];
 
             this.persistCart(updatedCart);
@@ -76,7 +76,11 @@ export class Cart {
     }
 
     getAmountOf(id: string): number {
-        return this.cartState().find((i) => i.id === id)?.quantity ?? 0;
+        return this.items().find((i) => i.id === id)?.quantity ?? 0;
+    }
+
+    getCart(): CartItem[] {
+        return this.items();
     }
 
     pruneToExistingIds(existingProductIds: Set<string>): void {
@@ -84,15 +88,15 @@ export class Cart {
             return;
         }
 
-        const pruned = this.cartState().filter((item) =>
+        const pruned = this.items().filter((item) =>
             existingProductIds.has(item.id),
         );
 
-        if (pruned.length === this.cartState().length) {
+        if (pruned.length === this.items().length) {
             return;
         }
 
-        this.cartState.set(pruned);
+        this.items.set(pruned);
         this.persistCart(pruned);
     }
 }

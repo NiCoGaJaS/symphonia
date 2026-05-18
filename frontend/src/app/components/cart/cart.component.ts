@@ -1,6 +1,6 @@
+import { Cart, CartItem } from '@app/api/cart/cart.store';
 import { Component, computed, inject } from '@angular/core';
 import { GetProductResponse, Products } from '@app/api/products/products.api';
-import { Cart } from '@app/api/cart/cart.store';
 import { Divider } from 'primeng/divider';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
@@ -21,8 +21,6 @@ export class CartComponent {
     private readonly cartService = inject(Cart);
     private readonly productsApi = inject(Products);
 
-    readonly cart = this.cartService.cart;
-
     readonly products = toSignal(this.productsApi.all(), {
         initialValue: [] as GetProductResponse[],
     });
@@ -39,8 +37,8 @@ export class CartComponent {
     });
 
     readonly cartProducts = computed<CardProduct[]>(() =>
-        this.cart()
-            .map(({ id, quantity }) => {
+        this.getCart()
+            .map(({ id, quantity }: CartItem) => {
                 const product = this.productsMap().get(id);
 
                 return product
@@ -62,5 +60,9 @@ export class CartComponent {
 
     getAmount(id: string): number {
         return this.cartService.getAmountOf(id);
+    }
+
+    getCart(): CartItem[] {
+        return this.cartService.getCart();
     }
 }

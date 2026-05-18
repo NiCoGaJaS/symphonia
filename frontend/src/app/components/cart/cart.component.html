@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="cart-table">
-        @if (cart().length === 0) {
+        @if (getCart().length === 0) {
             <p>Dein Warenkorb ist leer.</p>
         } @else {
             @let items = cartProducts();

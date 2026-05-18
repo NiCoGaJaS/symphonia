@@ -8,12 +8,12 @@ import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
 import { signal } from '@angular/core';
 
-function createCartService(cart: CartItem[]): Cart {
-    const cartState = signal<CartItem[]>(cart);
+function createCartService(items: CartItem[]): Cart {
+    const cart = signal<CartItem[]>(items);
     return {
-        cart: cartState.asReadonly(),
+        getCart: () => cart(),
         getAmountOf: (id: string) =>
-            cartState().find((i) => i.id === id)?.quantity ?? 0,
+            cart().find((i) => i.id === id)?.quantity ?? 0,
     } as unknown as Cart;
 }
 

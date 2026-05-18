@@ -1,6 +1,7 @@
 import {
     ApplicationConfig,
     LOCALE_ID,
+    PLATFORM_ID,
     inject,
     provideAppInitializer,
     provideZoneChangeDetection,
@@ -15,6 +16,7 @@ import Aura from '@primeuix/themes/aura';
 import { Cart } from '@app/api/cart/cart.store';
 import { CartValidation } from '@app/api/cart/cart.api';
 import { firstValueFrom } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './routing/app.routes';
 
@@ -27,12 +29,13 @@ export const appConfig: ApplicationConfig = {
         provideAppInitializer(async () => {
             const cart: Cart = inject(Cart);
             const cartValidation = inject(CartValidation);
+            const isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-            if (!cart.isBrowser) {
+            if (!isBrowser) {
                 return;
             }
 
-            const items = cart.cart();
+            const items = cart.getCart();
 
             if (items.length === 0) {
                 return;
