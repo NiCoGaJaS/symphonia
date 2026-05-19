@@ -1,0 +1,85 @@
+<div class="cart-table">
+    @if (this.cart.getAmount() === 0) {
+        <p>Dein Warenkorb ist leer.</p>
+    } @else {
+        @let items = cartProducts();
+
+        <div class="header text-bold">
+            <div>Produkt</div>
+            <div></div>
+            <div>Preis</div>
+            <div>Anzahl</div>
+            <div>Gesamt</div>
+        </div>
+
+        @for (item of items ?? []; track item.id; let first = $first) {
+            <p-divider [class.mobile-hide]="first" />
+            <div class="cart-table-row">
+                <div class="cart-table-product">
+                    <app-product-image
+                        [height]="100"
+                        [width]="200"
+                        [productImage]="item.image"
+                    />
+                </div>
+
+                <div>
+                    {{ item.name }}
+                </div>
+
+                <div class="cart-table-single-price">
+                    <span class="mobile-label">Preis:</span>
+                    <app-price-tag [price]="item.price" />
+                </div>
+
+                <div class="cart-table-amount">
+                    <span class="mobile-label">Menge:</span>
+                    @if (variant === 'cart') {
+                        <div class="cart-amount-controls">
+                            <p-inputnumber
+                                [ngModel]="this.cart.getAmountOf(item.id)"
+                                (ngModelChange)="
+                                    this.cart.setAmountOf(item.id, $event)
+                                "
+                                [min]="1"
+                                [max]="99"
+                                [showButtons]="true"
+                                buttonLayout="horizontal"
+                                spinnerMode="horizontal"
+                                [step]="1"
+                                [inputStyle]="{
+                                    width: '2.75rem',
+                                    textAlign: 'center',
+                                }"
+                            >
+                                <ng-template #incrementbuttonicon>
+                                    <span class="pi pi-plus"></span>
+                                </ng-template>
+                                <ng-template #decrementbuttonicon>
+                                    <span class="pi pi-minus"></span>
+                                </ng-template>
+                            </p-inputnumber>
+                            <button
+                                type="button"
+                                (click)="confirmDelete($event, item.id)"
+                                class="cart-remove-product"
+                            >
+                                Entfernen
+                            </button>
+                            <p-confirmdialog />
+                        </div>
+                    } @else {
+                        {{ this.cart.getAmountOf(item.id) }}
+                    }
+                </div>
+
+                <div class="cart-table-total-price">
+                    <span class="mobile-label">Gesamt:</span>
+                    <app-price-tag
+                        [price]="item.price * this.cart.getAmountOf(item.id)"
+                    />
+                </div>
+            </div>
+        }
+    }
+</div>

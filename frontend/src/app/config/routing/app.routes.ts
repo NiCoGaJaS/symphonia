@@ -5,6 +5,7 @@ import {
     Routes,
 } from '@angular/router';
 import { CartComponent } from '@components/cart/cart.component';
+import { CheckoutComponent } from '@components/checkout/checkout.component';
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
@@ -43,6 +44,10 @@ export const routes: Routes = [
     {
         path: 'cart',
         component: CartComponent,
+    },
+    {
+        path: 'checkout',
+        component: CheckoutComponent,
     },
     {
         path: 'product/:id',

@@ -1,0 +1,135 @@
+<div class="wrapper">
+    <h1>Kasse</h1>
+
+    <h2>Ihre Bestellung</h2>
+
+    <app-products-table variant="checkout" />
+
+    <app-products-summary variant="checkout" />
+
+    <h2>Lieferadresse</h2>
+
+    <form [formGroup]="orderForm" class="order-form-grid">
+        @for (f of addressFields; track f.id) {
+            <p-input-group>
+                <p-floatlabel variant="over">
+                    <input
+                        pInputText
+                        [id]="f.id"
+                        [formControlName]="f.id"
+                        placeholder
+                        required
+                        [ngClass]="{
+                            'p-invalid':
+                                orderForm.get(f.id)?.invalid &&
+                                orderForm.get(f.id)?.touched,
+                        }"
+                    />
+                    <label [for]="f.id">
+                        {{ f.label }}
+                        <span class="required">*</span>
+                    </label>
+                </p-floatlabel>
+            </p-input-group>
+        }
+    </form>
+
+    <h2>Zahlungsart</h2>
+    <div class="payment-methods">
+        <div class="payment-header">
+            <div class="payment-left">
+                <h3>SEPA Lastschrift</h3>
+            </div>
+        </div>
+
+        <form [formGroup]="paymentForm" class="payment-form">
+            <p-input-group>
+                <p-floatlabel variant="over">
+                    <input
+                        id="sepaAccountHolder"
+                        pInputText
+                        formControlName="sepaAccountHolder"
+                        placeholder
+                        required
+                        [ngClass]="{
+                            'p-invalid':
+                                paymentForm.get('sepaAccountHolder')?.invalid &&
+                                paymentForm.get('sepaAccountHolder')?.touched,
+                        }"
+                    />
+                    <label for="sepaAccountHolder">
+                        Kontoinhaber
+                        <span class="required">*</span>
+                    </label>
+                </p-floatlabel>
+            </p-input-group>
+            <p-input-group>
+                <p-floatlabel variant="over">
+                    <input
+                        id="sepaIban"
+                        pInputText
+                        pInputMask="aa99 9999 9999 9999 9999 9999 999"
+                        formControlName="sepaIban"
+                        placeholder="DE00 0000 0000 0000 0000 00"
+                        required
+                        [ngClass]="{
+                            'p-invalid':
+                                paymentForm.get('sepaIban')?.invalid &&
+                                paymentForm.get('sepaIban')?.touched,
+                        }"
+                    />
+                    <label for="sepaIban">
+                        IBAN
+                        <span class="required">*</span>
+                    </label>
+                </p-floatlabel>
+            </p-input-group>
+        </form>
+
+        <div>
+            <p-checkbox
+                [(ngModel)]="checked"
+                [binary]="true"
+                class="billing-checkbox"
+            />
+            <span>Lieferadresse als Rechnungsadresse verwenden</span>
+        </div>
+
+        @if (!checked) {
+            <h2>Rechnungsadresse</h2>
+            <form [formGroup]="billingForm" class="order-form-grid">
+                @for (f of addressFields; track f.id) {
+                    <p-input-group>
+                        <p-floatlabel variant="over">
+                            <input
+                                pInputText
+                                [id]="f.id"
+                                [formControlName]="f.id"
+                                placeholder
+                                required
+                                [ngClass]="{
+                                    'p-invalid':
+                                        billingForm.get(f.id)?.invalid &&
+                                        billingForm.get(f.id)?.touched,
+                                }"
+                            />
+                            <label [for]="f.id">
+                                {{ f.label }}
+                                <span class="required">*</span>
+                            </label>
+                        </p-floatlabel>
+                    </p-input-group>
+                }
+            </form>
+        }
+    </div>
+
+    <div class="required-label">
+        <span class="required">*</span>
+        <span>Pflichtfelder</span>
+    </div>
+
+    <button (click)="onSubmit()" type="submit" class="button-blue full-width">
+        Jetzt bestellen
+    </button>
+</div>
