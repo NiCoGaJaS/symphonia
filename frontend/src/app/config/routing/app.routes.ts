@@ -4,8 +4,8 @@ import {
     Router,
     Routes,
 } from '@angular/router';
-import { CartComponent } from '@components/cart/cart.component';
-import { CheckoutComponent } from '@components/checkout/checkout.component';
+import { CartComponent } from '@components/order/cart/cart.component';
+import { CheckoutComponent } from '@components/order/checkout/checkout.component';
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';

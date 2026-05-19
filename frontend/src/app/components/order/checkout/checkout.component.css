@@ -43,20 +43,12 @@ h3 {
     margin-right: 1rem;
 }
 
-.required {
-    color: var(--primary-red);
-}
-
 .required-label {
     margin: 1rem 0 2rem 0;
 }
 
 .full-width {
     width: 100%;
-}
-
-.p-invalid {
-    border-color: var(--primary-red) !important;
 }
 
 @media (max-width: 768px) {

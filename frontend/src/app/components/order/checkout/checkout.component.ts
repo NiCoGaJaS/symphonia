@@ -8,14 +8,10 @@ import {
     Validators,
 } from '@angular/forms';
 import { Checkbox } from 'primeng/checkbox';
-import { FloatLabel } from 'primeng/floatlabel';
-import { InputGroup } from 'primeng/inputgroup';
-import { InputMaskDirective } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
-import { NgClass } from '@angular/common';
+import { InputComponent } from '@components/global/input/input.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { SummaryComponent } from '@components/cart/summary/summary.component';
-import { TableComponent } from '@components/cart/table/table.component';
+import { SummaryComponent } from '@components/order/summary/summary.component';
+import { TableComponent } from '@components/order/table/table.component';
 import { orderPatterns } from '@app/components/global/formPatterns';
 
 export interface Field {
@@ -26,17 +22,13 @@ export interface Field {
 @Component({
     selector: 'app-checkout',
     imports: [
-        InputText,
         ReactiveFormsModule,
-        InputGroup,
-        FloatLabel,
-        NgClass,
         TableComponent,
         SummaryComponent,
         FormsModule,
         RadioButtonModule,
-        InputMaskDirective,
         Checkbox,
+        InputComponent,
     ],
     templateUrl: './checkout.component.html',
     styleUrl: './checkout.component.css',

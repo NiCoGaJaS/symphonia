@@ -2,8 +2,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component } from '@angular/core';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FormsModule } from '@angular/forms';
-import { SummaryComponent } from '@components/cart/summary/summary.component';
-import { TableComponent } from '@components/cart/table/table.component';
+import { SummaryComponent } from '@components/order/summary/summary.component';
+import { TableComponent } from '@components/order/table/table.component';
 
 @Component({
     selector: 'app-cart',
