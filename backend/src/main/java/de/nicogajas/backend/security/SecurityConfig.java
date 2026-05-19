@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import tools.jackson.databind.ObjectMapper;
 
@@ -34,9 +35,9 @@ public class SecurityConfig {
     
     
     @Bean
-    public SecurityFilterChain filter(HttpSecurity http, ObjectMapper json) {
+    public SecurityFilterChain filter(HttpSecurity http, CorsConfigurationSource cors, ObjectMapper json) {
         return http.csrf(CsrfConfigurer::disable)
-                .cors(cors -> cors.configurationSource(cors()))
+                .cors(configurer -> configurer.configurationSource(cors))
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(
@@ -82,16 +83,17 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-    private UrlBasedCorsConfigurationSource cors() {
+    
+    
+    @Bean
+    public CorsConfigurationSource cors() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
