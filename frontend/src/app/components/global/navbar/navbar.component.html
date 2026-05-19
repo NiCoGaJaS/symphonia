@@ -23,12 +23,14 @@
             <i class="pi pi-search"></i>
         </button>
         <a routerLink="/cart">
-            <i
-                class="pi pi-shopping-cart"
-                pBadge
-                [value]="this.cart.getAmount()"
-                badgeStyleClass="cart-badge"
-            ></i>
+            @if (isBrowser) {
+                <i
+                    class="pi pi-shopping-cart"
+                    pBadge
+                    [value]="this.cart.getAmount()"
+                    badgeStyleClass="cart-badge"
+                ></i>
+            }
         </a>
         <a routerLink="/profile">
             <i class="pi pi-user"></i>

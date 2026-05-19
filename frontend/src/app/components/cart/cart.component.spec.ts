@@ -8,7 +8,7 @@ import { computed, signal } from '@angular/core';
 import { CartComponent } from './cart.component';
 import { of } from 'rxjs';
 
-function createCartService(items: CartItem[]): Cart {
+function createCart(items: CartItem[]): Cart {
     const cart = signal<CartItem[]>(items);
     return {
         getItems: () => cart(),
@@ -17,7 +17,20 @@ function createCartService(items: CartItem[]): Cart {
         ),
         getAmountOf: (id: string) =>
             cart().find((i) => i.id === id)?.quantity ?? 0,
-    } as unknown as Cart;
+        setAmountOf: (id: string, quantity: number) => {
+            if (quantity <= 0) {
+                cart.update((items) => items.filter((i) => i.id !== id));
+                return;
+            }
+
+            cart.update((items) => {
+                const existing = items.find((i) => i.id === id);
+                return existing
+                    ? items.map((i) => (i.id === id ? { ...i, quantity } : i))
+                    : [...items, { id, quantity }];
+            });
+        },
+    } as Cart;
 }
 
 describe('CartComponent', () => {
@@ -29,7 +42,7 @@ describe('CartComponent', () => {
             providers: [
                 {
                     provide: Cart,
-                    useValue: createCartService([]),
+                    useValue: createCart([]),
                 },
                 {
                     provide: Products,
@@ -85,7 +98,7 @@ describe('CartComponent', () => {
         ];
 
         TestBed.overrideProvider(Cart, {
-            useValue: createCartService(cart),
+            useValue: createCart(cart),
         });
         TestBed.overrideProvider(Products, {
             useValue: {
@@ -103,5 +116,62 @@ describe('CartComponent', () => {
         expect(fixture.nativeElement.textContent).not.toContain('missing');
 
         expect(fixture.nativeElement.textContent ?? '').toMatch(/25.00 €/);
+    });
+
+    it('increases and decreases the amount correctly', async () => {
+        const products: GetProductDetailResponse[] = [
+            {
+                id: 'p1',
+                name: 'Product 1',
+                price: 10,
+                summary: 'Summary',
+                description: 'Description',
+                image: {
+                    id: 'img1',
+                    url: 'https://example.com/1.png',
+                    alternative_text: 'Alt 1',
+                },
+            },
+        ];
+
+        const cart = createCart([{ id: 'p1', quantity: 1 }]);
+
+        TestBed.overrideProvider(Cart, {
+            useValue: cart,
+        });
+
+        TestBed.overrideProvider(Products, {
+            useValue: {
+                search: () => of(products),
+            } satisfies Partial<Products>,
+        });
+
+        fixture = TestBed.createComponent(CartComponent);
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const component = fixture.componentInstance;
+
+        expect(component.cart.getAmountOf('p1')).toBe(1);
+        expect(component.totalPrice()).toBe(10);
+
+        component.cart.setAmountOf('p1', 3);
+        fixture.detectChanges();
+
+        expect(component.cart.getAmountOf('p1')).toBe(3);
+        expect(component.totalPrice()).toBe(30);
+
+        component.cart.setAmountOf('p1', 1);
+        fixture.detectChanges();
+
+        expect(component.cart.getAmountOf('p1')).toBe(1);
+        expect(component.totalPrice()).toBe(10);
+
+        component.cart.setAmountOf('p1', 0);
+        fixture.detectChanges();
+
+        expect(component.cart.getAmountOf('p1')).toBe(0);
+        expect(component.cartProducts()).toHaveSize(0);
     });
 });

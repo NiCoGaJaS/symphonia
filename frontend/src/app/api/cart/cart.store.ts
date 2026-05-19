@@ -48,32 +48,30 @@ export class Cart {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     }
 
-    addToCart(item: CartItem): void {
-        if (item.quantity <= 0) {
-            return;
-        }
+    private upsert(id: string, updater: (current: number) => number): void {
+        this.items.update((cart) => {
+            let updated: CartItem[];
 
-        this.items.update((cart: CartItem[]): CartItem[] => {
-            const exists = cart.some((i) => i.id === item.id);
+            const existing = cart.find((i) => i.id === id);
+            const quantity = updater(existing?.quantity ?? 0);
 
-            let updated;
-            if (exists) {
-                updated = cart.map((i) => {
-                    if (i.id === item.id) {
-                        return {
-                            ...i,
-                            quantity: i.quantity + item.quantity,
-                        };
-                    }
-
-                    return i;
-                });
+            if (quantity <= 0) {
+                updated = cart.filter((i) => i.id !== id);
+            } else if (existing) {
+                updated = cart.map((i) =>
+                    i.id === id ? { ...i, quantity: quantity } : i,
+                );
             } else {
-                updated = [...cart, item];
+                updated = [...cart, { id, quantity: quantity }];
             }
+
             this.persistCart(updated);
             return updated;
         });
+    }
+
+    addToCart(item: CartItem): void {
+        this.upsert(item.id, (q) => q + item.quantity);
     }
 
     getAmountOf(id: string): number {
@@ -82,6 +80,10 @@ export class Cart {
 
     getItems(): CartItem[] {
         return this.items();
+    }
+
+    setAmountOf(id: string, quantity: number): void {
+        this.upsert(id, () => quantity);
     }
 
     pruneToExistingIds(invalidProductIds: Set<string>): void {

@@ -1,7 +1,7 @@
 <div
     class="wrapper"
-    [style.inline-size.px]="width()"
-    [style.block-size.px]="height()"
+    [style.inline-size]="'min(100%, ' + width() + 'px)'"
+    [style.block-size]="'min(100%, ' + height() + 'px)'"
 >
     <img
         class="product-image"

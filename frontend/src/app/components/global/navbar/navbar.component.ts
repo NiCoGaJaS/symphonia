@@ -1,10 +1,16 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    PLATFORM_ID,
+    ViewChild,
+    inject,
+} from '@angular/core';
+import { NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { BadgeDirective } from 'primeng/badge';
 import { Cart } from '@app/api/cart/cart.store';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
-import { NgOptimizedImage } from '@angular/common';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
@@ -22,8 +28,10 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 })
 export class NavbarComponent {
     private readonly router = inject(Router);
-    protected cart: Cart = inject(Cart);
 
+    protected readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+    protected cart: Cart = inject(Cart);
     protected showSearch = false;
 
     @ViewChild('searchInput')

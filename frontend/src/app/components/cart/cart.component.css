@@ -20,9 +20,9 @@
         clamp(6rem, 10vw, 10rem)
         minmax(0, 1fr)
         clamp(5rem, 8vw, 8rem)
-        clamp(3.5rem, 6vw, 4rem)
+        clamp(3.5rem, 8vw, 8rem)
         clamp(5rem, 8vw, 8rem);
-    align-items: center;
+    align-items: start;
     gap: 1rem;
 }
 
@@ -35,6 +35,31 @@
     display: flex;
     flex-direction: row;
     min-width: 0;
+    justify-content: flex-start;
+}
+
+.cart-table-amount {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.cart-amount-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.cart-remove-product {
+    margin-top: 0.25rem;
+    align-self: center;
+    color: var(--primary-dark-grey);
+    font-size: x-small;
+    text-decoration: underline;
+    background: var(--primary-white);
+    border: 0;
 }
 
 .cart-summary {
@@ -87,6 +112,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+:host ::ng-deep .cart-table-amount .p-inputnumber-input {
+    height: 2rem;
+    padding: 0.25rem 0.4rem;
+    font-size: 0.9rem;
+}
+
+:host ::ng-deep .cart-table-amount .p-inputnumber-button {
+    width: 1.75rem;
+    padding: 0;
+}
+
+:host ::ng-deep .cart-table-amount .p-inputnumber-button .pi {
+    font-size: 0.75rem;
 }
 
 @media (max-width: 768px) {
@@ -145,8 +185,8 @@
 
     .mobile-label {
         display: inline;
-        font-weight: 600;
-        margin-right: 0.4rem;
+        font-size: small;
+        margin-left: 0.75rem;
     }
 
     .cart-table-single-price,
@@ -164,13 +204,27 @@
         margin-left: auto;
     }
 
-    .cart-table-amount .cart-table-value {
+    .cart-table-amount {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+    }
+
+    .cart-amount-controls {
         margin-left: auto;
-        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
     }
 
     .cart-table-total-price app-price-tag {
         margin-left: auto;
+    }
+
+    .cart-remove-product {
+        text-align: right;
+        background: var(--primary-white);
+        border: 0;
     }
 
     .mobile-hide {
