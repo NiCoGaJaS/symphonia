@@ -8,10 +8,16 @@ import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { PageResponse } from '@app/api/paging.models';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { RouterLink } from '@angular/router';
+import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 
 @Component({
     selector: 'app-product-management',
-    imports: [TableModule, ProductImageComponent, RouterLink],
+    imports: [
+        TableModule,
+        ProductImageComponent,
+        RouterLink,
+        PriceTagComponent,
+    ],
     templateUrl: './product-management.component.html',
     styleUrl: './product-management.component.css',
 })

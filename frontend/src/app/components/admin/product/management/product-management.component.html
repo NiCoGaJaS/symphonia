@@ -8,12 +8,13 @@
     [totalRecords]="page?.total_elements ?? 0"
     [rowsPerPageOptions]="[2, 25, 50]"
     [loading]="loading"
+    [showGridlines]="true"
     size="large"
 >
     <ng-template #caption>
         <div class="caption">
             <h1>Produkte</h1>
-            <a routerLink="add">
+            <a class="product-add" routerLink="add">
                 <i class="pi pi-plus"></i>
                 Produkt hinzufügen
             </a>
@@ -21,36 +22,40 @@
     </ng-template>
 
     <ng-template #header >
-        <tr>
-            <th>Produkt</th>
-            <th>Kategorie</th>
-            <th>Preis</th>
-            <th>Aktionen</th>
+        <tr class="columns">
+            <th class="first-header">Produkt</th>
+            <th class="remove-border-left">Kategorie</th>
+            <th class="remove-border-left">Preis</th>
+            <th class="last-header remove-border-left">Aktionen</th>
         </tr>
     </ng-template>
 
     <ng-template #body let-product>
-        <tr>
+        <tr class="product">
             <td>
                 <a class="product-preview" [routerLink]="['/product', product.id]">
                     <app-product-image [width]="100" [height]="100" [productImage]="product.image"/>
                     {{ product.name }}
                 </a>
             </td>
-            <td class="product-category">
+            <td class="remove-border-left">
                 {{ categoryToLabel(product.category) }}
             </td>
-            <td>{{ product.price }}</td>
-            <td>
-                <a>
-                    <i class="pi pi-eye"></i>
-                </a>
-                <a>
-                    <i class="pi pi-pencil"></i>
-                </a>
-                <a>
-                    <i class="pi pi-trash"></i>
-                </a>
+            <td class="remove-border-left">
+                <app-price-tag class="product-price" [price]="product.price" [noTax]="true"/>
+            </td>
+            <td class="remove-border-left">
+                <div class="product-actions">
+                    <a class="product-view" [routerLink]="['/product', product.id]">
+                        <i class="pi pi-eye"></i>
+                    </a>
+                    <a class="product-edit" [routerLink]="['edit']">
+                        <i class="pi pi-pencil"></i>
+                    </a>
+                    <a class="product-delete" [routerLink]="['delete']">
+                        <i class="pi pi-trash"></i>
+                    </a>
+                </div>
             </td>
         </tr>
     </ng-template>
