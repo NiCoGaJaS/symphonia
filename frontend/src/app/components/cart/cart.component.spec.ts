@@ -30,7 +30,7 @@ function createCart(items: CartItem[]): Cart {
                     : [...items, { id, quantity }];
             });
         },
-    } as unknown as Cart;
+    } as Cart;
 }
 
 describe('CartComponent', () => {

@@ -6,6 +6,7 @@ import {
     provideAppInitializer,
     provideZoneChangeDetection,
 } from '@angular/core';
+import { isPlatformBrowser, registerLocaleData } from '@angular/common';
 import {
     provideClientHydration,
     withEventReplay,
@@ -16,9 +17,11 @@ import Aura from '@primeuix/themes/aura';
 import { Cart } from '@app/api/cart/cart.store';
 import { CartValidation } from '@app/api/cart/cart.api';
 import { firstValueFrom } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
+import localeDe from '@angular/common/locales/de';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './routing/app.routes';
+
+registerLocaleData(localeDe);
 
 export const appConfig: ApplicationConfig = {
     providers: [
