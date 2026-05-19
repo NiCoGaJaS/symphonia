@@ -52,11 +52,15 @@
                     <a class="product-edit" [routerLink]="['edit']">
                         <i class="pi pi-pencil"></i>
                     </a>
-                    <a class="product-delete" [routerLink]="['delete']">
+
+                    <button class="product-delete" type="button" (click)="confirmDelete($event, product.id)">
                         <i class="pi pi-trash"></i>
-                    </a>
+                    </button>
                 </div>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
+<p-toast />
+<p-confirmdialog />

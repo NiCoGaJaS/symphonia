@@ -79,7 +79,8 @@
     flex-direction: row;
     gap: 0.5rem;
 
-    a {
+    a, button {
+        background-color: var(--primary-white);
         display: inline-flex;
         align-items: center;
         justify-content: center;
