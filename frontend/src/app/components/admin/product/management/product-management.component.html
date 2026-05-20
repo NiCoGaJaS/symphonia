@@ -22,7 +22,7 @@
     </ng-template>
 
     <ng-template #header>
-        <tr class="columns">
+        <tr class="headers">
             <th id="product" class="first-header">Produkt</th>
             <th id="category" class="remove-border-left">Kategorie</th>
             <th id="price" class="remove-border-left">Preis</th>
@@ -47,7 +47,7 @@
                     {{ product.name }}
                 </a>
             </td>
-            <td headers="category" class="remove-border-left">
+            <td headers="category" class="category-column remove-border-left">
                 {{ categoryToLabel(product.category) }}
             </td>
             <td headers="price" class="remove-border-left">
