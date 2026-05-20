@@ -11,7 +11,11 @@ import {
     provideClientHydration,
     withEventReplay,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import {
+    provideHttpClient,
+    withFetch,
+    withInterceptors,
+} from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { API_ORIGIN } from '@api/api.config';
 import Aura from '@primeuix/themes/aura';
@@ -27,7 +31,7 @@ registerLocaleData(localeDe);
 export const appConfig: ApplicationConfig = {
     providers: [
         { provide: LOCALE_ID, useValue: 'de-DE' },
-        { provide: API_ORIGIN, useValue: 'http://localhost:8080'},
+        { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
         provideHttpClient(
             withFetch(),
             withInterceptors([
@@ -40,8 +44,8 @@ export const appConfig: ApplicationConfig = {
                     }
 
                     return next(request);
-                }
-            ])
+                },
+            ]),
         ),
         provideHttpClient(withFetch()),
         provideZoneChangeDetection({ eventCoalescing: true }),

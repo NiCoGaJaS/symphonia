@@ -70,7 +70,8 @@
     border-left: 0;
 }
 
-.product-category, .product-price {
+.product-category,
+.product-price {
     font-size: large;
 }
 
@@ -79,7 +80,8 @@
     flex-direction: row;
     gap: 0.5rem;
 
-    a, button {
+    a,
+    button {
         background-color: var(--primary-white);
         display: inline-flex;
         align-items: center;

@@ -24,6 +24,9 @@ export class User {
     readonly id = computed(() => this.session()?.id ?? null);
     readonly role = computed(() => this.session()?.role ?? null);
     readonly isLoggedIn = computed(() => this.session() !== null);
+    readonly isAdmin = computed(
+        () => this.isLoggedIn() && this.role() === 'ADMIN',
+    );
 
     constructor() {
         if (this.isBrowser) {

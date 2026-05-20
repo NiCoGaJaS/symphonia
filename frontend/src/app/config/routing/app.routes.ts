@@ -54,12 +54,12 @@ const isAdmin: CanActivateFn = () => {
     const user = inject(User);
     const router = inject(Router);
 
-    if (user.isLoggedIn() && user.role() === "ADMIN") {
+    if (user.isAdmin()) {
         return true;
     }
 
     return new RedirectCommand(router.parseUrl('/'));
-}
+};
 
 export const routes: Routes = [
     {
@@ -98,7 +98,7 @@ export const routes: Routes = [
         children: [
             {
                 path: 'products',
-                component: ProductManagement
+                component: ProductManagement,
             },
         ],
         canActivateChild: [isAdmin],

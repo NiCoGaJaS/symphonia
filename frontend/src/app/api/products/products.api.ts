@@ -27,18 +27,21 @@ export class Products {
         );
     }
 
-    getAdminProducts(page: number, size: number): Observable<PageResponse<GetProductAdminResponse>> {
-        const params= new HttpParams()
-            .set('page', page)
-            .set('size', size);
+    getAdminProducts(
+        page: number,
+        size: number,
+    ): Observable<PageResponse<GetProductAdminResponse>> {
+        const params = new HttpParams().set('page', page).set('size', size);
 
-        return this.http.get<PageResponse<GetProductAdminResponse>>(`${this.base}/api/admin/products`, { params: params });
+        return this.http.get<PageResponse<GetProductAdminResponse>>(
+            `${this.base}/api/admin/products`,
+            { params: params },
+        );
     }
 
     delete(id: string): Observable<void> {
         return this.http.delete<void>(`${this.base}/api/admin/products/${id}`);
     }
-
 }
 
 export enum Category {
@@ -100,5 +103,5 @@ export interface GetProductAdminResponse {
         id: string;
         url: string;
         alternative_text: string;
-    }
+    };
 }

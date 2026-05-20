@@ -21,7 +21,7 @@
         </div>
     </ng-template>
 
-    <ng-template #header >
+    <ng-template #header>
         <tr class="columns">
             <th class="first-header">Produkt</th>
             <th class="remove-border-left">Kategorie</th>
@@ -33,8 +33,15 @@
     <ng-template #body let-product>
         <tr class="product">
             <td>
-                <a class="product-preview" [routerLink]="['/product', product.id]">
-                    <app-product-image [width]="100" [height]="100" [productImage]="product.image"/>
+                <a
+                    class="product-preview"
+                    [routerLink]="['/product', product.id]"
+                >
+                    <app-product-image
+                        [width]="100"
+                        [height]="100"
+                        [productImage]="product.image"
+                    />
                     {{ product.name }}
                 </a>
             </td>
@@ -42,18 +49,29 @@
                 {{ categoryToLabel(product.category) }}
             </td>
             <td class="remove-border-left">
-                <app-price-tag class="product-price" [price]="product.price" [noTax]="true"/>
+                <app-price-tag
+                    class="product-price"
+                    [price]="product.price"
+                    [noTax]="true"
+                />
             </td>
             <td class="remove-border-left">
                 <div class="product-actions">
-                    <a class="product-view" [routerLink]="['/product', product.id]">
+                    <a
+                        class="product-view"
+                        [routerLink]="['/product', product.id]"
+                    >
                         <i class="pi pi-eye"></i>
                     </a>
                     <a class="product-edit" [routerLink]="['edit']">
                         <i class="pi pi-pencil"></i>
                     </a>
 
-                    <button class="product-delete" type="button" (click)="confirmDelete($event, product.id)">
+                    <button
+                        class="product-delete"
+                        type="button"
+                        (click)="confirmDelete($event, product.id)"
+                    >
                         <i class="pi pi-trash"></i>
                     </button>
                 </div>

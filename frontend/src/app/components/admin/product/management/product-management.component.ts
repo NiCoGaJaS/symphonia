@@ -81,34 +81,32 @@ export class ProductManagement {
             },
 
             accept: () => {
-                this.products
-                    .delete(id)
-                    .subscribe({
-                        next: () => {
-                            this.confirmation.close();
-                            this.messages.add({
-                                severity: 'success',
-                                summary: 'Produkt gelöscht',
-                                detail: 'Das Produkt wurde erfolgreich aus dem Shop gelöscht.',
-                            });
+                this.products.delete(id).subscribe({
+                    next: () => {
+                        this.confirmation.close();
+                        this.messages.add({
+                            severity: 'success',
+                            summary: 'Produkt gelöscht',
+                            detail: 'Das Produkt wurde erfolgreich aus dem Shop gelöscht.',
+                        });
 
-                            if (this.lastEvent) {
-                                this.loadProducts(this.lastEvent);
-                            }
-                        },
-                        error: () => {
-                            this.confirmation.close();
-                            this.messages.add({
-                                severity: 'error',
-                                summary: 'Löschen fehlgeschlagen',
-                                detail: 'Das Produkt konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
-                            });
+                        if (this.lastEvent) {
+                            this.loadProducts(this.lastEvent);
+                        }
+                    },
+                    error: () => {
+                        this.confirmation.close();
+                        this.messages.add({
+                            severity: 'error',
+                            summary: 'Löschen fehlgeschlagen',
+                            detail: 'Das Produkt konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.',
+                        });
 
-                            if (this.lastEvent) {
-                                this.loadProducts(this.lastEvent);
-                            }
-                        },
-                    });
+                        if (this.lastEvent) {
+                            this.loadProducts(this.lastEvent);
+                        }
+                    },
+                });
             },
             reject: () => {
                 this.confirmation.close();
