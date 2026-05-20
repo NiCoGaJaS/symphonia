@@ -35,8 +35,10 @@ export interface Field {
     providers: [ConfirmationService, MessageService],
 })
 export class CheckoutComponent {
-    private createAddressForm(): FormGroup {
-        return inject(FormBuilder).group({
+    private readonly formBuilder = inject(FormBuilder);
+
+    createAddressForm(fb: FormBuilder): FormGroup {
+        return fb.group({
             firstName: [
                 '',
                 [Validators.required, Validators.pattern(orderPatterns.name)],
@@ -76,29 +78,40 @@ export class CheckoutComponent {
         { id: 'city', label: 'Stadt' },
     ];
 
-    protected billingForm = this.createAddressForm();
-    protected orderForm = this.createAddressForm();
-
-    protected checked: boolean = false;
-
-    protected paymentForm = inject(FormBuilder).group({
+    protected billingForm: FormGroup = this.createAddressForm(this.formBuilder);
+    protected orderForm: FormGroup = this.createAddressForm(this.formBuilder);
+    protected paymentForm = this.formBuilder.group({
         sepaAccountHolder: ['', [Validators.required]],
         sepaIban: ['', [Validators.required]],
     });
 
+    protected checked: boolean = false;
+
     protected onSubmit(): void {
+        const billingInvalid = !this.checked && this.billingForm.invalid;
+
         if (
             this.orderForm.invalid ||
             this.paymentForm.invalid ||
-            this.billingForm.invalid
+            billingInvalid
         ) {
             this.orderForm.markAllAsTouched();
             this.paymentForm.markAllAsTouched();
-            this.billingForm.markAllAsTouched();
+
+            if (!this.checked) {
+                this.billingForm.markAllAsTouched();
+            }
+
             return;
         }
 
-        console.log(this.orderForm.value);
-        //TODO
+        /* TODO
+         *
+         * proceed the checkout using
+         * 'this.orderForm.value', 'this.paymentForm.value'
+         * and 'this.billingForm.value'
+         * if needed.
+         *
+         *  */
     }
 }

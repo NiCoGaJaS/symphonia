@@ -10,11 +10,11 @@
     <h2>Lieferadresse</h2>
 
     <form [formGroup]="orderForm" class="order-form-grid">
-        @for (f of addressFields; track f.id) {
+        @for (field of addressFields; track field.id) {
             <app-form-input
                 [form]="orderForm"
-                [field]="f.id"
-                [label]="f.label"
+                [field]="field.id"
+                [label]="field.label"
             />
         }
     </form>
@@ -54,11 +54,11 @@
         @if (!checked) {
             <h2>Rechnungsadresse</h2>
             <form [formGroup]="billingForm" class="order-form-grid">
-                @for (f of addressFields; track f.id) {
+                @for (field of addressFields; track field.id) {
                     <app-form-input
                         [form]="billingForm"
-                        [field]="f.id"
-                        [label]="f.label"
+                        [field]="field.id"
+                        [label]="field.label"
                     />
                 }
             </form>

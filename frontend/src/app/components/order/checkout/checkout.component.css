@@ -18,10 +18,7 @@ h3 {
         --p-checkbox-checked-hover-border-color: var(--primary-blue);
     }
 
-    label {
-        --p-floatlabel-focus-color: var(--primary-blue);
-    }
-
+    --p-floatlabel-focus-color: var(--primary-blue);
     --p-floatlabel-position-x: 0rem;
 }
 
