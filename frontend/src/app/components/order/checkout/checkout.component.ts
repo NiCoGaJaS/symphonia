@@ -101,17 +101,11 @@ export class CheckoutComponent {
             if (!this.checked) {
                 this.billingForm.markAllAsTouched();
             }
-
-            return;
         }
 
-        /* TODO
-         *
-         * proceed the checkout using
+        /* proceed the checkout using data from
          * 'this.orderForm.value', 'this.paymentForm.value'
          * and 'this.billingForm.value'
-         * if needed.
-         *
-         *  */
+         * if needed. */
     }
 }

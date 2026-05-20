@@ -1,18 +1,18 @@
-import { Cart, CartItem } from '@api/cart/cart.store';
-import { Component, Input, computed, inject } from '@angular/core';
+import {
+    CartProduct,
+    CartProductsSignals,
+    createCartProductsSignals,
+} from '@components/order/order-products';
+import { Component, Input, Signal, inject } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { GetProductResponse, Products } from '@api/products/products.api';
+import { Cart } from '@api/cart/cart.store';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Divider } from 'primeng/divider';
 import { FormsModule } from '@angular/forms';
+import { GetProductResponse } from '@api/products/products.api';
 import { InputNumber } from 'primeng/inputnumber';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-
-type CartProduct = GetProductResponse & {
-    quantity: number;
-};
 
 @Component({
     selector: 'app-products-table',
@@ -30,49 +30,19 @@ type CartProduct = GetProductResponse & {
 export class TableComponent {
     @Input() variant: 'cart' | 'checkout' = 'cart';
 
-    private readonly productsApi = inject(Products);
-    private readonly confirmationService = inject(ConfirmationService);
-    private readonly messageService = inject(MessageService);
+    private readonly confirmationService: ConfirmationService =
+        inject(ConfirmationService);
+    private readonly messageService: MessageService = inject(MessageService);
 
-    readonly cart = inject(Cart);
+    readonly cart: Cart = inject(Cart);
 
-    readonly products = toSignal(this.productsApi.search(null), {
-        initialValue: [] as GetProductResponse[],
-    });
+    private readonly cartSignals: CartProductsSignals =
+        createCartProductsSignals(this.cart);
 
-    private readonly productsMap = computed(() => {
-        return new Map(
-            this.products().map(
-                (product: GetProductResponse): [string, GetProductResponse] => [
-                    product.id,
-                    product,
-                ],
-            ),
-        );
-    });
-
-    readonly cartProducts = computed<CartProduct[]>(() =>
-        this.cart
-            .getItems()
-            .map(({ id, quantity }: CartItem) => {
-                const product = this.productsMap().get(id);
-
-                return product
-                    ? {
-                          ...product,
-                          quantity,
-                      }
-                    : null;
-            })
-            .filter((item): item is CartProduct => item !== null),
-    );
-
-    readonly totalPrice = computed(() =>
-        this.cartProducts().reduce(
-            (total, { price, quantity }) => total + price * quantity,
-            0,
-        ),
-    );
+    readonly cartProducts: Signal<CartProduct[]> =
+        this.cartSignals.cartProducts;
+    readonly products: Signal<GetProductResponse[]> = this.cartSignals.products;
+    readonly totalPrice: Signal<number> = this.cartSignals.totalPrice;
 
     confirmDelete(event: Event, productId: string): void {
         this.confirmationService.confirm({
