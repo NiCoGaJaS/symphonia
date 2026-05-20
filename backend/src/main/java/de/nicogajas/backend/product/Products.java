@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Products extends ListCrudRepository<Product, UUID> {
-
+    
     Page<Product> findAll(Pageable pageable);
-
+    
     List<Product> findAllByNameContainsIgnoreCase(String name);
-
+    
 }
