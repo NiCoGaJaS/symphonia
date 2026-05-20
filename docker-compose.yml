@@ -28,6 +28,7 @@ services:
       MINIO_ROOT_PASSWORD: ${MEDIASTORAGE_PASSWORD:?error}
     volumes:
       - mediastorage_data:/mnt/storage
+      - mediastorage_data:/data
       - ./docs/mediastorage/minio.license:/licenses/minio.license:ro
     ports:
       - "9000:9000" # API Port

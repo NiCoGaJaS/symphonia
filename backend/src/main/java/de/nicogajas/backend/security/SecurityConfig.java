@@ -4,6 +4,7 @@ import de.nicogajas.backend.security.authentication.Account;
 import de.nicogajas.backend.security.authentication.Accounts;
 import de.nicogajas.backend.security.authentication.Role;
 
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,12 +20,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import tools.jackson.databind.ObjectMapper;
 
 @Configuration
-public class SecurityConfig implements WebMvcConfigurer {
+public class SecurityConfig {
     
     public record LoginResponse(
             UUID id,
@@ -34,9 +35,9 @@ public class SecurityConfig implements WebMvcConfigurer {
     
     
     @Bean
-    public SecurityFilterChain filter(HttpSecurity http, ObjectMapper json) {
+    public SecurityFilterChain filter(HttpSecurity http, CorsConfigurationSource cors, ObjectMapper json) {
         return http.csrf(CsrfConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(configurer -> configurer.configurationSource(cors))
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(
@@ -54,7 +55,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                             
                             json.writeValue(response.getWriter(), new LoginResponse(account.id(), account.role()));
                         })
-                        .failureHandler((_, response, exception) -> {
+                        .failureHandler((_, response, _) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                         }))
@@ -84,15 +85,18 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
     
     
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry
-                .addMapping("/**")
-                .allowedOrigins("http://localhost:4200")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+    @Bean
+    public CorsConfigurationSource cors() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:4200"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
     
 }
