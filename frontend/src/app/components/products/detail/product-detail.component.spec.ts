@@ -9,6 +9,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { API_ORIGIN } from '@api/api.config';
 import { GetProductDetailResponse } from '@api/products/products.api';
 import { ProductDetailComponent } from './product-detail.component';
 
@@ -34,6 +35,7 @@ describe('ProductDetailComponent', () => {
         await TestBed.configureTestingModule({
             imports: [ProductDetailComponent],
             providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
                 provideHttpClient(withFetch()),
                 provideHttpClientTesting(),
                 provideRouter([]),

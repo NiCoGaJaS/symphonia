@@ -4,6 +4,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { Router, provideRouter } from '@angular/router';
+import { API_ORIGIN } from '@api/api.config';
 import { Login } from '@components/authentication/login/login.component';
 
 describe('Login Component', () => {
@@ -16,7 +17,11 @@ describe('Login Component', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [Login],
-            providers: [provideHttpClientTesting(), provideRouter([])],
+            providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
+                provideHttpClientTesting(),
+                provideRouter([]),
+            ],
         }).compileComponents();
 
         backend = TestBed.inject(HttpTestingController);
