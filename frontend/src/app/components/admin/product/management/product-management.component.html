@@ -23,16 +23,18 @@
 
     <ng-template #header>
         <tr class="columns">
-            <th class="first-header">Produkt</th>
-            <th class="remove-border-left">Kategorie</th>
-            <th class="remove-border-left">Preis</th>
-            <th class="last-header remove-border-left">Aktionen</th>
+            <th id="product" class="first-header">Produkt</th>
+            <th id="category" class="remove-border-left">Kategorie</th>
+            <th id="price" class="remove-border-left">Preis</th>
+            <th id="actions" class="last-header remove-border-left">
+                Aktionen
+            </th>
         </tr>
     </ng-template>
 
     <ng-template #body let-product>
         <tr class="product">
-            <td>
+            <td headers="product">
                 <a
                     class="product-preview"
                     [routerLink]="['/product', product.id]"
@@ -45,17 +47,17 @@
                     {{ product.name }}
                 </a>
             </td>
-            <td class="remove-border-left">
+            <td headers="category" class="remove-border-left">
                 {{ categoryToLabel(product.category) }}
             </td>
-            <td class="remove-border-left">
+            <td headers="price" class="remove-border-left">
                 <app-price-tag
                     class="product-price"
                     [price]="product.price"
                     [noTax]="true"
                 />
             </td>
-            <td class="remove-border-left">
+            <td headers="actions" class="remove-border-left">
                 <div class="product-actions">
                     <a
                         class="product-view"
