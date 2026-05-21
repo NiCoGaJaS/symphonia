@@ -11,5 +11,4 @@ export class CartValidation {
     invalidIds(ids: readonly string[]): Observable<string[]> {
         return this.http.post<string[]>(`${this.base}/api/cart/validate`, ids);
     }
-
 }
