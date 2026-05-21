@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
 import {
     FormBuilder,
     FormGroup,
@@ -32,21 +31,14 @@ export interface Field {
     ],
     templateUrl: './checkout.component.html',
     styleUrl: './checkout.component.css',
-    providers: [ConfirmationService, MessageService],
 })
 export class CheckoutComponent {
     private readonly formBuilder = inject(FormBuilder);
 
     createAddressForm(fb: FormBuilder): FormGroup {
         return fb.group({
-            firstName: [
-                '',
-                [Validators.required, Validators.pattern(orderPatterns.name)],
-            ],
-            lastName: [
-                '',
-                [Validators.required, Validators.pattern(orderPatterns.name)],
-            ],
+            firstName: ['', [Validators.required]],
+            lastName: ['', [Validators.required]],
             street: [
                 '',
                 [Validators.required, Validators.pattern(orderPatterns.street)],
@@ -78,9 +70,13 @@ export class CheckoutComponent {
         { id: 'city', label: 'Stadt' },
     ];
 
-    protected billingForm: FormGroup = this.createAddressForm(this.formBuilder);
-    protected orderForm: FormGroup = this.createAddressForm(this.formBuilder);
-    protected paymentForm = this.formBuilder.group({
+    protected billingAddress: FormGroup = this.createAddressForm(
+        this.formBuilder,
+    );
+    protected orderAddress: FormGroup = this.createAddressForm(
+        this.formBuilder,
+    );
+    protected paymentDetails = this.formBuilder.group({
         sepaAccountHolder: ['', [Validators.required]],
         sepaIban: ['', [Validators.required]],
     });
@@ -88,24 +84,24 @@ export class CheckoutComponent {
     protected checked: boolean = false;
 
     protected onSubmit(): void {
-        const billingInvalid = !this.checked && this.billingForm.invalid;
+        const billingInvalid = !this.checked && this.billingAddress.invalid;
 
         if (
-            this.orderForm.invalid ||
-            this.paymentForm.invalid ||
+            this.orderAddress.invalid ||
+            this.paymentDetails.invalid ||
             billingInvalid
         ) {
-            this.orderForm.markAllAsTouched();
-            this.paymentForm.markAllAsTouched();
+            this.orderAddress.markAllAsTouched();
+            this.paymentDetails.markAllAsTouched();
 
             if (!this.checked) {
-                this.billingForm.markAllAsTouched();
+                this.billingAddress.markAllAsTouched();
             }
         }
 
         /* proceed the checkout using data from
-         * 'this.orderForm.value', 'this.paymentForm.value'
-         * and 'this.billingForm.value'
+         * 'this.orderAddress.value', 'this.paymentDetails.value'
+         * and 'this.billingAddress.value'
          * if needed. */
     }
 }

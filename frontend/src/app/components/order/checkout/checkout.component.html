@@ -9,10 +9,10 @@
 
     <h2>Lieferadresse</h2>
 
-    <form [formGroup]="orderForm" class="order-form-grid">
+    <form [formGroup]="orderAddress" class="order-form-grid">
         @for (field of addressFields; track field.id) {
             <app-form-input
-                [form]="orderForm"
+                [form]="orderAddress"
                 [field]="field.id"
                 [label]="field.label"
             />
@@ -27,17 +27,17 @@
             </div>
         </div>
 
-        <form [formGroup]="paymentForm" class="payment-form">
+        <form [formGroup]="paymentDetails" class="payment-form">
             <app-form-input
-                [form]="paymentForm"
+                [form]="paymentDetails"
                 field="sepaAccountHolder"
                 label="Kontoinhaber"
             />
             <app-form-input
-                [form]="paymentForm"
+                [form]="paymentDetails"
                 field="sepaIban"
                 label="IBAN"
-                inputMask="aa99 9999 9999 9999 9999 9999 999"
+                inputMask="aa99 9999 9999 9999 9999 99"
                 placeholder="DE00 0000 0000 0000 0000 00"
             />
         </form>
@@ -53,10 +53,10 @@
 
         @if (!checked) {
             <h2>Rechnungsadresse</h2>
-            <form [formGroup]="billingForm" class="order-form-grid">
+            <form [formGroup]="billingAddress" class="order-form-grid">
                 @for (field of addressFields; track field.id) {
                     <app-form-input
-                        [form]="billingForm"
+                        [form]="billingAddress"
                         [field]="field.id"
                         [label]="field.label"
                     />

@@ -26,6 +26,7 @@ import { ProductImageComponent } from '@components/products/image/product-image.
     ],
     templateUrl: './table.component.html',
     styleUrl: './table.component.css',
+    providers: [ConfirmationService, MessageService],
 })
 export class TableComponent {
     @Input() variant: 'cart' | 'checkout' = 'cart';

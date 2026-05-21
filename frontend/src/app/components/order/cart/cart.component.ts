@@ -1,4 +1,3 @@
-import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component } from '@angular/core';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +15,5 @@ import { TableComponent } from '@components/order/table/table.component';
         TableComponent,
         SummaryComponent,
     ],
-    providers: [ConfirmationService, MessageService],
 })
 export class CartComponent {}
