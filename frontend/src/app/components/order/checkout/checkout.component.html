@@ -1,0 +1,76 @@
+<div class="wrapper">
+    <h1>Kasse</h1>
+
+    <h2>Ihre Bestellung</h2>
+
+    <app-products-table variant="checkout" />
+
+    <app-products-summary variant="checkout" />
+
+    <h2>Lieferadresse</h2>
+
+    <form [formGroup]="orderAddress" class="order-form-grid">
+        @for (field of addressFields; track field.id) {
+            <app-form-input
+                [form]="orderAddress"
+                [field]="field.id"
+                [label]="field.label"
+            />
+        }
+    </form>
+
+    <h2>Zahlungsart</h2>
+    <div class="payment-methods">
+        <div class="payment-header">
+            <div class="payment-left">
+                <h3>SEPA Lastschrift</h3>
+            </div>
+        </div>
+
+        <form [formGroup]="paymentDetails" class="payment-form">
+            <app-form-input
+                [form]="paymentDetails"
+                field="sepaAccountHolder"
+                label="Kontoinhaber"
+            />
+            <app-form-input
+                [form]="paymentDetails"
+                field="sepaIban"
+                label="IBAN"
+                inputMask="aa99 9999 9999 9999 9999 99"
+                placeholder="DE00 0000 0000 0000 0000 00"
+            />
+        </form>
+
+        <div>
+            <p-checkbox
+                [(ngModel)]="checked"
+                [binary]="true"
+                class="billing-checkbox"
+            />
+            <span>Lieferadresse als Rechnungsadresse verwenden</span>
+        </div>
+
+        @if (!checked) {
+            <h2>Rechnungsadresse</h2>
+            <form [formGroup]="billingAddress" class="order-form-grid">
+                @for (field of addressFields; track field.id) {
+                    <app-form-input
+                        [form]="billingAddress"
+                        [field]="field.id"
+                        [label]="field.label"
+                    />
+                }
+            </form>
+        }
+    </div>
+
+    <div class="required-label">
+        <span class="required">*</span>
+        <span>Pflichtfelder</span>
+    </div>
+
+    <button (click)="onSubmit()" type="submit" class="button-blue full-width">
+        Jetzt bestellen
+    </button>
+</div>

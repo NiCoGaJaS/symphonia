@@ -1,0 +1,41 @@
+<div class="cart-summary" [ngClass]="variant">
+    <p class="text-bold margin-top-0">Zusammenfassung</p>
+
+    <div class="cart-summary-entry">
+        <p>Zwischensumme</p>
+        <app-price-tag
+            [price]="totalPrice()"
+            [alignRight]="true"
+            [noTax]="true"
+        />
+    </div>
+
+    <div class="cart-summary-entry">
+        <p>Versand</p>
+        <p>Kostenlos</p>
+    </div>
+
+    @if (variant === 'cart') {
+        <p-divider />
+    }
+
+    <div class="cart-summary-entry">
+        <p>Gesamtsumme</p>
+        <app-price-tag
+            [price]="totalPrice()"
+            [priceBold]="true"
+            [alignRight]="true"
+        />
+    </div>
+
+    @if (variant === 'cart') {
+        <p-divider />
+        <button
+            routerLink="/checkout"
+            class="button-blue cart-button-submit"
+            type="button"
+        >
+            Zur Kasse
+        </button>
+    }
+</div>
