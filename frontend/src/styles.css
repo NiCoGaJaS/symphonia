@@ -3,9 +3,12 @@
 
 :root {
     --primary-black: #000000;
-    --primary-red: #e11212;
     --primary-green: #68b13b;
+
     --primary-blue: #0989c4;
+    --secondary-blue: #e0f2fe;
+    --background-blue: #edf9fd;
+
     --primary-grey: #f4f4f4;
     --primary-dark-grey: #a4a4a4;
     --primary-red: #d90000;
