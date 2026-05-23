@@ -19,11 +19,34 @@ public record Product(
         String summary,
         String description,
         Category category,
-        @MappedCollection(idColumn = "product_id") ProductImage image
+        @MappedCollection(idColumn = "product_id") Image image
 ) {
-    
+
+    public enum Category {
+        GUITAR,
+        PIANO,
+        DRUMS,
+        VINYL,
+        EXTRA,
+        OTHER
+    }
+
+
+    @Table("product_images")
+    public record Image(
+            @Id UUID id,
+            String url,
+            @Column("alternative_text") String alternativeText
+    ) {
+
+        public Image(String url, String alternativeText) {
+            this(null, url, alternativeText);
+        }
+
+    }
+
     public Product(
-            String name, BigDecimal price, String summary, String description, Category category, ProductImage image
+            String name, BigDecimal price, String summary, String description, Category category, Image image
     ) {
         this(null, null, name, price, summary, description, category, image);
     }

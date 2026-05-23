@@ -39,7 +39,7 @@ public class ProductCatalogTest {
     
     @Test
     void getAllProducts() throws Exception {
-        ProductImage image = new ProductImage(
+        Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                 "Fender Player II Strat RW BCG - Front");
@@ -51,7 +51,7 @@ public class ProductCatalogTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
+                Product.Category.OTHER,
                 image);
         
         when(products.findAll()).thenReturn(List.of(fender));
@@ -78,8 +78,8 @@ public class ProductCatalogTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.GUITAR,
-                new ProductImage(
+                Product.Category.GUITAR,
+                new Product.Image(
                         UUID.randomUUID(),
                         "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                         "Fender Player II Strat RW BCG - Front"));

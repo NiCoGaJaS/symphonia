@@ -1,8 +1,6 @@
 package de.nicogajas.backend.cart;
 
-import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
 import de.nicogajas.backend.security.SecurityConfig;
 import de.nicogajas.backend.security.authentication.Accounts;
@@ -43,7 +41,7 @@ public class CartValidationTest {
     
     @Test
     void returnsInvalidIds() throws Exception {
-        ProductImage image = new ProductImage(
+        Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                 "Fender Player II Strat RW BCG - Front");
@@ -55,7 +53,7 @@ public class CartValidationTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
+                Product.Category.OTHER,
                 image);
         
         Product fenderToo = new Product(
@@ -65,7 +63,7 @@ public class CartValidationTest {
                 new BigDecimal("2.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
+                Product.Category.OTHER,
                 image);
         
         UUID invalidId = UUID.randomUUID();

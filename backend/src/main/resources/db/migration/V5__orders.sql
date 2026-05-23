@@ -53,7 +53,7 @@ CREATE TABLE order_items
 CREATE TABLE order_item_images
 (
     id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    product_id       UUID NOT NULL REFERENCES order_items (id) ON DELETE CASCADE,
+    order_item_id       UUID NOT NULL REFERENCES order_items (id) ON DELETE CASCADE,
     url              TEXT NOT NULL,
     alternative_text TEXT NOT NULL    DEFAULT ''
 );

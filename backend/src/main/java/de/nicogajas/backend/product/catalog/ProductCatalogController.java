@@ -1,7 +1,6 @@
 package de.nicogajas.backend.product.catalog;
 
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
@@ -48,7 +47,7 @@ public class ProductCatalogController {
             String alternativeText
     ) {
         
-        public static ProductImageResponse fromProductImage(ProductImage image) {
+        public static ProductImageResponse fromProductImage(Product.Image image) {
             return new ProductImageResponse(image.id(), image.url(), image.alternativeText());
         }
         

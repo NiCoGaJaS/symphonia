@@ -39,7 +39,7 @@ public class ProductDetailTest {
     
     @Test
     void getProductById() throws Exception {
-        ProductImage image = new ProductImage(
+        Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
                 "Fender Player II Strat RW BCG - Front");
@@ -51,7 +51,7 @@ public class ProductDetailTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
+                Product.Category.OTHER,
                 image);
         
         when(products.findById(fender.id())).thenReturn(Optional.of(fender));
