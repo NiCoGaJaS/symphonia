@@ -1,2 +1,5 @@
+CREATE DOMAIN category AS TEXT
+    CHECK (VALUE IN ('GUITAR', 'PIANO', 'DRUMS', 'VINYL', 'EXTRA', 'OTHER'));
+
 ALTER TABLE products
-ADD column category TEXT NOT NULL DEFAULT 'OTHER';
+    ADD column category CATEGORY NOT NULL DEFAULT 'OTHER';
