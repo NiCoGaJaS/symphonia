@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import { Authentication } from '@api/authentication/authentication.api';
+import { Router } from '@angular/router';
 import { User } from '@api/authentication/user.store';
 import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
-    imports: [RouterLink],
     templateUrl: './profile.component.html',
 })
 export class Profile {

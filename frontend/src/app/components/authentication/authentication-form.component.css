@@ -42,7 +42,7 @@
     font-weight: bold;
 }
 
-.login-form {
+.authentication-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -62,7 +62,7 @@
     width: 100%;
 }
 
-.login-button {
+.primary-button {
     border: 0;
     border-radius: 8px;
     width: 100%;
@@ -72,20 +72,26 @@
     cursor: pointer;
 }
 
-.login-button:disabled {
+.primary-button:disabled {
     background: var(--primary-dark-grey);
     cursor: not-allowed;
 }
 
-.register-button {
-    border: 2px solid var(--primary-blue);
-    border-radius: 8px;
+.secondary-action {
+    display: block;
     width: 100%;
-    font-size: larger;
+    padding: 0.5rem;
+
     background: var(--primary-white);
     color: var(--primary-blue);
-    padding: 0.5rem;
+
+    font-size: larger;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
+
+    border: 2px solid var(--primary-blue);
+    border-radius: 8px;
 }
 
 @media (max-width: 768px) {

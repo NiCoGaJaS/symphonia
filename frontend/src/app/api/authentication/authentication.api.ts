@@ -35,9 +35,25 @@ export class Authentication {
 
         return this.http.post<void>(url, {}, options);
     }
+
+    register(email: string, password: string): Observable<RegisterResponse> {
+        const url = `${this.base}/register`;
+
+        const body = {
+            email: email,
+            password: password,
+        };
+
+        return this.http.post<RegisterResponse>(url, body);
+    }
 }
 
 export interface LoginResponse {
+    id: string;
+    role: Role;
+}
+
+export interface RegisterResponse {
     id: string;
     role: Role;
 }

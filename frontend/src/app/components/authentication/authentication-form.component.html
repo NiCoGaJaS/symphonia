@@ -1,0 +1,84 @@
+<div class="form-background">
+    <section class="form">
+        <div class="form-info">
+            <p-avatar
+                class="user-icon"
+                icon="pi pi-user"
+                shape="circle"
+                size="xlarge"
+            />
+
+            <div class="form-introduction">
+                <div class="form-title">{{ title }}</div>
+                <div class="form-description">{{ description }}</div>
+            </div>
+        </div>
+
+        <form
+            class="authentication-form"
+            [formGroup]="form"
+            (submit)="onSubmit()"
+        >
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-envelope"></i>
+                </p-inputgroup-addon>
+
+                <p-floatlabel>
+                    <input
+                        pInputText
+                        id="email"
+                        formControlName="email"
+                        placeholder="max@mustermann.de"
+                        required
+                    />
+                    <label for="email">E-Mail-Adresse</label>
+                </p-floatlabel>
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-lock"></i>
+                </p-inputgroup-addon>
+
+                <p-floatlabel>
+                    <p-password
+                        id="password"
+                        formControlName="password"
+                        feedback="false"
+                        placeholder="******"
+                        toggleMask="true"
+                        autocomplete="off"
+                        required
+                    />
+                    <label for="password">Passwort</label>
+                </p-floatlabel>
+            </p-inputgroup>
+
+            @if (form.touched && form.invalid) {
+                <div class="form-validation">
+                    E-Mail-Adresse oder Passwort ungültig.
+                </div>
+            }
+
+            <div class="form-actions">
+                <button
+                    class="button-blue primary-button"
+                    type="submit"
+                    [disabled]="(form.touched && form.invalid) || isSubmitting"
+                >
+                    {{ primary }}
+                </button>
+
+                <p-divider align="center">
+                    <b>oder</b>
+                </p-divider>
+
+                <a class="secondary-action" [routerLink]="[secondaryLink]">
+                    <i class="pi pi-user-plus"></i>
+                    {{ secondary }}
+                </a>
+            </div>
+        </form>
+    </section>
+</div>
