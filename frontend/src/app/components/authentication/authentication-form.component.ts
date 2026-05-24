@@ -46,6 +46,7 @@ export class AuthenticationForm {
 
     @Input({ required: true }) primary = '';
     @Input({ required: true }) secondary = '';
+    @Input({ required: true }) secondaryIcon = '';
     @Input({ required: true }) secondaryLink = '';
 
     protected form: AuthenticationFormProperties = inject(FormBuilder).group({
