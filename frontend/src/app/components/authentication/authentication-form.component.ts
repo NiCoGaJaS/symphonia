@@ -17,8 +17,8 @@ import { Password } from 'primeng/password';
 import { RouterLink } from '@angular/router';
 
 export type AuthenticationFormProperties = FormGroup<{
-    email: FormControl<string | null>;
-    password: FormControl<string | null>;
+    email: FormControl<string>;
+    password: FormControl<string>;
 }>;
 
 @Component({
@@ -49,7 +49,9 @@ export class AuthenticationForm {
     @Input({ required: true }) secondaryIcon = '';
     @Input({ required: true }) secondaryLink = '';
 
-    protected form: AuthenticationFormProperties = inject(FormBuilder).group({
+    protected form: AuthenticationFormProperties = inject(
+        FormBuilder,
+    ).nonNullable.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required]],
     });

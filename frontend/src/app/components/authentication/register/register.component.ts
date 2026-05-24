@@ -26,11 +26,15 @@ export class Register {
     protected isRegistering = false;
 
     onRegister(form: AuthenticationFormProperties): void {
-        this.isRegistering = true;
         const { email, password } = form.value;
 
+        if (!email || !password) {
+            return;
+        }
+        this.isRegistering = true;
+
         this.authentication
-            .register(email!, password!)
+            .register(email, password)
             .pipe(finalize(() => (this.isRegistering = false)))
             .subscribe({
                 next: (response: RegisterResponse) => {

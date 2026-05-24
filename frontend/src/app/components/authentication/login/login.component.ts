@@ -26,11 +26,15 @@ export class Login {
     protected isLoggingIn = false;
 
     onLogin(form: AuthenticationFormProperties): void {
-        this.isLoggingIn = true;
         const { email, password } = form.value;
 
+        if (!email || !password) {
+            return;
+        }
+        this.isLoggingIn = true;
+
         this.authentication
-            .login(email!, password!)
+            .login(email, password)
             .pipe(finalize(() => (this.isLoggingIn = false)))
             .subscribe({
                 next: (response: LoginResponse) => {
