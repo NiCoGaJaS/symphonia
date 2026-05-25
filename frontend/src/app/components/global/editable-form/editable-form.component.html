@@ -1,0 +1,29 @@
+<form class="editable-form" [formGroup]="form" (submit)="onSubmit()">
+    <header class="editable-form-header">
+        <p class="editable-form-title">{{ title }}</p>
+
+        <div class="editable-form-actions">
+            @if (!editing) {
+                <button type="button" (click)="onEdit()">
+                    <i class="pi pi-pencil"></i>
+                </button>
+            } @else {
+                <button type="button" (click)="onClearAndSubmit()">
+                    <i class="pi pi-trash"></i>
+                </button>
+
+                <button type="submit" [disabled]="form.touched && form.invalid">
+                    <i class="pi pi-check"></i>
+                </button>
+
+                <button type="button" (click)="onCancel()">
+                    <i class="pi pi-times-circle"></i>
+                </button>
+            }
+        </div>
+    </header>
+
+    <section class="editable-form-inputs">
+        <ng-content></ng-content>
+    </section>
+</form>

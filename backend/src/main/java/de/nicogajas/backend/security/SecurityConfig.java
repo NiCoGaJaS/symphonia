@@ -47,8 +47,8 @@ public class SecurityConfig {
                 .logout(this::logout)
                 .build();
     }
-    
-    
+
+
     private void cors(CorsConfigurer<HttpSecurity> configurer) {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://localhost:4200"));
@@ -56,40 +56,41 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        
+
         configurer.configurationSource(source);
     }
-    
-    
+
+
     private void authorization(
             AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
     ) {
         auth.requestMatchers("/api/admin/**").hasRole(Account.Role.ADMIN.name())
+                .requestMatchers("/api/settings/**").authenticated()
                 .anyRequest().permitAll();
     }
-    
-    
+
+
     private void exceptions(ExceptionHandlingConfigurer<HttpSecurity> exceptions) {
         exceptions.authenticationEntryPoint((_, response, _) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 .accessDeniedHandler((_, response, _) -> response.sendError(HttpServletResponse.SC_FORBIDDEN));
     }
-    
-    
+
+
     private void login(FormLoginConfigurer<HttpSecurity> form, ObjectMapper json) {
         form.loginProcessingUrl("/auth/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler((_, response, authentication) -> {
                     Account account = Account.fromAuthentication(authentication);
-                    
+
                     if (account == null) {
                         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                         return;
                     }
-                    
+
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                     
@@ -100,8 +101,8 @@ public class SecurityConfig {
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                 });
     }
-    
-    
+
+
     private void logout(LogoutConfigurer<HttpSecurity> logout) {
         logout.logoutUrl("/auth/logout")
                 .deleteCookies("JSESSIONID")
@@ -125,5 +126,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
 }

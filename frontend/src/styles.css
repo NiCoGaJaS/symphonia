@@ -31,6 +31,7 @@ body {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    --p-floatlabel-focus-color: var(--primary-blue);
 }
 
 @media (max-width: 768px) {

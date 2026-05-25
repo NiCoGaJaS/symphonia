@@ -1,9 +1,69 @@
-<button type="button" (click)="onLogout()" [disabled]="isLoggingOut">
-    @if (isLoggingOut) {
-        Wird abgemeldet...
-    } @else {
-        Ausloggen
-    }
-</button>
+<div class="profile">
+    <section class="header">
+        <p class="title">Mein Profil</p>
+        <button class="logout" type="button" (click)="onLogout()" [disabled]="isLoggingOut">
+            @if (isLoggingOut) {
+                Wird abgemeldet...
+            } @else {
+                Ausloggen
+            }
+        </button>
+    </section>
+
+    <section class="general">
+        <app-editable-form #nameForm title="Persönliche Daten" [form]="name" [formGroup]="name" (submitted)="onNameSave()" (clearAndSubmit)="onNameClear()">
+            <p-floatlabel>
+                <input
+                    pInputText
+                    id="first_name"
+                    formControlName="firstName"
+                    placeholder="Max"
+                    required
+                />
+                <label for="first_name">Vorname</label>
+            </p-floatlabel>
+
+            <p-floatlabel>
+                <input
+                    pInputText
+                    id="last_name"
+                    formControlName="lastName"
+                    placeholder="Mustermann"
+                    required
+                />
+                <label for="last_name">Nachname</label>
+            </p-floatlabel>
+        </app-editable-form>
+
+        <app-editable-form #paymentForm title="Zahlungsart" [form]="payment" [formGroup]="payment" (submitted)="onPaymentSave()" (clearAndSubmit)="onPaymentClear()">
+            <p-floatlabel>
+                <input
+                    pInputText
+                    id="account_holder"
+                    formControlName="holder"
+                    placeholder="Max Mustermann"
+                    required
+                />
+                <label for="account_holder">Kontoinhaber</label>
+            </p-floatlabel>
+
+            <p-floatlabel>
+                <input
+                    pInputText
+                    id="iban"
+                    formControlName="iban"
+                    placeholder="DE00 0000 0000 0000 0000 00"
+                    required
+                />
+                <label for="iban">IBAN</label>
+            </p-floatlabel>
+        </app-editable-form>
+    </section>
+
+    <div class="addresses">
+        <app-address-form title="Liefer&shy;adresse" [current]="shipping" [save]="saveShipping"></app-address-form>
+        <app-address-form title="Rechnungs&shy;adresse" [current]="billing" [save]="saveBilling"></app-address-form>
+    </div>
+</div>
 
 <a [routerLink]="['/admin', 'products']">Produkte verwalten</a>
