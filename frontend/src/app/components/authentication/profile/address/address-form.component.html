@@ -1,4 +1,12 @@
-<app-editable-form #formView class="form" [title]="title" [form]="form" [formGroup]="form" (submitted)="onAddressSave()" (clearAndSubmit)="onAddressClear()">
+<app-editable-form
+    #formView
+    class="form"
+    [title]="title"
+    [form]="form"
+    [formGroup]="form"
+    (submitted)="onAddressSave()"
+    (clearAndSubmit)="onAddressClear()"
+>
     <p-floatlabel>
         <input
             pInputText
@@ -64,5 +72,4 @@
         />
         <label for="city">Stadt</label>
     </p-floatlabel>
-
 </app-editable-form>

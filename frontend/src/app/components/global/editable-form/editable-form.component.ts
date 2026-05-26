@@ -1,8 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-    FormGroup,
-    ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-editable-form',
@@ -45,7 +42,7 @@ export class EditableForm implements OnInit {
         this.submitted.emit();
 
         this.editing = false;
-        this.form.disable({emitEvent: false});
+        this.form.disable({ emitEvent: false });
     }
 
     protected onClearAndSubmit(): void {

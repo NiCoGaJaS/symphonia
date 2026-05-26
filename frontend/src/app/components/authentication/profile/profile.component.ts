@@ -19,7 +19,7 @@ import { User } from '@api/authentication/user.store';
         InputText,
         ReactiveFormsModule,
         EditableForm,
-        RouterLink
+        RouterLink,
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -157,9 +157,9 @@ export class Profile implements OnInit {
 
     saveShipping = (address: Address | null): Observable<void> => {
         return this.settings.shipping(address);
-    }
+    };
 
     saveBilling = (address: Address | null): Observable<void> => {
         return this.settings.billing(address);
-    }
+    };
 }

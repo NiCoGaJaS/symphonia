@@ -1,7 +1,12 @@
 <div class="profile">
     <section class="header">
         <p class="title">Mein Profil</p>
-        <button class="logout" type="button" (click)="onLogout()" [disabled]="isLoggingOut">
+        <button
+            class="logout"
+            type="button"
+            (click)="onLogout()"
+            [disabled]="isLoggingOut"
+        >
             @if (isLoggingOut) {
                 Wird abgemeldet...
             } @else {
@@ -11,7 +16,14 @@
     </section>
 
     <section class="general">
-        <app-editable-form #nameForm title="Persönliche Daten" [form]="name" [formGroup]="name" (submitted)="onNameSave()" (clearAndSubmit)="onNameClear()">
+        <app-editable-form
+            #nameForm
+            title="Persönliche Daten"
+            [form]="name"
+            [formGroup]="name"
+            (submitted)="onNameSave()"
+            (clearAndSubmit)="onNameClear()"
+        >
             <p-floatlabel>
                 <input
                     pInputText
@@ -35,7 +47,14 @@
             </p-floatlabel>
         </app-editable-form>
 
-        <app-editable-form #paymentForm title="Zahlungsart" [form]="payment" [formGroup]="payment" (submitted)="onPaymentSave()" (clearAndSubmit)="onPaymentClear()">
+        <app-editable-form
+            #paymentForm
+            title="Zahlungsart"
+            [form]="payment"
+            [formGroup]="payment"
+            (submitted)="onPaymentSave()"
+            (clearAndSubmit)="onPaymentClear()"
+        >
             <p-floatlabel>
                 <input
                     pInputText
@@ -61,8 +80,16 @@
     </section>
 
     <div class="addresses">
-        <app-address-form title="Liefer&shy;adresse" [current]="shipping" [save]="saveShipping"></app-address-form>
-        <app-address-form title="Rechnungs&shy;adresse" [current]="billing" [save]="saveBilling"></app-address-form>
+        <app-address-form
+            title="Liefer&shy;adresse"
+            [current]="shipping"
+            [save]="saveShipping"
+        ></app-address-form>
+        <app-address-form
+            title="Rechnungs&shy;adresse"
+            [current]="billing"
+            [save]="saveBilling"
+        ></app-address-form>
     </div>
 </div>
 

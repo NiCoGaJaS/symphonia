@@ -69,18 +69,18 @@ export interface GetSettingsResponse {
     first_name: string | null;
     last_name: string | null;
     payment: {
-        holder: string,
-        iban: string
+        holder: string;
+        iban: string;
     } | null;
     shipping: Address | null;
     billing: Address | null;
 }
 
 export interface Address {
-    first_name: string,
-    last_name: string,
-    city: string,
-    postal_code: string,
-    street: string,
-    house_number: string
+    first_name: string;
+    last_name: string;
+    city: string;
+    postal_code: string;
+    street: string;
+    house_number: string;
 }
