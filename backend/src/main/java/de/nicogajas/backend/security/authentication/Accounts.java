@@ -13,7 +13,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
     
     Optional<Account> findByEmail(String email);
     boolean existsByEmail(String email);
-
+    
     @Modifying
     @Query("""
            UPDATE accounts
@@ -22,7 +22,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
            WHERE id = :id
            """)
     void setName(UUID id, String firstName, String lastName);
-
+    
     @Modifying
     @Query("""
            UPDATE accounts
@@ -31,7 +31,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
            WHERE id = :id
            """)
     void setPayment(UUID id, String holder, String iban);
-
+    
     @Modifying
     @Query("""
            UPDATE accounts
@@ -52,7 +52,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
             String street,
             String houseNumber
     );
-
+    
     @Modifying
     @Query("""
            UPDATE accounts
@@ -73,5 +73,5 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
             String street,
             String houseNumber
     );
-
+    
 }
