@@ -1,15 +1,24 @@
 import { Address, Settings } from '@api/settings/settings.api';
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    OnInit,
+    PLATFORM_ID,
+    ViewChild,
+    inject,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, finalize } from 'rxjs';
-import { Router, RouterLink } from '@angular/router';
 import { AddressForm } from '@components/authentication/profile/address/address-form.component';
 import { Authentication } from '@api/authentication/authentication.api';
 import { EditableForm } from '@components/global/editable-form/editable-form.component';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
+import { PAYMENT_PATTERNS } from '@components/global/form.patterns';
+import { Router } from '@angular/router';
 import { User } from '@api/authentication/user.store';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'app-profile',
@@ -19,12 +28,14 @@ import { User } from '@api/authentication/user.store';
         InputText,
         ReactiveFormsModule,
         EditableForm,
-        RouterLink,
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
 })
 export class Profile implements OnInit {
+    private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+    private readonly cdr = inject(ChangeDetectorRef);
+
     private readonly user = inject(User);
     private readonly authentication = inject(Authentication);
     protected readonly settings = inject(Settings);
@@ -43,29 +54,56 @@ export class Profile implements OnInit {
         lastName: ['', [Validators.required]],
     });
 
+    protected nameLabels: Record<string, string> = {
+        firstName: 'Vorname',
+        lastName: 'Nachname',
+    };
+
+    protected namePrefixes: Record<string, string> = {
+        firstName: 'Der',
+        lastName: 'Der',
+    };
+
     protected payment = this.fb.group({
         holder: ['', [Validators.required]],
-        iban: ['', Validators.required],
+        iban: [
+            '',
+            [Validators.required, Validators.pattern(PAYMENT_PATTERNS.iban)],
+        ],
     });
+
+    protected paymentLabels: Record<string, string> = {
+        holder: 'Kontoinhaber',
+        iban: 'IBAN',
+    };
+
+    protected paymentPrefixes: Record<string, string> = {
+        holder: 'Der',
+        iban: 'Die',
+    };
 
     protected shipping: Address | null = null;
     protected billing: Address | null = null;
 
     ngOnInit(): void {
-        this.settings.get().subscribe((response) => {
-            this.name.patchValue({
-                firstName: response.first_name ?? '',
-                lastName: response.last_name ?? '',
-            });
+        if (this.isBrowser) {
+            this.settings.get().subscribe((response) => {
+                this.name.patchValue({
+                    firstName: response.first_name ?? '',
+                    lastName: response.last_name ?? '',
+                });
 
-            this.payment.patchValue({
-                holder: response.payment?.holder ?? '',
-                iban: response.payment?.iban ?? '',
-            });
+                this.payment.patchValue({
+                    holder: response.payment?.holder ?? '',
+                    iban: response.payment?.iban ?? '',
+                });
 
-            this.shipping = response.shipping;
-            this.billing = response.billing;
-        });
+                this.shipping = response.shipping;
+                this.billing = response.billing;
+
+                this.cdr.markForCheck();
+            });
+        }
     }
 
     onLogout(): void {

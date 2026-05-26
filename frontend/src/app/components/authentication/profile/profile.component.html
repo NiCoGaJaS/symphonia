@@ -21,6 +21,8 @@
             title="Persönliche Daten"
             [form]="name"
             [formGroup]="name"
+            [labels]="nameLabels"
+            [prefixes]="namePrefixes"
             (submitted)="onNameSave()"
             (clearAndSubmit)="onNameClear()"
         >
@@ -52,6 +54,8 @@
             title="Zahlungsart"
             [form]="payment"
             [formGroup]="payment"
+            [labels]="paymentLabels"
+            [prefixes]="paymentPrefixes"
             (submitted)="onPaymentSave()"
             (clearAndSubmit)="onPaymentClear()"
         >
@@ -92,5 +96,3 @@
         ></app-address-form>
     </div>
 </div>
-
-<a [routerLink]="['/admin', 'products']">Produkte verwalten</a>

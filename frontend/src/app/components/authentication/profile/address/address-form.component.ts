@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ADDRESS_PATTERNS } from '@components/global/form.patterns';
 import { Address } from '@api/settings/settings.api';
 import { EditableForm } from '@components/global/editable-form/editable-form.component';
 import { FloatLabel } from 'primeng/floatlabel';
@@ -26,11 +27,44 @@ export class AddressForm {
     protected form = inject(FormBuilder).nonNullable.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        city: ['', [Validators.required]],
+        street: [
+            '',
+            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.street)],
+        ],
+        houseNumber: [
+            '',
+            [
+                Validators.required,
+                Validators.pattern(ADDRESS_PATTERNS.house_number),
+            ],
+        ],
+        postalCode: [
+            '',
+            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.zipcode)],
+        ],
+        city: [
+            '',
+            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.city)],
+        ],
     });
+
+    protected labels: Record<string, string> = {
+        firstName: 'Vorname',
+        lastName: 'Nachname',
+        street: 'Straße',
+        houseNumber: 'Hausnummer',
+        postalCode: 'Postleitzahl',
+        city: 'Stadt',
+    };
+
+    protected prefixes: Record<string, string> = {
+        firstName: 'Der',
+        lastName: 'Der',
+        street: 'Die',
+        houseNumber: 'Die',
+        postalCode: 'Die',
+        city: 'Die',
+    };
 
     private _current: Address | null = null;
 
@@ -59,8 +93,8 @@ export class AddressForm {
             next: () => {
                 this.messages.add({
                     severity: 'info',
-                    summary: 'Name gespeichert',
-                    detail: 'Dein Name wurde erfolgreich aktualisiert.',
+                    summary: 'Adresse gespeichert',
+                    detail: 'Deine Adresse wurde erfolgreich aktualisiert.',
                 });
             },
             error: () => {
@@ -68,7 +102,7 @@ export class AddressForm {
                 this.messages.add({
                     severity: 'error',
                     summary: 'Speichern fehlgeschlagen',
-                    detail: 'Dein Name konnte nicht gespeichert werden. Bitte versuche es später erneut.',
+                    detail: 'Deine Adresse konnte nicht gespeichert werden. Bitte versuche es später erneut.',
                 });
             },
         });

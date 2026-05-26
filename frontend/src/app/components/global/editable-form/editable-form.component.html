@@ -26,4 +26,14 @@
     <section class="editable-form-inputs">
         <ng-content></ng-content>
     </section>
+
+    @if (editing && form.touched && form.invalid) {
+        <section class="editable-form-validation">
+            <ul class="editable-form-error-list">
+                @for (error of errors; track error) {
+                    <li>{{ error }}</li>
+                }
+            </ul>
+        </section>
+    }
 </form>

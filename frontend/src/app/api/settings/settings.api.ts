@@ -1,11 +1,12 @@
 import { Injectable, inject } from '@angular/core';
+import { API_ORIGIN } from '@api/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Settings {
     private readonly http = inject(HttpClient);
-    private readonly base = 'http://localhost:8080/api/settings';
+    private readonly base = `${inject(API_ORIGIN)}/api/settings`;
 
     get(): Observable<GetSettingsResponse> {
         const url = `${this.base}`;

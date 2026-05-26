@@ -44,6 +44,19 @@
     border: 1px solid var(--primary-grey);
 }
 
+.navbar-admin-view {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+
+    color: var(--primary-white);
+    text-decoration: none;
+    border: 2px solid var(--primary-white);
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
 .desktop-search-bar {
     display: block;
 }

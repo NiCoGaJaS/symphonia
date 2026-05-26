@@ -11,7 +11,6 @@ import { PageResponse } from '@app/api/paging.models';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
 import { RouterLink } from '@angular/router';
-import { Toast } from 'primeng/toast';
 
 @Component({
     selector: 'app-product-management',
@@ -21,7 +20,6 @@ import { Toast } from 'primeng/toast';
         RouterLink,
         PriceTagComponent,
         ConfirmDialogModule,
-        Toast,
     ],
     templateUrl: './product-management.component.html',
     styleUrl: './product-management.component.css',

@@ -39,6 +39,13 @@
         <a routerLink="/profile">
             <i class="pi pi-user"></i>
         </a>
+
+        @if (user.isAdmin()) {
+            <a class="navbar-admin-view" [routerLink]="['/admin', 'products']">
+                <i class="pi pi-cog"></i>
+                Admin Ansicht
+            </a>
+        }
     </div>
 </div>
 
