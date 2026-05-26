@@ -6,8 +6,8 @@ import { finalize } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
-    imports: [RouterLink],
     templateUrl: './profile.component.html',
+    imports: [RouterLink],
 })
 export class Profile {
     private readonly user = inject(User);

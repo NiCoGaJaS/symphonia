@@ -1,0 +1,11 @@
+<app-authentication-form
+    title="Herzlich Willkommen!"
+    description="Erstelle ein Kundenkonto"
+    primary="Konto erstellen"
+    secondary="Einloggen"
+    secondaryIcon="pi-sign-in"
+    secondaryLink="/login"
+    [isSubmitting]="isRegistering"
+    (submitted)="onRegister($event)"
+>
+</app-authentication-form>

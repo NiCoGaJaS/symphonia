@@ -13,6 +13,7 @@ import { ProductCatalog } from '@components/products/catalog/product-catalog.com
 import { ProductDetailComponent } from '@components/products/detail/product-detail.component';
 import { ProductManagement } from '@components/admin/product/management/product-management.component';
 import { Profile } from '@components/authentication/profile/profile.component';
+import { Register } from '@components/authentication/register/register.component';
 import { User } from '@api/authentication/user.store';
 import { isPlatformServer } from '@angular/common';
 
@@ -77,6 +78,11 @@ export const routes: Routes = [
     {
         path: 'product/:id',
         component: ProductDetailComponent,
+    },
+    {
+        path: 'register',
+        component: Register,
+        canActivate: [isLoggedOut],
     },
     {
         path: 'login',
