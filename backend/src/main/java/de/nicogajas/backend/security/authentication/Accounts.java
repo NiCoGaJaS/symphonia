@@ -16,20 +16,20 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
 
     @Modifying
     @Query("""
-            UPDATE accounts
-            SET first_name = :firstName,
-                last_name = :lastName
-            WHERE id = :id
-            """)
+           UPDATE accounts
+           SET first_name = :firstName,
+               last_name = :lastName
+           WHERE id = :id
+           """)
     void setName(UUID id, String firstName, String lastName);
 
     @Modifying
     @Query("""
-            UPDATE accounts
-            SET payment_holder = :holder,
-                payment_iban = :iban
-            WHERE id = :id
-            """)
+           UPDATE accounts
+           SET payment_holder = :holder,
+               payment_iban = :iban
+           WHERE id = :id
+           """)
     void setPayment(UUID id, String holder, String iban);
 
     @Modifying
@@ -73,6 +73,5 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
             String street,
             String houseNumber
     );
-
 
 }

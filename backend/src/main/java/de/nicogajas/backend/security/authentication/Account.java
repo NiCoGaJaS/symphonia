@@ -37,7 +37,6 @@ public record Account(
     }
 
 
-
     public Account(String email, String password, Role role) {
         this(null, null, email, password, role, null, null, null, null, null);
     }
@@ -60,7 +59,7 @@ public record Account(
         return password;
     }
     
-    
+
     public static @Nullable Account fromAuthentication(@Nullable Authentication authentication) {
         if (authentication == null) {
             return null;

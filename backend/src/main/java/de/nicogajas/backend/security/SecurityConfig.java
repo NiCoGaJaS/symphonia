@@ -93,7 +93,7 @@ public class SecurityConfig {
 
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                    
+
                     json.writeValue(response.getWriter(), new LoginResponse(account.id(), account.role()));
                 })
                 .failureHandler((_, response, _) -> {
