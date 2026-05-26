@@ -22,7 +22,7 @@ export class AddressForm {
         address: Address | null,
     ) => Observable<void>;
 
-    @ViewChild('formView') private formView?: EditableForm;
+    @ViewChild('formView') private readonly formView?: EditableForm;
 
     protected form = inject(FormBuilder).nonNullable.group({
         firstName: ['', [Validators.required]],

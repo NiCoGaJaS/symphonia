@@ -44,8 +44,8 @@ export class Profile implements OnInit {
     private readonly messages = inject(MessageService);
     private readonly fb = inject(FormBuilder);
 
-    @ViewChild('nameForm') private nameForm?: EditableForm;
-    @ViewChild('paymentForm') private paymentForm?: EditableForm;
+    @ViewChild('nameForm') private readonly nameForm?: EditableForm;
+    @ViewChild('paymentForm') private readonly paymentForm?: EditableForm;
 
     protected isLoggingOut = false;
 

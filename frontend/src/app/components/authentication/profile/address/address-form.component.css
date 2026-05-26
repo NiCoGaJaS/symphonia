@@ -20,6 +20,3 @@
 input:disabled::placeholder {
     color: transparent;
 }
-
-@media (max-width: 768px) {
-}
