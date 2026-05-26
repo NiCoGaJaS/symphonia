@@ -51,6 +51,10 @@ body {
     }
 }
 
+.p-paginator-page {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .color-blue {
     color: var(--primary-blue);
 }
