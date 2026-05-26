@@ -3,13 +3,19 @@
 
 :root {
     --primary-black: #000000;
-    --primary-blue: #0989c4;
     --primary-green: #68b13b;
+
+    --primary-blue: #0989c4;
+    --secondary-blue: #e0f2fe;
+    --background-blue: #edf9fd;
+
     --primary-grey: #f4f4f4;
     --primary-dark-grey: #a4a4a4;
     --primary-red: #d90000;
     --primary-white: #ffffff;
     --menu-hover: #1f1f1f;
+    --border-grey: #c4c4c4;
+    --pagination-grey: #334155;
 }
 
 html {
@@ -45,6 +51,10 @@ body {
     }
 }
 
+.p-paginator-page {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .color-blue {
     color: var(--primary-blue);
 }
@@ -57,6 +67,7 @@ body {
     padding: 0.5rem;
     border-radius: 8px;
     border: 0;
+    cursor: pointer;
 }
 
 .not-found {

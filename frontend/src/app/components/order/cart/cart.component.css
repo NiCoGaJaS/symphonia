@@ -69,6 +69,7 @@
     flex-direction: column;
     width: 22vw;
     min-width: 16rem;
+    height: min-content;
     padding: 1.5rem;
     gap: 1rem;
 }

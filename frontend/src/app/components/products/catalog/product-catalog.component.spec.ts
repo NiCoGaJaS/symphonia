@@ -3,6 +3,7 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { API_ORIGIN } from '@api/api.config';
 import { GetProductResponse } from '@api/products/products.api';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 import { RouterTestingHarness } from '@angular/router/testing';
@@ -16,6 +17,7 @@ describe('Product Catalog Component', () => {
         await TestBed.configureTestingModule({
             imports: [ProductCatalog],
             providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
                 provideHttpClientTesting(),
                 provideRouter(
                     [

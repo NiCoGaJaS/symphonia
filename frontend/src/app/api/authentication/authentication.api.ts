@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { API_ORIGIN } from '@api/api.config';
 import { Observable } from 'rxjs';
 import { Role } from './role.model';
 
 @Injectable({ providedIn: 'root' })
 export class Authentication {
     private readonly http = inject(HttpClient);
-    private readonly base = 'http://localhost:8080/auth';
+    private readonly base = `${inject(API_ORIGIN)}/auth`;
 
     login(email: string, password: string): Observable<LoginResponse> {
         const url = `${this.base}/login`;

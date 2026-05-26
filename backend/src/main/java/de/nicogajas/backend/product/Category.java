@@ -6,5 +6,5 @@ public enum Category {
     DRUMS,
     VINYL,
     EXTRA,
-    OTHER;
+    OTHER
 }

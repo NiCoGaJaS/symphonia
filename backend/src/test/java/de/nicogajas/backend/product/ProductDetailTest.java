@@ -1,6 +1,7 @@
 package de.nicogajas.backend.product;
 
 import de.nicogajas.backend.product.detail.ProductDetailController;
+import de.nicogajas.backend.security.SecurityConfig;
 import de.nicogajas.backend.security.authentication.Accounts;
 
 import java.math.BigDecimal;
@@ -16,14 +17,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(ProductDetailController.class)
+@Import(SecurityConfig.class)
 public class ProductDetailTest {
     
     @Autowired
