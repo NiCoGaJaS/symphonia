@@ -7,8 +7,9 @@
     --p-datatable-header-cell-border-color: var(--border-grey);
     --p-datatable-body-cell-border-color: var(--border-grey);
     --p-datatable-header-lg-padding: 1rem 1rem 1.5rem 1.25rem;
-    --p-paginator-nav-button-selected-background: #edf9fd;
-    --p-paginator-nav-button-selected-color: var(--primary-blue);
+    --p-paginator-nav-button-selected-background: var(--primary-grey);
+    --p-paginator-nav-button-selected-color: var(--pagination-grey);
+    --p-select-focus-border-color: var(--primary-blue);
     --p-select-option-selected-background: var(--background-blue);
     --p-select-option-selected-focus-background: var(--secondary-blue);
     --p-select-option-selected-focus-color: var(--primary-blue);
