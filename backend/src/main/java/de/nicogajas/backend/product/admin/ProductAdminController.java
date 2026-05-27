@@ -1,8 +1,6 @@
 package de.nicogajas.backend.product.admin;
 
-import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
@@ -37,7 +35,7 @@ public class ProductAdminController {
     public record GetProductAdminResponse(
             UUID id,
             String name,
-            Category category,
+            Product.Category category,
             BigDecimal price,
             ProductImageResponse image
     ) {
@@ -59,7 +57,7 @@ public class ProductAdminController {
             String alternativeText
     ) {
         
-        public static ProductImageResponse fromProductImage(ProductImage image) {
+        public static ProductImageResponse fromProductImage(Product.Image image) {
             return new ProductImageResponse(image.id(), image.url(), image.alternativeText());
         }
         
