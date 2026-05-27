@@ -34,8 +34,8 @@ export class NavbarComponent {
     protected cart: Cart = inject(Cart);
     protected showSearch = false;
 
-    private query: string = "";
-    private category: string = "";
+    private query: string = '';
+    private category: string = '';
     private priceMin: number = -1;
     private priceMax: number = -1;
 
@@ -50,13 +50,13 @@ export class NavbarComponent {
         this.showSearch = !this.showSearch;
     }
 
-    onSearch(query: String): void {
+    onSearch(query: string): void {
         this.query = query.trim();
         this.route();
     }
 
     onCategorySelected(category: string): void {
-        this.category = this.category != category ? category : "";
+        this.category = this.category !== category ? category : '';
         this.route();
     }
 
@@ -68,7 +68,7 @@ export class NavbarComponent {
     }
 
     onResetFilters(): void {
-        this.category = "";
+        this.category = '';
         this.priceMin = -1;
         this.priceMax = -1;
     }
@@ -76,10 +76,10 @@ export class NavbarComponent {
     private route(): void {
         this.router.navigate(['/search'], {
             queryParams: {
-                ...(this.query != "" ? {query: this.query} : {}),
-                ...(this.category != "" ? {category: this.category} : {}),
-                ...(this.priceMin != -1 ? {priceMin: this.priceMin} : {}),
-                ...(this.priceMax != -1 ? {priceMax: this.priceMax} : {}),
+                ...(this.query !== '' ? { query: this.query } : {}),
+                ...(this.category !== '' ? { category: this.category } : {}),
+                ...(this.priceMin !== -1 ? { priceMin: this.priceMin } : {}),
+                ...(this.priceMax !== -1 ? { priceMax: this.priceMax } : {}),
             },
         });
     }

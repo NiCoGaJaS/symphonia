@@ -58,10 +58,10 @@ public class ProductCatalogController {
     
     @GetMapping
     public List<GetProductResponse> getProducts(
-        @RequestParam(required = false) Optional<String> query,
-        @RequestParam(required = false) Optional<Category> category,
-        @RequestParam(name = "price_min", required = false) Optional<BigDecimal> priceMin,
-        @RequestParam(name = "price_max", required = false) Optional<BigDecimal> priceMax
+            @RequestParam(required = false) Optional<String> query,
+            @RequestParam(required = false) Optional<Category> category,
+            @RequestParam(name = "price_min", required = false) Optional<BigDecimal> priceMin,
+            @RequestParam(name = "price_max", required = false) Optional<BigDecimal> priceMax
     ) {
         return query.map(this.products::findAllByNameContainsIgnoreCase)
                 .orElseGet(this.products::findAll)

@@ -9,7 +9,8 @@ import { Menubar } from 'primeng/menubar';
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.css',
 })
-export class MenuComponent implements OnInit { @Output()
+export class MenuComponent implements OnInit {
+    @Output()
     categorySelected = new EventEmitter();
     items: MenuItem[] | undefined;
 
@@ -38,7 +39,7 @@ export class MenuComponent implements OnInit { @Output()
             {
                 label: 'Anderes',
                 command: () => this.categorySelected.emit('OTHER'),
-            }
+            },
         ];
     }
 }

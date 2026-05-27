@@ -16,17 +16,25 @@ export class ProductCatalog {
     private readonly products = inject(Products);
 
     protected readonly products$ = this.routes.queryParamMap.pipe(
-         map((params) => {
+        map((params) => {
             const query = params.get('query');
             const category = params.get('category');
             const priceMinStr = params.get('price_min');
             const priceMaxStr = params.get('price_max');
 
-            const toNum = (v: string | null) => v !== null && !Number.isNaN(Number(v)) ? Number(v) : null;
+            const toNum = (v: string | null): number | null =>
+                v !== null && !Number.isNaN(Number(v)) ? Number(v) : null;
 
-            return {query, category, priceMin: toNum(priceMinStr), priceMax: toNum(priceMaxStr)};
+            return {
+                query,
+                category,
+                priceMin: toNum(priceMinStr),
+                priceMax: toNum(priceMaxStr),
+            };
         }),
-        switchMap(({query, category, priceMin, priceMax}) => this.products.search(query, category, priceMin, priceMax)),
+        switchMap(({ query, category, priceMin, priceMax }) =>
+            this.products.search(query, category, priceMin, priceMax),
+        ),
     );
     readonly title = input.required<string>();
 }
