@@ -143,16 +143,16 @@ export class CheckoutComponent {
                     holder: rawPayment.sepaAccountHolder,
                     iban: rawPayment.sepaIban,
                 },
-                billing: !this.checked
-                    ? {
+                billing: this.checked
+                    ? null
+                    : {
                           first_name: rawBilling.firstName,
                           last_name: rawBilling.lastName,
                           city: rawBilling.city,
                           postal_code: rawBilling.zipcode,
                           street: rawBilling.street,
                           house_number: rawBilling.number,
-                      }
-                    : null,
+                      },
             })
             .subscribe({
                 next: () => {
