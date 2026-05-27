@@ -3,7 +3,7 @@
         <img ngSrc="/logo.svg" alt="" height="44" width="102" />
     </a>
 
-    <app-menu class="menu" />
+    <app-menu class="menu" (categorySelected)="onCategorySelected($event)" />
 
     <div class="navbar-buttons">
         @if (showSearch) {

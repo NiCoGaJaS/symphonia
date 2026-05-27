@@ -34,6 +34,9 @@ export class NavbarComponent {
     protected cart: Cart = inject(Cart);
     protected showSearch = false;
 
+    private query: string = "";
+    private category: string = "";
+
     @ViewChild('searchInput')
     set searchInput(input: ElementRef<HTMLInputElement>) {
         if (input) {
@@ -45,12 +48,21 @@ export class NavbarComponent {
         this.showSearch = !this.showSearch;
     }
 
-    onSearch(query: string): void {
-        query = query.trim();
+    onSearch(query: String): void {
+        this.query = query.trim();
+        this.route();
+    }
 
+    onCategorySelected(category: string): void {
+        this.category = this.category != category ? category : "";
+        this.route();
+    }
+
+    private route(): void {
         this.router.navigate(['/search'], {
             queryParams: {
-                query: query,
+                ...(this.query != "" ? {query: this.query} : {}),
+                ...(this.category != "" ? {category: this.category} : {}),
             },
         });
     }
