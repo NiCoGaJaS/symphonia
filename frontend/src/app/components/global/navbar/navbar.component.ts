@@ -76,10 +76,10 @@ export class NavbarComponent {
     private route(): void {
         this.router.navigate(['/search'], {
             queryParams: {
-                ...(this.query !== '' ? { query: this.query } : {}),
-                ...(this.category !== '' ? { category: this.category } : {}),
-                ...(this.priceMin !== -1 ? { priceMin: this.priceMin } : {}),
-                ...(this.priceMax !== -1 ? { priceMax: this.priceMax } : {}),
+                ...(this.query === '' ? {} : { query: this.query }),
+                ...(this.category === '' ? {} : { category: this.category }),
+                ...(this.priceMin === -1 ? {} : { priceMin: this.priceMin }),
+                ...(this.priceMax === -1 ? {} : { priceMax: this.priceMax }),
             },
         });
     }
