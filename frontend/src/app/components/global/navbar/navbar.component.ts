@@ -36,6 +36,8 @@ export class NavbarComponent {
 
     private query: string = "";
     private category: string = "";
+    private priceMin: number = -1;
+    private priceMax: number = -1;
 
     @ViewChild('searchInput')
     set searchInput(input: ElementRef<HTMLInputElement>) {
@@ -58,11 +60,26 @@ export class NavbarComponent {
         this.route();
     }
 
+    onApplyFilters(category: string, priceMin: number, priceMax: number): void {
+        this.category = category;
+        this.priceMin = priceMin;
+        this.priceMax = priceMax;
+        this.route();
+    }
+
+    onResetFilters(): void {
+        this.category = "";
+        this.priceMin = -1;
+        this.priceMax = -1;
+    }
+
     private route(): void {
         this.router.navigate(['/search'], {
             queryParams: {
                 ...(this.query != "" ? {query: this.query} : {}),
                 ...(this.category != "" ? {category: this.category} : {}),
+                ...(this.priceMin != -1 ? {priceMin: this.priceMin} : {}),
+                ...(this.priceMax != -1 ? {priceMax: this.priceMax} : {}),
             },
         });
     }
