@@ -2,7 +2,7 @@ CREATE TABLE orders
 (
     id                     UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
     created_at             TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    customer_id            UUID REFERENCES accounts (id) ON DELETE CASCADE,
+    customer_id            UUID REFERENCES accounts (id) ON DELETE SET NULL,
 
     shipping_first_name    TEXT        NOT NULL,
     shipping_last_name     TEXT        NOT NULL,

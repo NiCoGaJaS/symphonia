@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
@@ -20,9 +21,9 @@ import org.springframework.data.relational.core.mapping.Table;
 public record Order(
         @Id UUID id,
         @ReadOnlyProperty @Column("created_at") Instant createdAt,
-        @Column("customer_id") AggregateReference<Account, UUID> customer,
+        @Nullable @Column("customer_id") AggregateReference<Account, UUID> customer,
         @Embedded.Empty(prefix = "shipping_") Address shipping,
-        @Embedded.Empty(prefix = "payment") PaymentDetails payment,
+        @Embedded.Empty(prefix = "payment_") PaymentDetails payment,
         @Embedded.Nullable(prefix = "billing_") Address billing,
         @MappedCollection(idColumn = "order_id") Set<Item> products
 ) {
@@ -57,8 +58,30 @@ public record Order(
                 @Id UUID id,
                 String url,
                 @Column("alternative_text") String alternativeText
-        ) {}
+        ) {
+            
+            public Image(String url, String alternativeText) {
+                this(null, url, alternativeText);
+            }
+            
+        }
         
+        
+        public Item(
+                String name, BigDecimal price, String summary, String description, Product.Category category,
+                Image image
+        ) {
+            this(null, name, price, summary, description, category, image);
+        }
+        
+    }
+    
+    
+    public Order(
+            AggregateReference<Account, UUID> customer, Address shipping, PaymentDetails payment, Address billing,
+            Set<Item> products
+    ) {
+        this(null, null, customer, shipping, payment, billing, products);
     }
     
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -6,9 +6,13 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { Cart } from '@api/cart/cart.store';
 import { Checkbox } from 'primeng/checkbox';
 import { InputComponent } from '@components/global/input/input.component';
+import { MessageService } from 'primeng/api';
+import { Orders } from '@api/products/orders.api';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { Router } from '@angular/router';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 import { TableComponent } from '@components/order/table/table.component';
 import { orderPatterns } from '@app/components/global/formPatterns';
@@ -33,6 +37,10 @@ export interface Field {
     styleUrl: './checkout.component.css',
 })
 export class CheckoutComponent {
+    private readonly orders = inject(Orders);
+    private readonly messages = inject(MessageService);
+    private readonly router = inject(Router);
+    private readonly cart = inject(Cart);
     private readonly formBuilder = inject(FormBuilder);
 
     createAddressForm(fb: FormBuilder): FormGroup {
@@ -81,6 +89,8 @@ export class CheckoutComponent {
         sepaIban: ['', [Validators.required]],
     });
 
+    @ViewChild('table') private readonly table?: TableComponent;
+
     protected checked: boolean = false;
 
     protected onSubmit(): void {
@@ -99,9 +109,70 @@ export class CheckoutComponent {
             }
         }
 
-        /* proceed the checkout using data from
-         * 'this.orderAddress.value', 'this.paymentDetails.value'
-         * and 'this.billingAddress.value'
-         * if needed. */
+        const rawShipping = this.orderAddress.getRawValue();
+        const rawPayment = this.paymentDetails.getRawValue();
+        const rawBilling = this.billingAddress.getRawValue();
+
+        if (!rawPayment.sepaAccountHolder || !rawPayment.sepaIban) {
+            return;
+        }
+
+        const products = this.table?.cartProducts().map((product) => {
+            return {
+                id: product.id,
+                count: product.quantity,
+            };
+        });
+
+        if (!products) {
+            return;
+        }
+
+        this.orders
+            .submit({
+                products: products,
+                shipping: {
+                    first_name: rawShipping.firstName,
+                    last_name: rawShipping.lastName,
+                    city: rawShipping.city,
+                    postal_code: rawShipping.zipcode,
+                    street: rawShipping.street,
+                    house_number: rawShipping.number,
+                },
+                payment: {
+                    holder: rawPayment.sepaAccountHolder,
+                    iban: rawPayment.sepaIban,
+                },
+                billing: !this.checked
+                    ? {
+                          first_name: rawBilling.firstName,
+                          last_name: rawBilling.lastName,
+                          city: rawBilling.city,
+                          postal_code: rawBilling.zipcode,
+                          street: rawBilling.street,
+                          house_number: rawBilling.number,
+                      }
+                    : null,
+            })
+            .subscribe({
+                next: () => {
+                    this.messages.add({
+                        severity: 'success',
+                        summary: 'Bestellung eingegangen',
+                        detail: 'Deine Bestellung ist erfolgreich eingegangen und wird bearbeitet.',
+                    });
+
+                    this.cart.clear();
+
+                    this.router.navigate(['/']);
+                },
+                error: () => {
+                    this.messages.add({
+                        severity: 'error',
+                        summary: 'Bestellung fehlgeschlagen',
+                        detail: 'Bestellung konnte nicht abgeschlossen werden. Versuche es später erneut.',
+                    });
+                },
+            });
     }
 }

@@ -50,7 +50,11 @@ public record Account(
     }
     
     
-    public static Account fromAuthentication(Authentication authentication) {
+    public static @Nullable Account fromAuthentication(@Nullable Authentication authentication) {
+        if (authentication == null) {
+            return null;
+        }
+        
         Account account = (Account) authentication.getPrincipal();
         
         if (account == null) {
