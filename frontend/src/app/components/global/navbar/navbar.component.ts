@@ -56,7 +56,7 @@ export class NavbarComponent {
     }
 
     onCategorySelected(category: string): void {
-        this.category = this.category !== category ? category : '';
+        this.category = this.category === category ? '' : category;
         this.route();
     }
 
