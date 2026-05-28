@@ -33,6 +33,16 @@
                         Bild hinzufügen<span class="required">*</span>
                     </div>
                 }
+
+                @if (previewUrl) {
+                    <button
+                        type="button"
+                        class="remove"
+                        (click)="onRemoveImage($event)"
+                    >
+                        <i class="pi pi-times"></i>
+                    </button>
+                }
             </button>
         </div>
 

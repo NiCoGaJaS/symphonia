@@ -103,3 +103,23 @@
 .loading i {
     font-size: 22px;
 }
+
+.remove {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    background: var(--primary-black);
+    color: var(--primary-grey);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
