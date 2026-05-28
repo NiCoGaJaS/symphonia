@@ -9,9 +9,6 @@ import de.nicogajas.backend.security.authentication.Role;
 import java.io.InputStream;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationRunner;
@@ -20,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 @Configuration
 @Profile("sample-data")
@@ -29,7 +28,7 @@ public class SampleDataConfiguration {
     
     
     @Bean
-    public ApplicationRunner fillProducts(Products products) {
+    public ApplicationRunner fillProducts(Products products, ObjectMapper json) {
         return _ -> {
             if (products.count() > 0) {
                 logger.info("Skipping sample products insertion because products already exist.");
@@ -38,7 +37,6 @@ public class SampleDataConfiguration {
             logger.info("No products found. Inserting sample products.");
             try (InputStream stream = new ClassPathResource("db/sample-products.json").getInputStream()) {
                 List<Product> sampleProducts;
-                ObjectMapper json = new ObjectMapper().configure(JsonParser.Feature.ALLOW_COMMENTS, true);
                 sampleProducts = json.readValue(stream, new TypeReference<List<Product>>() {});
                 List<Product> saved = products.saveAll(sampleProducts);
                 logger.info("Successfully inserted {} sample products.", saved.size());

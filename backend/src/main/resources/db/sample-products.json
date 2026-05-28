@@ -1,5 +1,4 @@
 [
-  // Bestseller
   {
     "name": "Fender Player II Strat RW BCG",
     "price": 772.0,
@@ -44,7 +43,6 @@
       "alternativeText": "Seymour Duncan SSL-5 Custom Staggered - Front"
     }
   },
-  // Guitar
   {
     "name": "Fender American Ultra Telecaster RW Arctic Pearl",
     "price": 1999.0,
@@ -100,7 +98,6 @@
       "alternativeText": "Taylor GS Mini Mahogany - Front"
     }
   },
-  // Piano
   {
     "name": "Casio PX-S7000 Harmonious Mustard",
     "price": 2499.0,
@@ -145,7 +142,6 @@
       "alternativeText": "Yamaha U1 SH3 - Front"
     }
   },
-  // Drums
   {
     "name": "Gretsch Catalina Club Jazz 18\"",
     "price": 799.0,
@@ -190,7 +186,6 @@
       "alternativeText": "Tama Starclassic - Front"
     }
   },
-  // Vinyl
   {
     "name": "Daft Punk – Random Access Memories (Deluxe)",
     "price": 39.0,
@@ -235,7 +230,6 @@
       "alternativeText": "Pink Floyd - Dark Side of the Moon"
     }
   },
-  // Extra
   {
     "name": "Boss RC-5 Loop Station",
     "price": 229.0,
@@ -280,7 +274,6 @@
       "alternativeText": "Strymon BigSky - Front"
     }
   },
-  // Other
   {
     "name": "Gator GL-Electric Lightweight Case",
     "price": 129.0,
