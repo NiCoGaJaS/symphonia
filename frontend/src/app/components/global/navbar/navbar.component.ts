@@ -33,11 +33,12 @@ export class NavbarComponent {
 
     protected cart: Cart = inject(Cart);
     protected showSearch = false;
+    protected showFilters = false;
 
     private query: string = '';
     private category: string = '';
-    private priceMin: number = -1;
-    private priceMax: number = -1;
+    protected priceMin: number = -1;
+    protected priceMax: number = -1;
 
     @ViewChild('searchInput')
     set searchInput(input: ElementRef<HTMLInputElement>) {
@@ -50,6 +51,10 @@ export class NavbarComponent {
         this.showSearch = !this.showSearch;
     }
 
+    toggleFilters(): void {
+        this.showFilters = !this.showFilters;
+    }
+
     onSearch(query: string): void {
         this.query = query.trim();
         this.route();
@@ -60,10 +65,9 @@ export class NavbarComponent {
         this.route();
     }
 
-    onApplyFilters(category: string, priceMin: number, priceMax: number): void {
-        this.category = category;
+    onApplyFilters(priceMin: number, priceMax: number): void {
         this.priceMin = priceMin;
-        this.priceMax = priceMax;
+        this.priceMax = priceMax >= priceMin ? priceMax : -1;
         this.route();
     }
 
@@ -78,8 +82,8 @@ export class NavbarComponent {
             queryParams: {
                 ...(this.query === '' ? {} : { query: this.query }),
                 ...(this.category === '' ? {} : { category: this.category }),
-                ...(this.priceMin === -1 ? {} : { priceMin: this.priceMin }),
-                ...(this.priceMax === -1 ? {} : { priceMax: this.priceMax }),
+                ...(this.priceMin < 0 ? {} : { price_min: this.priceMin }),
+                ...(this.priceMax < 0 ? {} : { price_max: this.priceMax }),
             },
         });
     }

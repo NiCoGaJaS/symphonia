@@ -18,10 +18,14 @@
                 />
             </form>
         }
-
         <button type="button" (click)="toggleSearch()">
             <i class="pi pi-search"></i>
         </button>
+
+        <button type="button" (click)="toggleFilters()">
+            <i class="pi pi-filter"></i>
+        </button>
+
         <a routerLink="/cart">
             @if (isBrowser) {
                 <i
@@ -45,4 +49,38 @@
     >
         <input #searchInput type="search" placeholder="Suche Produkte..." />
     </form>
+}
+
+
+@if (showFilters) {
+        <div class="filter-panel">
+        <form
+                (ngSubmit)="onApplyFilters(priceMin, priceMax)">
+                <div class="filter-row">
+                <label> Preis von
+                <input
+                        id="minPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        [value]="priceMin < 0 ? '' : priceMin"
+                        (input)="priceMin = +$any($event.target).value"
+                        placeholder="0.00"
+                /></label>
+                <label> bis
+                <input
+                        id="maxPrice"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        [value]="priceMax < 0 ? '' : priceMax"
+                        (input)="priceMax = +$any($event.target).value"
+                        placeholder="9999.99"
+                /></label>
+                </div>
+                <div class="filter-row">
+                        <button class="filter-btn-submit" type="submit">Anwenden</button>
+                        <button class="filter-btn-reset" type="button" (click)="onResetFilters()">Zurücksetzen</button>
+                </div>
+        </form></div>
 }
