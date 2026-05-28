@@ -1,0 +1,23 @@
+<p-input-group [formGroup]="form" class="full-width">
+    <p-floatlabel variant="over">
+        <textarea
+            pTextarea
+            [id]="field"
+            [formControlName]="field"
+            [rows]="rows"
+            placeholder=""
+            style="resize: none"
+            [required]="required"
+            [ngClass]="{
+                'p-invalid':
+                    form.get(field)?.invalid && form.get(field)?.touched,
+            }"
+        ></textarea>
+        <label [for]="field">
+            {{ label }}
+            @if (required) {
+                <span class="required">*</span>
+            }
+        </label>
+    </p-floatlabel>
+</p-input-group>

@@ -1,9 +1,14 @@
 package de.nicogajas.backend.product.admin;
 
 import de.nicogajas.backend.product.Product;
+import de.nicogajas.backend.product.ProductImage;
+import de.nicogajas.backend.product.ProductImages;
 import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +20,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/admin/products")
 public class ProductAdminController {
     
     private final Products products;
-    
+    private final ProductImages productImages;
+
     
     @Autowired
-    public ProductAdminController(Products products) {
+    public ProductAdminController(Products products, ProductImages productImages) {
         this.products = products;
+        this.productImages = productImages;
     }
     
     
@@ -64,7 +75,27 @@ public class ProductAdminController {
         
     }
     
-    
+    public record CreateProductRequest(
+            String name,
+            Product.Category category,
+            BigDecimal price,
+            String summary,
+            String description
+    ) {
+
+        public Product toProduct(ProductImage image) {
+            return new Product(
+                    name,
+                    price,
+                    summary,
+                    description,
+                    category,
+                    image);
+        }
+
+    }
+
+
     @GetMapping
     public Page<GetProductAdminResponse> get(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
@@ -73,6 +104,54 @@ public class ProductAdminController {
     }
     
     
+    @PostMapping(path = "/create", consumes = "multipart/form-data")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(
+            @RequestPart("product") CreateProductRequest request,
+            @RequestPart("images") List<MultipartFile> images
+    ) {
+        if (images.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one product image is required.");
+        }
+
+        ProductImage primaryImage = upload(images.getFirst());
+        images.stream().skip(1).forEach(this::upload);
+
+        products.save(request.toProduct(primaryImage));
+    }
+
+
+    private ProductImage upload(MultipartFile image) {
+        String objectName = "%s%s".formatted(UUID.randomUUID(), extensionOf(image));
+        String contentType = Objects.requireNonNullElse(image.getContentType(), "application/octet-stream");
+
+        try {
+            productImages.upload(objectName, image.getInputStream(), image.getSize(), contentType);
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to store product image.", exception);
+        }
+
+        return new ProductImage(
+                "/public/%s/%s".formatted(ProductImages.BUCKET, objectName),
+                objectName);
+    }
+
+
+    private static String extensionOf(MultipartFile image) {
+        String filename = image.getOriginalFilename();
+        if (filename == null) {
+            return "";
+        }
+
+        int index = filename.lastIndexOf('.');
+        if (index < 0 || index == filename.length() - 1) {
+            return "";
+        }
+
+        return filename.substring(index).toLowerCase(Locale.ROOT);
+    }
+
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
