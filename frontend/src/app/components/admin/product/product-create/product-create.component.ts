@@ -37,7 +37,7 @@ import { TextareaModule } from 'primeng/textarea';
     styleUrl: './product-create.component.css',
 })
 export class ProductCreateComponent {
-    @ViewChild(FileUpload) private fileUpload?: FileUpload;
+    @ViewChild(FileUpload) private readonly fileUpload?: FileUpload;
 
     private readonly formBuilder = inject(FormBuilder);
     private readonly products = inject(Products);
