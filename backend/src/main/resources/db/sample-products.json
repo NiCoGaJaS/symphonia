@@ -1,4 +1,5 @@
 [
+  // Bestseller
   {
     "name": "Fender Player II Strat RW BCG",
     "price": 772.0,
@@ -43,6 +44,7 @@
       "alternativeText": "Seymour Duncan SSL-5 Custom Staggered - Front"
     }
   },
+  // Guitar
   {
     "name": "Fender American Ultra Telecaster RW Arctic Pearl",
     "price": 1999.0,
@@ -98,6 +100,7 @@
       "alternativeText": "Taylor GS Mini Mahogany - Front"
     }
   },
+  // Piano
   {
     "name": "Casio PX-S7000 Harmonious Mustard",
     "price": 2499.0,
@@ -142,6 +145,29 @@
       "alternativeText": "Yamaha U1 SH3 - Front"
     }
   },
+  // Drums
+  {
+    "name": "Gretsch Catalina Club Jazz 18\"",
+    "price": 799.0,
+    "summary": "Kompaktes Jazz-Drumset mit warmem Vintage-Sound.",
+    "description": "Das Gretsch Catalina Club Jazz 18\" liefert den charakteristischen warmen Vintage-Sound, der besonders im Jazz und Blues zu Hause ist. Die kompakte Größe macht es ideal für kleine Bühnen, Proberäume und mobile Einsätze. Die Mahagoni-Kessel sorgen für weiche Mitten und eine angenehme Ansprache, während die klassische Optik den zeitlosen Gretsch-Charme unterstreicht. Ein Set für Musikerinnen und Musiker, die Tradition und Portabilität gleichermaßen schätzen.",
+    "category": "DRUMS",
+    "image": {
+      "url": "https://www.terredemusique.com/31272-thickbox_default/batterie-gretsch-catalina-club-jazz-18-piano-black.jpg",
+      "alternativeText": "Gretsch Catalina Club Jazz - Front"
+    }
+  },
+  {
+    "name": "Pearl Masters Maple Complete 22\" Shell Set",
+    "price": 1699.0,
+    "summary": "Druckvolles Drumset mit warmem Maple-Sound.",
+    "description": "Das Pearl Masters Maple Complete 22\" Shell Set bietet einen warmen, ausgewogenen Klang mit kräftigem Punch, der sich mühelos im Bandgefüge durchsetzt. Die hochwertigen Maple-Kessel liefern eine schnelle Ansprache und ein breites dynamisches Spektrum. Dank der robusten Hardware und der professionellen Verarbeitung eignet sich das Set perfekt für Studio, Bühne und anspruchsvolle Drummerinnen und Drummer.",
+    "category": "DRUMS",
+    "image": {
+      "url": "https://r2.gear4music.com/media/19/193188/1200/preview.jpg",
+      "alternativeText": "Pearl Masters Maple Complete - Front"
+    }
+  },
   {
     "name": "Roland TD-27KV2 E-Drum Set",
     "price": 2899.0,
@@ -153,6 +179,18 @@
       "alternativeText": "Roland TD-27KV2 - Front"
     }
   },
+  {
+    "name": "Tama Starclassic Walnut/Birch 20\"",
+    "price": 1999.0,
+    "summary": "Modernes Drumset mit präzisem Attack und warmem Ton.",
+    "description": "Die Tama Starclassic Walnut/Birch Serie kombiniert die schnelle Ansprache von Birke mit der warmen Tiefe von Walnuss und erzeugt so einen modernen, durchsetzungsfähigen Sound. Die präzise Verarbeitung und die hochwertige Hardware sorgen für maximale Stabilität und Langlebigkeit. Dank des ausgewogenen Klangcharakters eignet sich das Set für Studio, Bühne und anspruchsvolle Musikerinnen und Musiker verschiedenster Genres.",
+    "category": "DRUMS",
+    "image": {
+      "url": "https://drumcenternh.com/cdn/shop/products/tama_wbs30rs_mbr.jpg",
+      "alternativeText": "Tama Starclassic - Front"
+    }
+  },
+  // Vinyl
   {
     "name": "Daft Punk – Random Access Memories (Deluxe)",
     "price": 39.0,
@@ -197,6 +235,7 @@
       "alternativeText": "Pink Floyd - Dark Side of the Moon"
     }
   },
+  // Extra
   {
     "name": "Boss RC-5 Loop Station",
     "price": 229.0,
@@ -241,6 +280,7 @@
       "alternativeText": "Strymon BigSky - Front"
     }
   },
+  // Other
   {
     "name": "Gator GL-Electric Lightweight Case",
     "price": 129.0,
