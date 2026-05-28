@@ -39,7 +39,7 @@ public class SampleDataConfiguration {
                 List<Product> sampleProducts = json.readValue(stream, new TypeReference<List<Product>>() {});
                 List<Product> saved = products.saveAll(sampleProducts);
                 logger.info("Successfully inserted {} sample products.", saved.size());
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 logger.info("Could not insert sample products", e);
             }
         };
