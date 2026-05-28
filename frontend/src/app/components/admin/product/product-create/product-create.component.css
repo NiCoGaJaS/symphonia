@@ -17,6 +17,8 @@
     --p-floatlabel-focus-color: var(--primary-blue);
     --p-floatlabel-position-x: 0rem;
     --p-select-focus-border-color: var(--primary-blue);
+    --p-select-option-selected-background: var(--background-blue);
+    --p-select-option-selected-focus-background: var(--background-blue);
 }
 
 .full {
