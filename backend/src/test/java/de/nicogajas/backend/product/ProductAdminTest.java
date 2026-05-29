@@ -110,9 +110,9 @@ public class ProductAdminTest {
     @WithMockUser(roles = "ADMIN")
     void createProductFromRequestBody() throws Exception {
         
-        MockMultipartFile productPart = new MockMultipartFile(
-                "product",
-                "",
+        MockMultipartFile requestPart = new MockMultipartFile(
+                "request",
+                "request.json",
                 MediaType.APPLICATION_JSON_VALUE,
                 """
                 {
@@ -125,16 +125,15 @@ public class ProductAdminTest {
                 """.getBytes());
         
         MockMultipartFile image = new MockMultipartFile(
-                "images",
+                "image",
                 "fender.jpg",
                 MediaType.IMAGE_JPEG_VALUE,
                 "image-content".getBytes());
         
         mvc.perform(multipart("/api/admin/products/create")
-                .file(productPart)
+                .file(requestPart)
                 .file(image)
-                .with(csrf())
-                .contentType(MediaType.MULTIPART_FORM_DATA))
+                .with(csrf()))
                 .andExpect(status().isCreated());
         
         verify(productImages).upload(

@@ -6,7 +6,6 @@ import de.nicogajas.backend.product.ProductImages;
 import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -104,20 +104,15 @@ public class ProductAdminController {
     }
     
     
-    @PostMapping(path = "/create", consumes = "multipart/form-data")
+    @PostMapping(path = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
-            @RequestPart("product") CreateProductRequest request,
-            @RequestPart("images") List<MultipartFile> images
+            @RequestPart("request") CreateProductRequest request,
+            @RequestPart("image") MultipartFile image
     ) {
-        if (images.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "At least one product image is required.");
-        }
+        ProductImage productImage = upload(image);
 
-        ProductImage primaryImage = upload(images.getFirst());
-        images.stream().skip(1).forEach(this::upload);
-
-        products.save(request.toProduct(primaryImage));
+        products.save(request.toProduct(productImage));
     }
 
 
