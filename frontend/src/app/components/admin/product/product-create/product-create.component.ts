@@ -14,6 +14,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { InputComponent } from '@components/global/input/input.component';
 import { InputNumber } from 'primeng/inputnumber';
+import { MessageService } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { Select } from 'primeng/select';
@@ -40,6 +41,7 @@ export class ProductCreateComponent {
     @ViewChild(FileUpload) private readonly fileUpload?: FileUpload;
 
     private readonly formBuilder = inject(FormBuilder);
+    private readonly messages = inject(MessageService);
     private readonly products = inject(Products);
     private readonly router = inject(Router);
 
@@ -119,7 +121,20 @@ export class ProductCreateComponent {
                 this.onRemoveImage();
                 this.form.reset();
 
+                this.messages.add({
+                    severity: 'success',
+                    summary: 'Produkt erstellt',
+                    detail: 'Das Produkt wurde erfolgreich erstellt und ist ab sofort verfügbar.',
+                });
+
                 this.router.navigate(['/admin/products']);
+            },
+            error: () => {
+                this.messages.add({
+                    severity: 'error',
+                    summary: 'Produkt nicht erstellt',
+                    detail: 'Produkt konnte nicht erstellt werden. Versuche es später erneut.',
+                });
             },
         });
     }
