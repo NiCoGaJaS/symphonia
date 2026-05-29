@@ -10,7 +10,6 @@ export class Orders {
 
     submit(order: OrderRequest): Observable<void> {
         const url = `${this.base}/api/products/order`;
-
         return this.http.post<void>(url, order);
     }
 }

@@ -4,7 +4,6 @@ import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.Products;
 import de.nicogajas.backend.security.authentication.Account;
 import de.nicogajas.backend.security.authentication.Accounts;
-import de.nicogajas.backend.security.authentication.Role;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -112,8 +111,8 @@ public class SampleDataConfiguration {
     public ApplicationRunner fillAccounts(Accounts accounts, PasswordEncoder encoder) {
         return _ -> {
             List<Account> demoAccounts = List.of(
-                    new Account("admin@symphonia.com", encoder.encode("1234"), Role.ADMIN),
-                    new Account("customer@symphonia.com", encoder.encode("1234"), Role.CUSTOMER)
+                    new Account("admin@symphonia.com", encoder.encode("1234"), Account.Role.ADMIN),
+                    new Account("customer@symphonia.com", encoder.encode("1234"), Account.Role.CUSTOMER)
             );
             
             if (accounts.count() == 0) {

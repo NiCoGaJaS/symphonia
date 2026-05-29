@@ -60,12 +60,12 @@ public class OrderProductController {
             
             public Order.Address toAddress() {
                 return new Order.Address(
-                        firstName,
-                        lastName,
-                        city,
-                        zipcode,
-                        street,
-                        houseNumber
+                        firstName.trim(),
+                        lastName.trim(),
+                        city.trim(),
+                        zipcode.trim(),
+                        street.trim(),
+                        houseNumber.trim()
                 );
             }
             
@@ -78,8 +78,8 @@ public class OrderProductController {
             
             public Order.PaymentDetails toPaymentDetails() {
                 return new Order.PaymentDetails(
-                        holder,
-                        iban
+                        holder.trim(),
+                        iban.trim()
                 );
             }
             

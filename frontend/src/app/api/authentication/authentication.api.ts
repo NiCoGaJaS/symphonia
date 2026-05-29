@@ -20,7 +20,6 @@ export class Authentication {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            withCredentials: true,
         };
 
         return this.http.post<LoginResponse>(url, body, options);
@@ -28,12 +27,7 @@ export class Authentication {
 
     logout(): Observable<void> {
         const url = `${this.base}/logout`;
-
-        const options = {
-            withCredentials: true,
-        };
-
-        return this.http.post<void>(url, {}, options);
+        return this.http.post<void>(url, null);
     }
 
     register(email: string, password: string): Observable<RegisterResponse> {

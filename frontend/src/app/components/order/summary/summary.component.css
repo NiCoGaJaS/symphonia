@@ -67,6 +67,11 @@
     margin-top: 0;
 }
 
+.cart-button-submit:disabled {
+    background: var(--primary-dark-grey);
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
     .wrapper {
         margin: 2rem 1rem;

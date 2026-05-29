@@ -11,12 +11,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.server.ResponseStatusException;
 
 @Table("accounts")
 public record Account(
@@ -26,6 +24,12 @@ public record Account(
         String password,
         Role role
 ) implements UserDetails {
+    
+    public enum Role {
+        ADMIN,
+        CUSTOMER
+    }
+    
     
     public Account(String email, String password, Role role) {
         this(null, null, email, password, role);
@@ -55,13 +59,7 @@ public record Account(
             return null;
         }
         
-        Account account = (Account) authentication.getPrincipal();
-        
-        if (account == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not logged in.");
-        }
-        
-        return account;
+        return (Account) authentication.getPrincipal();
     }
     
 }

@@ -34,6 +34,7 @@
             routerLink="/checkout"
             class="button-blue cart-button-submit"
             type="button"
+            [disabled]="cart.getAmount() === 0"
         >
             Zur Kasse
         </button>
