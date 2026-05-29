@@ -44,7 +44,8 @@ public class CartValidationTest {
         Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                "Fender Player II Strat RW BCG - Front");
+                "Fender Player II Strat RW BCG - Front"
+        );
         
         Product fender = new Product(
                 UUID.randomUUID(),
@@ -54,7 +55,8 @@ public class CartValidationTest {
                 "Short Description",
                 "Description",
                 Product.Category.OTHER,
-                image);
+                image
+        );
         
         Product fenderToo = new Product(
                 UUID.randomUUID(),
@@ -64,26 +66,29 @@ public class CartValidationTest {
                 "Short Description",
                 "Description",
                 Product.Category.OTHER,
-                image);
+                image
+        );
         
         UUID invalidId = UUID.randomUUID();
         
         when(products.findAllById(any())).thenReturn(List.of(fender, fenderToo));
         
-        mvc.perform(post("/api/cart/validate")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                         [
-                           "%s",
-                           "%s",
-                           "%s"
-                         ]
-                         """.formatted(fender.id(), invalidId, fenderToo.id())))
-                .andExpectAll(
-                        status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.length()").value(1),
-                        jsonPath("$[0]").value(invalidId.toString()));
+        mvc.perform(
+                post("/api/cart/validate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                 [
+                                   "%s",
+                                   "%s",
+                                   "%s"
+                                 ]
+                                 """.formatted(fender.id(), invalidId, fenderToo.id()))
+        ).andExpectAll(
+                status().isOk(),
+                content().contentType(MediaType.APPLICATION_JSON),
+                jsonPath("$.length()").value(1),
+                jsonPath("$[0]").value(invalidId.toString())
+        );
     }
     
 }

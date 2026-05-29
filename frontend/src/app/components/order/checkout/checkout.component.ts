@@ -120,7 +120,7 @@ export class CheckoutComponent {
         const products = this.table?.cartProducts().map((product) => {
             return {
                 id: product.id,
-                count: product.quantity,
+                amount: product.quantity,
             };
         });
 
@@ -135,7 +135,7 @@ export class CheckoutComponent {
                     first_name: rawShipping.firstName,
                     last_name: rawShipping.lastName,
                     city: rawShipping.city,
-                    postal_code: rawShipping.zipcode,
+                    zipcode: rawShipping.zipcode,
                     street: rawShipping.street,
                     house_number: rawShipping.number,
                 },
@@ -149,7 +149,7 @@ export class CheckoutComponent {
                           first_name: rawBilling.firstName,
                           last_name: rawBilling.lastName,
                           city: rawBilling.city,
-                          postal_code: rawBilling.zipcode,
+                          zipcode: rawBilling.zipcode,
                           street: rawBilling.street,
                           house_number: rawBilling.number,
                       },

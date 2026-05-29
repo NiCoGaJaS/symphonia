@@ -18,7 +18,7 @@ export class Orders {
 export interface OrderRequest {
     products: {
         id: string;
-        count: number;
+        amount: number;
     }[];
     shipping: Address;
     payment: PaymentDetails;
@@ -29,7 +29,7 @@ export interface Address {
     first_name: string;
     last_name: string;
     city: string;
-    postal_code: string;
+    zipcode: string;
     street: string;
     house_number: string;
 }

@@ -42,7 +42,8 @@ public class ProductCatalogTest {
         Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                "Fender Player II Strat RW BCG - Front");
+                "Fender Player II Strat RW BCG - Front"
+        );
         
         Product fender = new Product(
                 UUID.randomUUID(),
@@ -52,7 +53,8 @@ public class ProductCatalogTest {
                 "Short Description",
                 "Description",
                 Product.Category.OTHER,
-                image);
+                image
+        );
         
         when(products.findAll()).thenReturn(List.of(fender));
         
@@ -65,7 +67,8 @@ public class ProductCatalogTest {
                         jsonPath("$[0].price").value(fender.price().doubleValue()),
                         jsonPath("$[0].image.id").value(fender.image().id().toString()),
                         jsonPath("$[0].image.url").value(fender.image().url()),
-                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText()));
+                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText())
+                );
     }
     
     
@@ -82,7 +85,9 @@ public class ProductCatalogTest {
                 new Product.Image(
                         UUID.randomUUID(),
                         "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                        "Fender Player II Strat RW BCG - Front"));
+                        "Fender Player II Strat RW BCG - Front"
+                )
+        );
         
         when(products.findAllByNameContainsIgnoreCase("Fender")).thenReturn(List.of(fender));
         
@@ -96,7 +101,8 @@ public class ProductCatalogTest {
                         jsonPath("$[0].price").value(fender.price().doubleValue()),
                         jsonPath("$[0].image.id").value(fender.image().id().toString()),
                         jsonPath("$[0].image.url").value(fender.image().url()),
-                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText()));
+                        jsonPath("$[0].image.alternative_text").value(fender.image().alternativeText())
+                );
     }
     
 }

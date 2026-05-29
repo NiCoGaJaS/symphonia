@@ -46,7 +46,8 @@ public class ProductAdminController {
                     product.name(),
                     product.category(),
                     product.price(),
-                    ProductImageResponse.fromProductImage(product.image()));
+                    ProductImageResponse.fromProductImage(product.image())
+            );
         }
         
     }

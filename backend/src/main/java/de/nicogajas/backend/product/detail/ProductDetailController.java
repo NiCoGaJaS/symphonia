@@ -37,9 +37,11 @@ public class ProductDetailController {
     ) {
         
         public static GetProductDetailResponse fromProduct(Product product) {
-            return new GetProductDetailResponse(product.id(), product.name(), product.price(),
+            return new GetProductDetailResponse(
+                    product.id(), product.name(), product.price(),
                     product.summary(), product.description(),
-                    ProductImageResponse.fromProductImage(product.image()));
+                    ProductImageResponse.fromProductImage(product.image())
+            );
         }
         
     }
@@ -60,7 +62,8 @@ public class ProductDetailController {
     @GetMapping
     public GetProductDetailResponse detailOf(@PathVariable UUID id) {
         Product product = products.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produkt konnte nicht gefunden geworden."));
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produkt konnte nicht gefunden werden.")
+        );
         
         return GetProductDetailResponse.fromProduct(product);
     }

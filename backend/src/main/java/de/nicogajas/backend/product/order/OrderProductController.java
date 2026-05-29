@@ -3,11 +3,14 @@ package de.nicogajas.backend.product.order;
 import de.nicogajas.backend.product.Products;
 import de.nicogajas.backend.security.authentication.Account;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
@@ -35,7 +38,7 @@ public class OrderProductController {
     
     
     public record OrderRequest(
-            Set<Product> products,
+            @NotEmpty Set<Product> products,
             Address shipping,
             Payment payment,
             @Nullable Address billing
@@ -43,16 +46,16 @@ public class OrderProductController {
         
         public record Product(
                 UUID id,
-                int count
+                int amount
         ) {}
         
         public record Address(
-                String firstName,
-                String lastName,
-                String city,
-                String postalCode,
-                String street,
-                String houseNumber
+                @NotBlank String firstName,
+                @NotBlank String lastName,
+                @NotBlank String city,
+                @NotBlank String zipcode,
+                @NotBlank String street,
+                @NotBlank String houseNumber
         ) {
             
             public Order.Address toAddress() {
@@ -60,22 +63,24 @@ public class OrderProductController {
                         firstName,
                         lastName,
                         city,
-                        postalCode,
+                        zipcode,
                         street,
-                        houseNumber);
+                        houseNumber
+                );
             }
             
         }
         
         public record Payment(
-                String holder,
-                String iban
+                @NotBlank String holder,
+                @NotBlank String iban
         ) {
             
             public Order.PaymentDetails toPaymentDetails() {
                 return new Order.PaymentDetails(
                         holder,
-                        iban);
+                        iban
+                );
             }
             
         }
@@ -93,7 +98,8 @@ public class OrderProductController {
                     shipping.toAddress(),
                     payment.toPaymentDetails(),
                     billing == null ? null : billing.toAddress(),
-                    items);
+                    items
+            );
         }
         
     }
@@ -103,18 +109,24 @@ public class OrderProductController {
     public ResponseEntity<Void> order(@Valid @RequestBody OrderRequest request, Authentication authentication) {
         Account account = Account.fromAuthentication(authentication);
         
-        Set<UUID> ids = request.products.stream().map(OrderRequest.Product::id).collect(Collectors.toSet());
-        Set<Order.Item> items = products.findAllById(ids)
-                .stream().map(product -> new Order.Item(
-                        product.name(),
-                        product.price(),
-                        product.summary(),
-                        product.description(),
-                        product.category(),
-                        new Order.Item.Image(
-                                product.image().url(),
-                                product.image().alternativeText())))
-                .collect(Collectors.toSet());
+        Map<UUID, Integer> amountOf = request.products.stream()
+                .collect(Collectors.toMap(OrderRequest.Product::id, OrderRequest.Product::amount));
+        
+        Set<Order.Item> items = products.findAllById(amountOf.keySet())
+                .stream().map(
+                        product -> new Order.Item(
+                                product.name(),
+                                product.price(),
+                                amountOf.get(product.id()),
+                                product.summary(),
+                                product.description(),
+                                product.category(),
+                                new Order.Item.Image(
+                                        product.image().url(),
+                                        product.image().alternativeText()
+                                )
+                        )
+                ).collect(Collectors.toSet());
         
         orders.save(request.toOrder(account, items));
         return ResponseEntity.status(HttpStatus.CREATED).build();

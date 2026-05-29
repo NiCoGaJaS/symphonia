@@ -32,7 +32,7 @@ public record Order(
             @Column("first_name") String firstName,
             @Column("last_name") String lastName,
             String city,
-            @Column("postal_code") String postalCode,
+            String zipcode,
             String street,
             @Column("house_number") String houseNumber
     ) {}
@@ -47,6 +47,7 @@ public record Order(
             @Id UUID id,
             String name,
             BigDecimal price,
+            int amount,
             String summary,
             String description,
             Product.Category category,
@@ -68,10 +69,10 @@ public record Order(
         
         
         public Item(
-                String name, BigDecimal price, String summary, String description, Product.Category category,
+                String name, BigDecimal price, int count, String summary, String description, Product.Category category,
                 Image image
         ) {
-            this(null, name, price, summary, description, category, image);
+            this(null, name, price, count, summary, description, category, image);
         }
         
     }

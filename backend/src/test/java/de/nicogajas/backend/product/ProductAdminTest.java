@@ -51,7 +51,8 @@ public class ProductAdminTest {
         Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                "Fender Player II Strat RW BCG - Front");
+                "Fender Player II Strat RW BCG - Front"
+        );
         
         Product fender = new Product(
                 UUID.randomUUID(),
@@ -61,7 +62,8 @@ public class ProductAdminTest {
                 "Short Description",
                 "Description",
                 Product.Category.OTHER,
-                image);
+                image
+        );
         
         Page<Product> page = new PageImpl<>(List.of(fender));
         
