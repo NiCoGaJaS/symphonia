@@ -2,15 +2,10 @@ package de.nicogajas.backend.product.order;
 
 import de.nicogajas.backend.product.Products;
 import de.nicogajas.backend.security.authentication.Account;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
@@ -21,6 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products/order")
@@ -39,8 +39,8 @@ public class OrderProductController {
     
     public record OrderRequest(
             @NotEmpty Set<Product> products,
-            Address shipping,
-            Payment payment,
+            @NotNull Address shipping,
+            @NotNull Payment payment,
             @Nullable Address billing
     ) {
         
