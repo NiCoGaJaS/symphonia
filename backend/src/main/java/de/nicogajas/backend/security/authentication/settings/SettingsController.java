@@ -42,7 +42,8 @@ public class SettingsController {
                     account.lastName(),
                     PaymentResponse.ofPaymentDetails(account.payment()),
                     AddressResponse.ofAddress(account.shipping()),
-                    AddressResponse.ofAddress(account.billing()));
+                    AddressResponse.ofAddress(account.billing())
+            );
         }
         
     }
@@ -82,7 +83,8 @@ public class SettingsController {
                     address.city(),
                     address.zipcode(),
                     address.street(),
-                    address.houseNumber());
+                    address.houseNumber()
+            );
         }
         
     }
@@ -167,7 +169,8 @@ public class SettingsController {
                 request.city.trim(),
                 request.zipcode.trim(),
                 request.street.trim(),
-                request.houseNumber.trim());
+                request.houseNumber.trim()
+        );
     }
     
     
@@ -192,13 +195,15 @@ public class SettingsController {
             return;
         }
         
-        accounts.setBilling(account.id(),
+        accounts.setBilling(
+                account.id(),
                 request.firstName.trim(),
                 request.lastName.trim(),
                 request.city.trim(),
                 request.zipcode.trim(),
                 request.street.trim(),
-                request.houseNumber.trim());
+                request.houseNumber.trim()
+        );
     }
     
 }

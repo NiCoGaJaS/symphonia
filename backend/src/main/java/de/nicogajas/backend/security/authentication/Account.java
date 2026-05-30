@@ -30,17 +30,17 @@ public record Account(
         @Embedded.Nullable(prefix = "shipping_") Address shipping,
         @Embedded.Nullable(prefix = "billing_") Address billing
 ) implements UserDetails {
-
+    
     public enum Role {
         ADMIN,
         CUSTOMER
     }
-
+    
     public record PaymentDetails(
             @Column("holder") String holder,
             @Column("iban") String iban
     ) {}
-
+    
     public record Address(
             @Column("first_name") String firstName,
             @Column("last_name") String lastName,
@@ -49,8 +49,8 @@ public record Account(
             String street,
             @Column("house_number") String houseNumber
     ) {}
-
-
+    
+    
     public Account(String email, String password, Role role) {
         this(null, null, email, password, role, null, null, null, null, null);
     }
@@ -73,7 +73,7 @@ public record Account(
         return password;
     }
     
-
+    
     public static @Nullable Account fromAuthentication(@Nullable Authentication authentication) {
         if (authentication == null) {
             return null;
