@@ -122,36 +122,45 @@ public class ProductAdminTest {
                   "summary": "Short Description",
                   "description": "Description"
                 }
-                """.getBytes());
+                """.getBytes()
+        );
         
         MockMultipartFile image = new MockMultipartFile(
                 "image",
                 "fender.jpg",
                 MediaType.IMAGE_JPEG_VALUE,
-                "image-content".getBytes());
+                "image-content".getBytes()
+        );
         
-        mvc.perform(multipart("/api/admin/products/create")
-                .file(requestPart)
-                .file(image)
-                .with(csrf()))
+        mvc.perform(
+                multipart("/api/admin/products/create")
+                        .file(requestPart)
+                        .file(image)
+                        .with(csrf())
+        )
                 .andExpect(status().isCreated());
         
         verify(productImages).upload(
                 argThat(name -> name.endsWith(".jpg")),
                 any(InputStream.class),
                 eq((long) "image-content".getBytes().length),
-                eq(MediaType.IMAGE_JPEG_VALUE));
+                eq(MediaType.IMAGE_JPEG_VALUE)
+        );
         
-        verify(products).save(argThat(product -> product.id() == null
-                && product.name().equals("Fender Player II Strat RW BCG")
-                && product.category() == Category.GUITAR
-                && product.price().compareTo(new BigDecimal("772.00")) == 0
-                && product.summary().equals("Short Description")
-                && product.description().equals("Description")
-                && product.image().id() == null
-                && product.image().url().startsWith("/public/")
-                && product.image().url().endsWith(".jpg")
-                && product.image().alternativeText().endsWith(".jpg")));
+        verify(products).save(
+                argThat(
+                        product -> product.id() == null
+                                && product.name().equals("Fender Player II Strat RW BCG")
+                                && product.category() == Product.Category.GUITAR
+                                && product.price().compareTo(new BigDecimal("772.00")) == 0
+                                && product.summary().equals("Short Description")
+                                && product.description().equals("Description")
+                                && product.image().id() == null
+                                && product.image().url().startsWith("/public/")
+                                && product.image().url().endsWith(".jpg")
+                                && product.image().alternativeText().endsWith(".jpg")
+                )
+        );
     }
     
     

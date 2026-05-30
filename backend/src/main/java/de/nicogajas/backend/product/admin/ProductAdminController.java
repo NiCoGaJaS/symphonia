@@ -1,7 +1,6 @@
 package de.nicogajas.backend.product.admin;
 
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.ProductImages;
 import de.nicogajas.backend.product.Products;
 
@@ -34,7 +33,7 @@ public class ProductAdminController {
     
     private final Products products;
     private final ProductImages productImages;
-
+    
     
     @Autowired
     public ProductAdminController(Products products, ProductImages productImages) {
@@ -82,20 +81,21 @@ public class ProductAdminController {
             String summary,
             String description
     ) {
-
-        public Product toProduct(ProductImage image) {
+        
+        public Product toProduct(Product.Image image) {
             return new Product(
                     name,
                     price,
                     summary,
                     description,
                     category,
-                    image);
+                    image
+            );
         }
-
+        
     }
-
-
+    
+    
     @GetMapping
     public Page<GetProductAdminResponse> get(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
@@ -110,43 +110,44 @@ public class ProductAdminController {
             @RequestPart("request") CreateProductRequest request,
             @RequestPart("image") MultipartFile image
     ) {
-        ProductImage productImage = upload(image);
-
+        Product.Image productImage = upload(image);
+        
         products.save(request.toProduct(productImage));
     }
-
-
-    private ProductImage upload(MultipartFile image) {
+    
+    
+    private Product.Image upload(MultipartFile image) {
         String objectName = "%s%s".formatted(UUID.randomUUID(), extensionOf(image));
         String contentType = Objects.requireNonNullElse(image.getContentType(), "application/octet-stream");
-
+        
         try {
             productImages.upload(objectName, image.getInputStream(), image.getSize(), contentType);
         } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to store product image.", exception);
         }
-
-        return new ProductImage(
+        
+        return new Product.Image(
                 "/public/%s/%s".formatted(ProductImages.BUCKET, objectName),
-                objectName);
+                objectName
+        );
     }
-
-
+    
+    
     private static String extensionOf(MultipartFile image) {
         String filename = image.getOriginalFilename();
         if (filename == null) {
             return "";
         }
-
+        
         int index = filename.lastIndexOf('.');
         if (index < 0 || index == filename.length() - 1) {
             return "";
         }
-
+        
         return filename.substring(index).toLowerCase(Locale.ROOT);
     }
-
-
+    
+    
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
