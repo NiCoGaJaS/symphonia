@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { GetProductResponse, Products } from '@api/products/products.api';
 import { API_ORIGIN } from '@api/api.config';
 import { Cart } from '@api/cart/cart.store';
 import { CheckoutComponent } from './checkout.component';
-import { MessageService } from 'primeng/api';
 import { createCart } from '@components/order/order-test.utils';
 import { of } from 'rxjs';
 import { provideRouter } from '@angular/router';
@@ -28,6 +28,7 @@ describe('CheckoutComponent', () => {
                     } satisfies Partial<Products>,
                 },
                 MessageService,
+                ConfirmationService,
             ],
         }).compileComponents();
     });
