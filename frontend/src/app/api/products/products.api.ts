@@ -18,24 +18,16 @@ export class Products {
         const url = `${this.base}/api/products`;
 
         let params = new HttpParams();
-        if (query !== null && query !== undefined) {
+        if (query) {
             params = params.set('query', query);
         }
-        if (category !== null && category !== undefined) {
+        if (category) {
             params = params.set('category', category);
         }
-        if (
-            priceMin !== null &&
-            priceMin !== undefined &&
-            !Number.isNaN(priceMin)
-        ) {
+        if (priceMin && !Number.isNaN(priceMin)) {
             params = params.set('price_min', priceMin);
         }
-        if (
-            priceMax !== null &&
-            priceMax !== undefined &&
-            !Number.isNaN(priceMax)
-        ) {
+        if (priceMax && !Number.isNaN(priceMax)) {
             params = params.set('price_max', priceMax);
         }
 
