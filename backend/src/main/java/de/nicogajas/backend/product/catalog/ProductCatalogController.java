@@ -1,6 +1,5 @@
 package de.nicogajas.backend.product.catalog;
 
-import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.Products;
 
@@ -60,7 +59,7 @@ public class ProductCatalogController {
     @GetMapping
     public List<GetProductResponse> getProducts(
             @RequestParam(required = false) Optional<String> query,
-            @RequestParam(required = false) Optional<Category> category,
+            @RequestParam(required = false) Optional<Product.Category> category,
             @RequestParam(name = "price_min", required = false) Optional<BigDecimal> priceMin,
             @RequestParam(name = "price_max", required = false) Optional<BigDecimal> priceMax
     ) {
