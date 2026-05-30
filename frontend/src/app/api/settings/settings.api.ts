@@ -13,75 +13,50 @@ export class Settings {
         return this.http.get<GetSettingsResponse>(url);
     }
 
-    name(firstName: string | null, lastName: string | null): Observable<void> {
+    name(name: Name | null): Observable<void> {
         const url = `${this.base}/name`;
-
-        const body = {
-            first_name: firstName,
-            last_name: lastName,
-        };
-
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, name);
     }
 
-    payment(holder: string | null, iban: string | null): Observable<void> {
+    payment(payment: PaymentDetails | null): Observable<void> {
         const url = `${this.base}/payment`;
-
-        const body = {
-            holder: holder,
-            iban: iban,
-        };
-
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, payment);
     }
 
     shipping(address: Address | null): Observable<void> {
         const url = `${this.base}/shipping`;
-
-        const body = address ?? {
-            first_name: null,
-            last_name: null,
-            city: null,
-            postal_code: null,
-            street: null,
-            house_number: null,
-        };
-
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, address);
     }
 
     billing(address: Address | null): Observable<void> {
         const url = `${this.base}/billing`;
-
-        const body = address ?? {
-            first_name: null,
-            last_name: null,
-            city: null,
-            postal_code: null,
-            street: null,
-            house_number: null,
-        };
-
-        return this.http.put<void>(url, body);
+        return this.http.put<void>(url, address);
     }
 }
 
 export interface GetSettingsResponse {
     first_name: string | null;
     last_name: string | null;
-    payment: {
-        holder: string;
-        iban: string;
-    } | null;
+    payment: PaymentDetails | null;
     shipping: Address | null;
     billing: Address | null;
+}
+
+export interface Name {
+    first_name: string;
+    last_name: string;
+}
+
+export interface PaymentDetails {
+    holder: string;
+    iban: string;
 }
 
 export interface Address {
     first_name: string;
     last_name: string;
     city: string;
-    postal_code: string;
+    zipcode: string;
     street: string;
     house_number: string;
 }

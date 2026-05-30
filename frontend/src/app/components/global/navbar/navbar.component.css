@@ -179,6 +179,15 @@
         z-index: 1000;
     }
 
+    .navbar-admin-view {
+        border: none;
+        border-radius: 0;
+    }
+
+    .navbar-admin-text {
+        display: none;
+    }
+
     .menu {
         order: 3;
     }

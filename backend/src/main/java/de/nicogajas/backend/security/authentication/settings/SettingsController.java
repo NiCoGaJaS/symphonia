@@ -2,9 +2,9 @@ package de.nicogajas.backend.security.authentication.settings;
 
 import de.nicogajas.backend.security.authentication.Account;
 import de.nicogajas.backend.security.authentication.Accounts;
-import de.nicogajas.backend.security.authentication.Address;
-import de.nicogajas.backend.security.authentication.PaymentDetails;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -52,7 +52,7 @@ public class SettingsController {
             String iban
     ) {
         
-        public static PaymentResponse ofPaymentDetails(PaymentDetails payment) {
+        public static PaymentResponse ofPaymentDetails(Account.PaymentDetails payment) {
             if (payment == null) {
                 return null;
             }
@@ -66,12 +66,12 @@ public class SettingsController {
             String firstName,
             String lastName,
             String city,
-            String postalCode,
+            String zipcode,
             String street,
             String houseNumber
     ) {
         
-        public static AddressResponse ofAddress(Address address) {
+        public static AddressResponse ofAddress(Account.Address address) {
             if (address == null) {
                 return null;
             }
@@ -80,7 +80,7 @@ public class SettingsController {
                     address.firstName(),
                     address.lastName(),
                     address.city(),
-                    address.postalCode(),
+                    address.zipcode(),
                     address.street(),
                     address.houseNumber());
         }
@@ -98,66 +98,107 @@ public class SettingsController {
     
     
     public record UpdateNameRequest(
-            String firstName,
-            String lastName
+            @NotBlank String firstName,
+            @NotBlank String lastName
     ) {}
     
     
     @PutMapping("/name")
-    public void updateName(@RequestBody UpdateNameRequest request, Authentication authentication) {
+    public void updateName(
+            @Valid @RequestBody(required = false) UpdateNameRequest request, Authentication authentication
+    ) {
         Account account = Account.fromAuthentication(authentication);
+        
+        if (request == null) {
+            accounts.setName(account.id(), null, null);
+            return;
+        }
+        
         accounts.setName(account.id(), request.firstName, request.lastName);
     }
     
     
     public record UpdatePaymentDetailsRequest(
-            String holder,
-            String iban
+            @NotBlank String holder,
+            @NotBlank String iban
     ) {}
     
     
     @PutMapping("/payment")
-    public void updatePaymentDetails(@RequestBody UpdatePaymentDetailsRequest request, Authentication authentication) {
+    public void updatePaymentDetails(
+            @Valid @RequestBody(required = false) UpdatePaymentDetailsRequest request, Authentication authentication
+    ) {
         Account account = Account.fromAuthentication(authentication);
-        accounts.setPayment(account.id(), request.holder, request.iban);
+        
+        if (request == null) {
+            accounts.setPayment(account.id(), null, null);
+            return;
+        }
+        
+        accounts.setPayment(account.id(), request.holder.trim(), request.iban.trim());
     }
     
     
     public record UpdateShippingAddressRequest(
-            String firstName,
-            String lastName,
-            String city,
-            String postalCode,
-            String street,
-            String houseNumber
+            @NotBlank String firstName,
+            @NotBlank String lastName,
+            @NotBlank String city,
+            @NotBlank String zipcode,
+            @NotBlank String street,
+            @NotBlank String houseNumber
     ) {}
     
     
     @PutMapping("/shipping")
     public void updateShippingAddress(
-            @RequestBody UpdateShippingAddressRequest request, Authentication authentication
+            @Valid @RequestBody(required = false) UpdateShippingAddressRequest request, Authentication authentication
     ) {
         Account account = Account.fromAuthentication(authentication);
-        accounts.setShipping(account.id(), request.firstName, request.lastName, request.city, request.postalCode,
-                request.street, request.houseNumber);
+        
+        if (request == null) {
+            accounts.setShipping(account.id(), null, null, null, null, null, null);
+            return;
+        }
+        
+        accounts.setShipping(
+                account.id(),
+                request.firstName.trim(),
+                request.lastName.trim(),
+                request.city.trim(),
+                request.zipcode.trim(),
+                request.street.trim(),
+                request.houseNumber.trim());
     }
     
     
     public record UpdateBillingAddressRequest(
-            String firstName,
-            String lastName,
-            String city,
-            String postalCode,
-            String street,
-            String houseNumber
+            @NotBlank String firstName,
+            @NotBlank String lastName,
+            @NotBlank String city,
+            @NotBlank String zipcode,
+            @NotBlank String street,
+            @NotBlank String houseNumber
     ) {}
     
     
     @PutMapping("/billing")
-    public void updateBillingAddress(@RequestBody UpdateBillingAddressRequest request, Authentication authentication) {
+    public void updateBillingAddress(
+            @Valid @RequestBody(required = false) UpdateBillingAddressRequest request, Authentication authentication
+    ) {
         Account account = Account.fromAuthentication(authentication);
-        accounts.setBilling(account.id(), request.firstName, request.lastName, request.city, request.postalCode,
-                request.street, request.houseNumber);
+        
+        if (request == null) {
+            accounts.setBilling(account.id(), null, null, null, null, null, null);
+            return;
+        }
+        
+        accounts.setBilling(account.id(),
+                request.firstName.trim(),
+                request.lastName.trim(),
+                request.city.trim(),
+                request.zipcode.trim(),
+                request.street.trim(),
+                request.houseNumber.trim());
     }
     
 }

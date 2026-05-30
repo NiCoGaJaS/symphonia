@@ -22,7 +22,7 @@ ALTER TABLE accounts
     ADD COLUMN shipping_first_name   TEXT,
     ADD COLUMN shipping_last_name    TEXT,
     ADD COLUMN shipping_city         TEXT,
-    ADD COLUMN shipping_postal_code  TEXT,
+    ADD COLUMN shipping_zipcode      TEXT,
     ADD COLUMN shipping_street       TEXT,
     ADD COLUMN shipping_house_number TEXT,
     ADD CONSTRAINT shipping_address_all_or_none
@@ -30,14 +30,14 @@ ALTER TABLE accounts
             (shipping_first_name IS NULL AND
              shipping_last_name IS NULL AND
              shipping_city IS NULL AND
-             shipping_postal_code IS NULL AND
+             shipping_zipcode IS NULL AND
              shipping_street IS NULL AND
              shipping_house_number IS NULL)
                 OR
             (shipping_first_name IS NOT NULL AND
              shipping_last_name IS NOT NULL AND
              shipping_city IS NOT NULL AND
-             shipping_postal_code IS NOT NULL AND
+             shipping_zipcode IS NOT NULL AND
              shipping_street IS NOT NULL AND
              shipping_house_number IS NOT NULL)
             );
@@ -46,7 +46,7 @@ ALTER TABLE accounts
     ADD COLUMN billing_first_name   TEXT,
     ADD COLUMN billing_last_name    TEXT,
     ADD COLUMN billing_city         TEXT,
-    ADD COLUMN billing_postal_code  TEXT,
+    ADD COLUMN billing_zipcode      TEXT,
     ADD COLUMN billing_street       TEXT,
     ADD COLUMN billing_house_number TEXT,
     ADD CONSTRAINT billing_address_all_or_none
@@ -54,14 +54,14 @@ ALTER TABLE accounts
             (billing_first_name IS NULL AND
              billing_last_name IS NULL AND
              billing_city IS NULL AND
-             billing_postal_code IS NULL AND
+             billing_zipcode IS NULL AND
              billing_street IS NULL AND
              billing_house_number IS NULL)
                 OR
             (billing_first_name IS NOT NULL AND
              billing_last_name IS NOT NULL AND
              billing_city IS NOT NULL AND
-             billing_postal_code IS NOT NULL AND
+             billing_zipcode IS NOT NULL AND
              billing_street IS NOT NULL AND
              billing_house_number IS NOT NULL)
             );

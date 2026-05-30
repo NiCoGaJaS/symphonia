@@ -36,6 +36,20 @@ public record Account(
         CUSTOMER
     }
 
+    public record PaymentDetails(
+            @Column("holder") String holder,
+            @Column("iban") String iban
+    ) {}
+
+    public record Address(
+            @Column("first_name") String firstName,
+            @Column("last_name") String lastName,
+            String city,
+            String zipcode,
+            String street,
+            @Column("house_number") String houseNumber
+    ) {}
+
 
     public Account(String email, String password, Role role) {
         this(null, null, email, password, role, null, null, null, null, null);

@@ -1,4 +1,9 @@
-import { Address, Settings } from '@api/settings/settings.api';
+import {
+    Address,
+    Name,
+    PaymentDetails,
+    Settings,
+} from '@api/settings/settings.api';
 import {
     ChangeDetectorRef,
     Component,
@@ -13,6 +18,7 @@ import { AddressForm } from '@components/authentication/profile/address/address-
 import { Authentication } from '@api/authentication/authentication.api';
 import { EditableForm } from '@components/global/editable-form/editable-form.component';
 import { FloatLabel } from 'primeng/floatlabel';
+import { InputMaskDirective } from 'primeng/inputmask';
 import { InputText } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { PAYMENT_PATTERNS } from '@components/global/form.patterns';
@@ -28,6 +34,7 @@ import { isPlatformBrowser } from '@angular/common';
         InputText,
         ReactiveFormsModule,
         EditableForm,
+        InputMaskDirective,
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
@@ -125,11 +132,11 @@ export class Profile implements OnInit {
             .subscribe();
     }
 
-    updateName(firstName: string | null, lastName: string | null): void {
-        this.settings.name(firstName, lastName).subscribe({
+    updateName(name: Name | null): void {
+        this.settings.name(name).subscribe({
             next: () => {
                 this.messages.add({
-                    severity: 'info',
+                    severity: 'success',
                     summary: 'Name gespeichert',
                     detail: 'Dein Name wurde erfolgreich aktualisiert.',
                 });
@@ -152,18 +159,21 @@ export class Profile implements OnInit {
             return;
         }
 
-        this.updateName(firstName, lastName);
+        this.updateName({
+            first_name: firstName,
+            last_name: lastName,
+        });
     }
 
     onNameClear(): void {
-        this.updateName(null, null);
+        this.updateName(null);
     }
 
-    updatePayment(holder: string | null, iban: string | null): void {
-        this.settings.payment(holder, iban).subscribe({
+    updatePayment(payment: PaymentDetails | null): void {
+        this.settings.payment(payment).subscribe({
             next: () => {
                 this.messages.add({
-                    severity: 'info',
+                    severity: 'success',
                     summary: 'Zahlungsart gespeichert',
                     detail: 'Deine Zahlungsart wurde erfolgreich aktualisiert.',
                 });
@@ -186,11 +196,11 @@ export class Profile implements OnInit {
             return;
         }
 
-        this.updatePayment(holder, iban);
+        this.updatePayment({ holder, iban });
     }
 
     onPaymentClear(): void {
-        this.updateName(null, null);
+        this.updatePayment(null);
     }
 
     saveShipping = (address: Address | null): Observable<void> => {

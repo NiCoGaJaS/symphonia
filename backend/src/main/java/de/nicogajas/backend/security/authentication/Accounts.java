@@ -38,7 +38,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
            SET shipping_first_name   = :firstName,
                shipping_last_name    = :lastName,
                shipping_city         = :city,
-               shipping_postal_code  = :postalCode,
+               shipping_zipcode      = :zipcode,
                shipping_street       = :street,
                shipping_house_number = :houseNumber
            WHERE id = :id
@@ -48,7 +48,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
             String firstName,
             String lastName,
             String city,
-            String postalCode,
+            String zipcode,
             String street,
             String houseNumber
     );
@@ -59,7 +59,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
            SET billing_first_name   = :firstName,
                billing_last_name    = :lastName,
                billing_city         = :city,
-               billing_postal_code  = :postalCode,
+               billing_zipcode      = :zipcode,
                billing_street       = :street,
                billing_house_number = :houseNumber
            WHERE id = :id
@@ -69,7 +69,7 @@ public interface Accounts extends ListCrudRepository<Account, UUID> {
             String firstName,
             String lastName,
             String city,
-            String postalCode,
+            String zipcode,
             String street,
             String houseNumber
     );

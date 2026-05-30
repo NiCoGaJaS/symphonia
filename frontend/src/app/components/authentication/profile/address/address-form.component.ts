@@ -38,7 +38,7 @@ export class AddressForm {
                 Validators.pattern(ADDRESS_PATTERNS.house_number),
             ],
         ],
-        postalCode: [
+        zipcode: [
             '',
             [Validators.required, Validators.pattern(ADDRESS_PATTERNS.zipcode)],
         ],
@@ -53,7 +53,7 @@ export class AddressForm {
         lastName: 'Nachname',
         street: 'Straße',
         houseNumber: 'Hausnummer',
-        postalCode: 'Postleitzahl',
+        zipcode: 'Postleitzahl',
         city: 'Stadt',
     };
 
@@ -62,7 +62,7 @@ export class AddressForm {
         lastName: 'Der',
         street: 'Die',
         houseNumber: 'Die',
-        postalCode: 'Die',
+        zipcode: 'Die',
         city: 'Die',
     };
 
@@ -78,7 +78,7 @@ export class AddressForm {
                 lastName: value.last_name,
                 street: value.street,
                 houseNumber: value.house_number,
-                postalCode: value.postal_code,
+                zipcode: value.zipcode,
                 city: value.city,
             });
         }
@@ -92,7 +92,7 @@ export class AddressForm {
         this.save(address).subscribe({
             next: () => {
                 this.messages.add({
-                    severity: 'info',
+                    severity: 'success',
                     summary: 'Adresse gespeichert',
                     detail: 'Deine Adresse wurde erfolgreich aktualisiert.',
                 });
@@ -109,7 +109,7 @@ export class AddressForm {
     }
 
     onAddressSave(): void {
-        const { firstName, lastName, street, houseNumber, postalCode, city } =
+        const { firstName, lastName, street, houseNumber, zipcode, city } =
             this.form.getRawValue();
 
         console.log(this.form.getRawValue());
@@ -119,7 +119,7 @@ export class AddressForm {
             !lastName ||
             !street ||
             !houseNumber ||
-            !postalCode ||
+            !zipcode ||
             !city
         ) {
             return;
@@ -130,7 +130,7 @@ export class AddressForm {
             last_name: lastName,
             street: street,
             house_number: houseNumber,
-            postal_code: postalCode,
+            zipcode: zipcode,
             city: city,
         });
     }
