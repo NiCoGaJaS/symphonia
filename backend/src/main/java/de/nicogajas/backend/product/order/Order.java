@@ -68,7 +68,8 @@ public record Order(
         
         
         public Item(
-                String name, BigDecimal price, int amount, String summary, String description, Product.Category category,
+                String name, BigDecimal price, int amount, String summary, String description,
+                Product.Category category,
                 Image image
         ) {
             this(null, name, price, amount, summary, description, category, image);
