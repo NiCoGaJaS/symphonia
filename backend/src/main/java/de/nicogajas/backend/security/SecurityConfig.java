@@ -2,7 +2,6 @@ package de.nicogajas.backend.security;
 
 import de.nicogajas.backend.security.authentication.Account;
 import de.nicogajas.backend.security.authentication.Accounts;
-import de.nicogajas.backend.security.authentication.Role;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,7 +33,7 @@ public class SecurityConfig {
     
     public record LoginResponse(
             UUID id,
-            Role role
+            Account.Role role
     ) {}
     
     
@@ -68,7 +67,7 @@ public class SecurityConfig {
     private void authorization(
             AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
     ) {
-        auth.requestMatchers("/api/admin/**").hasRole(Role.ADMIN.name())
+        auth.requestMatchers("/api/admin/**").hasRole(Account.Role.ADMIN.name())
                 .anyRequest().permitAll();
     }
     
@@ -85,6 +84,11 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .successHandler((_, response, authentication) -> {
                     Account account = Account.fromAuthentication(authentication);
+                    
+                    if (account == null) {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        return;
+                    }
                     
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.setContentType(MediaType.APPLICATION_JSON_VALUE);

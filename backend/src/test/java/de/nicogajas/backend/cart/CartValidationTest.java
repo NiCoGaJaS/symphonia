@@ -1,8 +1,6 @@
 package de.nicogajas.backend.cart;
 
-import de.nicogajas.backend.product.Category;
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
 import de.nicogajas.backend.security.SecurityConfig;
 import de.nicogajas.backend.security.authentication.Accounts;
@@ -43,10 +41,11 @@ public class CartValidationTest {
     
     @Test
     void returnsInvalidIds() throws Exception {
-        ProductImage image = new ProductImage(
+        Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                "Fender Player II Strat RW BCG - Front");
+                "Fender Player II Strat RW BCG - Front"
+        );
         
         Product fender = new Product(
                 UUID.randomUUID(),
@@ -55,8 +54,9 @@ public class CartValidationTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
-                image);
+                Product.Category.OTHER,
+                image
+        );
         
         Product fenderToo = new Product(
                 UUID.randomUUID(),
@@ -65,27 +65,30 @@ public class CartValidationTest {
                 new BigDecimal("2.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
-                image);
+                Product.Category.OTHER,
+                image
+        );
         
         UUID invalidId = UUID.randomUUID();
         
         when(products.findAllById(any())).thenReturn(List.of(fender, fenderToo));
         
-        mvc.perform(post("/api/cart/validate")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                         [
-                           "%s",
-                           "%s",
-                           "%s"
-                         ]
-                         """.formatted(fender.id(), invalidId, fenderToo.id())))
-                .andExpectAll(
-                        status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.length()").value(1),
-                        jsonPath("$[0]").value(invalidId.toString()));
+        mvc.perform(
+                post("/api/cart/validate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                 [
+                                   "%s",
+                                   "%s",
+                                   "%s"
+                                 ]
+                                 """.formatted(fender.id(), invalidId, fenderToo.id()))
+        ).andExpectAll(
+                status().isOk(),
+                content().contentType(MediaType.APPLICATION_JSON),
+                jsonPath("$.length()").value(1),
+                jsonPath("$[0]").value(invalidId.toString())
+        );
     }
     
 }

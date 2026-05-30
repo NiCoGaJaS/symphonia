@@ -8,7 +8,8 @@ export class CartValidation {
     private readonly http = inject(HttpClient);
     private readonly base = inject(API_ORIGIN);
 
-    invalidIds(ids: readonly string[]): Observable<string[]> {
-        return this.http.post<string[]>(`${this.base}/api/cart/validate`, ids);
+    invalidIds(ids: string[]): Observable<string[]> {
+        const url = `${this.base}/api/cart/validate`;
+        return this.http.post<string[]>(url, ids);
     }
 }

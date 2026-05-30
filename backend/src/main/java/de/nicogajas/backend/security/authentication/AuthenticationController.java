@@ -36,7 +36,7 @@ public class AuthenticationController {
     
     public record RegisterResponse(
             UUID id,
-            Role role
+            Account.Role role
     ) {}
     
     
@@ -47,7 +47,7 @@ public class AuthenticationController {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-Mail already in use");
         }
         
-        Account account = new Account(request.email, encoder.encode(request.password), Role.CUSTOMER);
+        Account account = new Account(request.email, encoder.encode(request.password), Account.Role.CUSTOMER);
         account = accounts.save(account);
         
         return ResponseEntity.status(HttpStatus.CREATED).body(new RegisterResponse(account.id(), account.role()));

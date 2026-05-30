@@ -93,19 +93,24 @@ public abstract class BucketStorage {
         String bucket = bucket();
         
         try {
-            logger.debug("Uploading object '{}' to bucket '{}' as type={} with size={} bytes.", name, bucket, type,
-                    size);
+            logger.debug(
+                    "Uploading object '{}' to bucket '{}' as type={} with size={} bytes.", name, bucket, type,
+                    size
+            );
             minio.putObject(
                     PutObjectArgs.builder()
                             .bucket(bucket)
                             .object(name)
                             .stream(data, size, -1L)
                             .contentType(type)
-                            .build());
+                            .build()
+            );
             logger.debug("Successfully uploaded object '{}' to bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket),
-                    exception);
+            throw new RuntimeException(
+                    "Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket),
+                    exception
+            );
         }
     }
     
@@ -124,11 +129,14 @@ public abstract class BucketStorage {
                     RemoveObjectArgs.builder()
                             .bucket(bucket())
                             .object(name)
-                            .build());
+                            .build()
+            );
             logger.debug("Successfully deleted object '{}' from bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException("Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket),
-                    exception);
+            throw new RuntimeException(
+                    "Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket),
+                    exception
+            );
         }
     }
     
