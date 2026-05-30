@@ -52,23 +52,24 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes, withComponentInputBinding()),
         provideClientHydration(withEventReplay()),
         provideAppInitializer(async () => {
-            const cart: Cart = inject(Cart);
-            const cartValidation = inject(CartValidation);
             const isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
             if (!isBrowser) {
                 return;
             }
 
+            const cart: Cart = inject(Cart);
             const items = cart.getItems();
 
             if (items.length === 0) {
                 return;
             }
 
-            const ids = [...new Set(items.map((i) => i.id))];
+            const ids = [...new Set(items.map((item) => item.id))];
+
+            const validation = inject(CartValidation);
             const invalidIds = new Set(
-                await firstValueFrom(cartValidation.invalidIds(ids)),
+                await firstValueFrom(validation.invalidIds(ids)),
             );
 
             cart.pruneToExistingIds(invalidIds);

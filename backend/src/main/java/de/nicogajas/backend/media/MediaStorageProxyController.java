@@ -60,9 +60,11 @@ public class MediaStorageProxyController {
                     .contentLength(metadata.size())
                     .body(new InputStreamResource(image));
         } catch (MinioException exception) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
                     "Failed to retrieve object '%s' in bucket '%s'.".formatted(object, bucket),
-                    exception);
+                    exception
+            );
         }
     }
     

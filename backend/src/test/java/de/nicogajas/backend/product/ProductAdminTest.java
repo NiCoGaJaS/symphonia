@@ -48,10 +48,11 @@ public class ProductAdminTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     void getAdminProducts() throws Exception {
-        ProductImage image = new ProductImage(
+        Product.Image image = new Product.Image(
                 UUID.randomUUID(),
                 "https://thumbs.static-thomann.de/thumb/padthumb600x600/pics/bdb/_59/595247/19267848_800.jpg",
-                "Fender Player II Strat RW BCG - Front");
+                "Fender Player II Strat RW BCG - Front"
+        );
         
         Product fender = new Product(
                 UUID.randomUUID(),
@@ -60,8 +61,9 @@ public class ProductAdminTest {
                 new BigDecimal("772.00"),
                 "Short Description",
                 "Description",
-                Category.OTHER,
-                image);
+                Product.Category.OTHER,
+                image
+        );
         
         Page<Product> page = new PageImpl<>(List.of(fender));
         
