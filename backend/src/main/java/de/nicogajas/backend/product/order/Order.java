@@ -2,12 +2,6 @@ package de.nicogajas.backend.product.order;
 
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.security.authentication.Account;
-
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Set;
-import java.util.UUID;
-
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
@@ -16,6 +10,11 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.Set;
+import java.util.UUID;
 
 @Table("orders")
 public record Order(
@@ -69,10 +68,10 @@ public record Order(
         
         
         public Item(
-                String name, BigDecimal price, int count, String summary, String description, Product.Category category,
+                String name, BigDecimal price, int amount, String summary, String description, Product.Category category,
                 Image image
         ) {
-            this(null, name, price, count, summary, description, category, image);
+            this(null, name, price, amount, summary, description, category, image);
         }
         
     }
