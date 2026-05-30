@@ -11,9 +11,9 @@ export class Products {
 
     search(
         query: string | null,
-        category: string | null,
-        priceMin: number | null,
-        priceMax: number | null,
+        category?: string | null,
+        priceMin?: number | null,
+        priceMax?: number | null,
     ): Observable<GetProductResponse[]> {
         const url = `${this.base}/api/products`;
 
