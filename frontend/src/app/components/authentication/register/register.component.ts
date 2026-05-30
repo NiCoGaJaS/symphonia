@@ -41,7 +41,7 @@ export class Register {
                     this.user.set(response.id, response.role);
                     this.router.navigate(['/profile']);
                     this.messages.add({
-                        severity: 'info',
+                        severity: 'success',
                         summary: 'Registrierung',
                         detail: 'Kundenkonto wurde erfolgreich erstellt.',
                     });

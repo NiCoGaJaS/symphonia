@@ -6,7 +6,6 @@ import {
     categoryToLabel,
 } from '@app/api/products/products.api';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PageResponse } from '@app/api/paging.models';
 import { PriceTagComponent } from '@components/global/price-tag/price-tag.component';
 import { ProductImageComponent } from '@components/products/image/product-image.component';
@@ -19,11 +18,9 @@ import { RouterLink } from '@angular/router';
         ProductImageComponent,
         RouterLink,
         PriceTagComponent,
-        ConfirmDialogModule,
     ],
     templateUrl: './product-management.component.html',
     styleUrl: './product-management.component.css',
-    providers: [ConfirmationService, MessageService],
 })
 export class ProductManagement {
     private readonly confirmation = inject(ConfirmationService);
