@@ -3,7 +3,7 @@
 
     <h2>Ihre Bestellung</h2>
 
-    <app-products-table variant="checkout" />
+    <app-products-table #table variant="checkout" />
 
     <app-products-summary variant="checkout" />
 
@@ -70,7 +70,7 @@
         <span>Pflichtfelder</span>
     </div>
 
-    <button (click)="onSubmit()" type="submit" class="button-blue full-width">
+    <button (click)="onSubmit()" type="button" class="button-blue full-width">
         Jetzt bestellen
     </button>
 </div>

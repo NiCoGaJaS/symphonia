@@ -10,37 +10,36 @@ export class Products {
     private readonly base = inject(API_ORIGIN);
 
     search(query: string | null): Observable<GetProductResponse[]> {
+        const url = `${this.base}/api/products`;
+
         let params = new HttpParams();
         if (query) {
             params = params.set('query', query);
         }
 
-        return this.http.get<GetProductResponse[]>(
-            `${this.base}/api/products`,
-            { params: params },
-        );
+        return this.http.get<GetProductResponse[]>(url, { params: params });
     }
 
     detailsOf(id: string): Observable<GetProductDetailResponse> {
-        return this.http.get<GetProductDetailResponse>(
-            `${this.base}/api/products/${id}`,
-        );
+        const url = `${this.base}/api/products/${id}`;
+        return this.http.get<GetProductDetailResponse>(url);
     }
 
     getAdminProducts(
         page: number,
         size: number,
     ): Observable<PageResponse<GetProductAdminResponse>> {
+        const url = `${this.base}/api/admin/products`;
         const params = new HttpParams().set('page', page).set('size', size);
 
-        return this.http.get<PageResponse<GetProductAdminResponse>>(
-            `${this.base}/api/admin/products`,
-            { params: params },
-        );
+        return this.http.get<PageResponse<GetProductAdminResponse>>(url, {
+            params: params,
+        });
     }
 
     delete(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.base}/api/admin/products/${id}`);
+        const url = `${this.base}/api/admin/products/${id}`;
+        return this.http.delete<void>(url);
     }
 }
 

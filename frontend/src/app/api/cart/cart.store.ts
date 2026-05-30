@@ -82,6 +82,10 @@ export class Cart {
         return this.items();
     }
 
+    clear(): void {
+        this.items.set([]);
+    }
+
     setAmountOf(id: string, quantity: number): void {
         this.upsert(id, () => quantity);
     }

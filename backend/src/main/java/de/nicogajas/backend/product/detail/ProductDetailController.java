@@ -1,7 +1,6 @@
 package de.nicogajas.backend.product.detail;
 
 import de.nicogajas.backend.product.Product;
-import de.nicogajas.backend.product.ProductImage;
 import de.nicogajas.backend.product.Products;
 
 import java.math.BigDecimal;
@@ -38,9 +37,11 @@ public class ProductDetailController {
     ) {
         
         public static GetProductDetailResponse fromProduct(Product product) {
-            return new GetProductDetailResponse(product.id(), product.name(), product.price(),
+            return new GetProductDetailResponse(
+                    product.id(), product.name(), product.price(),
                     product.summary(), product.description(),
-                    ProductImageResponse.fromProductImage(product.image()));
+                    ProductImageResponse.fromProductImage(product.image())
+            );
         }
         
     }
@@ -51,7 +52,7 @@ public class ProductDetailController {
             String alternativeText
     ) {
         
-        public static ProductImageResponse fromProductImage(ProductImage image) {
+        public static ProductImageResponse fromProductImage(Product.Image image) {
             return new ProductImageResponse(image.id(), image.url(), image.alternativeText());
         }
         
@@ -61,7 +62,8 @@ public class ProductDetailController {
     @GetMapping
     public GetProductDetailResponse detailOf(@PathVariable UUID id) {
         Product product = products.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produkt konnte nicht gefunden geworden."));
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produkt konnte nicht gefunden werden.")
+        );
         
         return GetProductDetailResponse.fromProduct(product);
     }
