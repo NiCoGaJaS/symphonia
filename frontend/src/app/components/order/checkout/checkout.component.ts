@@ -1,4 +1,8 @@
-import { Component, ViewChild, inject, Signal } from '@angular/core';
+import {
+    CartProductsSignals,
+    createCartProductsSignals,
+} from '@components/order/order-products';
+import { Component, Signal, ViewChild, inject } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -17,10 +21,6 @@ import { Router } from '@angular/router';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 import { TableComponent } from '@components/order/table/table.component';
 import { orderPatterns } from '@app/components/global/formPatterns';
-import {
-    CartProductsSignals,
-    createCartProductsSignals,
-} from '@components/order/order-products';
 
 export interface Field {
     id: string;

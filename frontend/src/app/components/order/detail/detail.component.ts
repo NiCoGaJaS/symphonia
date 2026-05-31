@@ -1,12 +1,12 @@
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { GetOrderDetailResponse, Orders } from '@api/products/orders.api';
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { map, Observable, shareReplay } from 'rxjs';
-import { OrderDetailDataComponent } from '@components/order/detail/order-detail-data/order-detail-data.component';
+import { Observable, map, shareReplay } from 'rxjs';
 import {
     OrderTableComponent,
     ProductsTableItem,
 } from '@components/order/order-table/order-table.component';
+import { OrderDetailDataComponent } from '@components/order/detail/order-detail-data/order-detail-data.component';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 
 @Component({

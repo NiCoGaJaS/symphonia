@@ -7,7 +7,10 @@
         <div class="header">
             <h1>Bestellung</h1>
             <p>Id: {{ details.id }}</p>
-            <p>Bestellt am {{ details.timestamp | date: 'dd.MM.yyyy' }}, {{ details.timestamp | date: 'HH:mm' }}</p>
+            <p>
+                Bestellt am {{ details.timestamp | date: 'dd.MM.yyyy' }},
+                {{ details.timestamp | date: 'HH:mm' }}
+            </p>
         </div>
 
         <app-order-table
@@ -16,7 +19,10 @@
             emptyLabel="Keine Produkte in dieser Bestellung."
         ></app-order-table>
 
-        <app-products-summary [total]="total" variant="checkout"></app-products-summary>
+        <app-products-summary
+            [total]="total"
+            variant="checkout"
+        ></app-products-summary>
 
         <div class="order-data">
             <div>
@@ -46,7 +52,10 @@
             <div>
                 <app-order-detail-data
                     title="Bezahlung"
-                    [data]="[[details.payment.holder], [details.payment.iban.toLocaleUpperCase()]]"
+                    [data]="[
+                        [details.payment.holder],
+                        [details.payment.iban.toLocaleUpperCase()],
+                    ]"
                 ></app-order-detail-data>
             </div>
         </div>

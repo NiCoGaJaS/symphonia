@@ -1,4 +1,7 @@
 <div class="wrapper">
     <app-products-table />
-    <app-products-summary [total]="totalPrice()" [disableCheckoutButton]="isCartEmpty()"/>
+    <app-products-summary
+        [total]="totalPrice()"
+        [disableCheckoutButton]="isCartEmpty()"
+    />
 </div>

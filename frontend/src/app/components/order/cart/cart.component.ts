@@ -1,13 +1,13 @@
-import { Component, computed, inject, Signal } from '@angular/core';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { FormsModule } from '@angular/forms';
-import { SummaryComponent } from '@components/order/summary/summary.component';
-import { TableComponent } from '@components/order/table/table.component';
-import { Cart } from '@api/cart/cart.store';
 import {
     CartProductsSignals,
     createCartProductsSignals,
 } from '@components/order/order-products';
+import { Component, Signal, computed, inject } from '@angular/core';
+import { Cart } from '@api/cart/cart.store';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { FormsModule } from '@angular/forms';
+import { SummaryComponent } from '@components/order/summary/summary.component';
+import { TableComponent } from '@components/order/table/table.component';
 
 @Component({
     selector: 'app-cart',
