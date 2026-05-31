@@ -20,7 +20,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { Router } from '@angular/router';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 import { TableComponent } from '@components/order/table/table.component';
-import { orderPatterns } from '@app/components/global/formPatterns';
 
 export interface Field {
     id: string;

@@ -29,7 +29,6 @@ export class OrderDetailComponent {
     protected total$!: Observable<number>;
 
     @Input({ required: true })
-    @Input({ required: true })
     set id(value: string) {
         if (!value) {
             return;
