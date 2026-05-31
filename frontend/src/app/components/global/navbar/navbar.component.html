@@ -47,7 +47,12 @@
         class="search-bar mobile-search-bar"
         (ngSubmit)="onSearch(searchInput.value)"
     >
-        <input #searchInput type="search" placeholder="Suche Produkte..." aria-label="Produkte suchen"/>
+        <input
+            #searchInput
+            type="search"
+            placeholder="Suche Produkte..."
+            aria-label="Produkte suchen"
+        />
     </form>
 }
 
