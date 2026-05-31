@@ -107,7 +107,7 @@ public class ProductAdminController {
     @PostMapping(path = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
-            @RequestPart("request") CreateProductRequest request,
+            @RequestPart("product") CreateProductRequest request,
             @RequestPart("image") MultipartFile image
     ) {
         Product.Image productImage = upload(image);

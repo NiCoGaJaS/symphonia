@@ -62,7 +62,7 @@ export class Products {
             }),
         );
 
-        formData.append('images', image, image.name);
+        formData.append('image', image, image.name);
 
         return this.http.post<void>(
             `${this.base}/api/admin/products/create`,
