@@ -118,7 +118,7 @@ export class EditableForm implements OnInit {
         if (globalErrors && edited) {
             if (globalErrors['allOrNone']) {
                 globalMessages.push(
-                    'Alle Felder dieses Abschnitts müssen entweder gemeinsam ausgefüllt oder gemeinsam leer sein.',
+                    'Alle Felder dieses Abschnitts müssen entweder gemeinsam ausgefüllt oder leer sein.',
                 );
             }
         }

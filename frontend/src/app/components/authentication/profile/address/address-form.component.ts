@@ -87,7 +87,7 @@ export class AddressForm {
             next: () => {
                 this.messages.add({
                     severity: 'success',
-                    summary: 'Adresse gespeichert',
+                    summary: 'Adresse aktualisiert',
                     detail: 'Deine Adresse wurde erfolgreich aktualisiert.',
                 });
             },
@@ -96,7 +96,7 @@ export class AddressForm {
                 this.messages.add({
                     severity: 'error',
                     summary: 'Speichern fehlgeschlagen',
-                    detail: 'Deine Adresse konnte nicht gespeichert werden. Bitte versuche es später erneut.',
+                    detail: 'Deine Adresse konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },
         });

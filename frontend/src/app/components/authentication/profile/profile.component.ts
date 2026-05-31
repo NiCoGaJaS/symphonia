@@ -145,7 +145,7 @@ export class Profile implements OnInit {
             next: () => {
                 this.messages.add({
                     severity: 'success',
-                    summary: 'Name gespeichert',
+                    summary: 'Name aktualisiert',
                     detail: 'Dein Name wurde erfolgreich aktualisiert.',
                 });
             },
@@ -154,7 +154,7 @@ export class Profile implements OnInit {
                 this.messages.add({
                     severity: 'error',
                     summary: 'Speichern fehlgeschlagen',
-                    detail: 'Dein Name konnte nicht gespeichert werden. Bitte versuche es später erneut.',
+                    detail: 'Dein Name konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },
         });
@@ -183,7 +183,7 @@ export class Profile implements OnInit {
             next: () => {
                 this.messages.add({
                     severity: 'success',
-                    summary: 'Zahlungsart gespeichert',
+                    summary: 'Zahlungsart aktualisiert',
                     detail: 'Deine Zahlungsart wurde erfolgreich aktualisiert.',
                 });
             },
@@ -192,7 +192,7 @@ export class Profile implements OnInit {
                 this.messages.add({
                     severity: 'error',
                     summary: 'Speichern fehlgeschlagen',
-                    detail: 'Deine Zahlungsart konnte nicht gespeichert werden. Bitte versuche es später erneut.',
+                    detail: 'Deine Zahlungsart konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },
         });
