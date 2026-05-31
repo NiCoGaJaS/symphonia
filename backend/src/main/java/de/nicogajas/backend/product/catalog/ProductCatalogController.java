@@ -57,10 +57,18 @@ public class ProductCatalogController {
     
     
     @GetMapping
-    public List<GetProductResponse> getProducts(@RequestParam(required = false) Optional<String> query) {
+    public List<GetProductResponse> getProducts(
+            @RequestParam(required = false) Optional<String> query,
+            @RequestParam(required = false) Optional<Product.Category> category,
+            @RequestParam(name = "price_min", required = false) Optional<BigDecimal> priceMin,
+            @RequestParam(name = "price_max", required = false) Optional<BigDecimal> priceMax
+    ) {
         return query.map(this.products::findAllByNameContainsIgnoreCase)
                 .orElseGet(this.products::findAll)
                 .stream()
+                .filter(p -> category.map(c -> p.category() == c).orElse(true))
+                .filter(p -> priceMin.map(min -> p.price().compareTo(min) >= 0).orElse(true))
+                .filter(p -> priceMax.map(max -> p.price().compareTo(max) <= 0).orElse(true))
                 .map(GetProductResponse::fromProduct)
                 .toList();
     }
