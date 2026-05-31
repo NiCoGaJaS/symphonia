@@ -95,7 +95,7 @@ export class AddressForm {
                 this.formView?.restorePrevious();
                 this.messages.add({
                     severity: 'error',
-                    summary: 'Speichern fehlgeschlagen',
+                    summary: 'Aktualisierung fehlgeschlagen',
                     detail: 'Deine Adresse konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },

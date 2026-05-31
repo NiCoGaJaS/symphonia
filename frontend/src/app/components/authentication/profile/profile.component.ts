@@ -153,7 +153,7 @@ export class Profile implements OnInit {
                 this.nameForm?.restorePrevious();
                 this.messages.add({
                     severity: 'error',
-                    summary: 'Speichern fehlgeschlagen',
+                    summary: 'Aktualisierung fehlgeschlagen',
                     detail: 'Dein Name konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },
@@ -191,7 +191,7 @@ export class Profile implements OnInit {
                 this.paymentForm?.restorePrevious();
                 this.messages.add({
                     severity: 'error',
-                    summary: 'Speichern fehlgeschlagen',
+                    summary: 'Aktualisierung fehlgeschlagen',
                     detail: 'Deine Zahlungsart konnte nicht aktualisiert werden. Bitte versuche es später erneut.',
                 });
             },
