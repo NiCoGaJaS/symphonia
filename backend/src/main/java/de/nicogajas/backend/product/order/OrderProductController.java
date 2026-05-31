@@ -5,7 +5,10 @@ import de.nicogajas.backend.security.authentication.Account;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
@@ -23,7 +26,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -135,7 +143,8 @@ public class OrderProductController {
         orders.save(request.toOrder(account, items));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
+    
+    
     public record OrderDetailResponse(
             UUID id,
             Timestamp timestamp,
@@ -144,7 +153,7 @@ public class OrderProductController {
             Payment payment,
             List<Product> products
     ) {
-
+        
         public static OrderDetailResponse from(Order order) {
             return new OrderDetailResponse(
                     order.id(),
@@ -157,7 +166,8 @@ public class OrderProductController {
                             .toList()
             );
         }
-
+        
+        
         public record Address(
                 String firstName,
                 String lastName,
@@ -166,6 +176,7 @@ public class OrderProductController {
                 String street,
                 String houseNumber
         ) {
+            
             public static Address from(Order.Address address) {
                 return new Address(
                         address.firstName(),
@@ -176,20 +187,23 @@ public class OrderProductController {
                         address.houseNumber()
                 );
             }
+            
         }
-
+        
         public record Payment(
                 String holder,
                 String iban
         ) {
+            
             public static Payment from(Order.PaymentDetails payment) {
                 return new Payment(
                         payment.accountHolder(),
                         payment.iban()
                 );
             }
+            
         }
-
+        
         public record Product(
                 UUID id,
                 String name,
@@ -197,6 +211,7 @@ public class OrderProductController {
                 int amount,
                 Image image
         ) {
+            
             public static Product from(Order.Item item) {
                 return new Product(
                         item.id(),
@@ -206,12 +221,14 @@ public class OrderProductController {
                         Image.from(item.image())
                 );
             }
-
+            
+            
             public record Image(
                     UUID id,
                     String url,
                     String alternativeText
             ) {
+                
                 public static Image from(Order.Item.Image image) {
                     return new Image(
                             image.id(),
@@ -219,10 +236,14 @@ public class OrderProductController {
                             image.alternativeText()
                     );
                 }
+                
             }
+            
         }
+        
     }
-
+    
+    
     @GetMapping("/order/{id}")
     public ResponseEntity<OrderDetailResponse> orderDetails(
             @PathVariable UUID id,
@@ -232,54 +253,65 @@ public class OrderProductController {
         if (account == null) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-
+        
         Order order = orders.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+        
         if (order.customer() == null || !order.customer().getId().equals(account.id())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
-
+        
         return ResponseEntity.ok(OrderDetailResponse.from(order));
     }
-
-    public record OrderListResponse(UUID id, Timestamp timestamp, int price){
-        public static OrderListResponse from(Order order){
+    
+    
+    public record OrderListResponse(
+            UUID id,
+            Timestamp timestamp,
+            int price
+    ) {
+        
+        public static OrderListResponse from(Order order) {
             int totalPrice = order.products().stream()
                     .map(item -> item.price().multiply(BigDecimal.valueOf(item.amount())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .multiply(BigDecimal.valueOf(100))
                     .intValueExact();
-
-
+            
             return new OrderListResponse(
                     order.id(),
                     Timestamp.from(order.createdAt()),
                     totalPrice
             );
         }
-
+        
     }
-
+    
+    
     @GetMapping("/orders")
-    public Page<OrderListResponse> orderList(Authentication authentication, @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable){
+    public Page<OrderListResponse> orderList(
+            Authentication authentication,
+            @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
         Account account = Account.fromAuthentication(authentication);
-
-        if(account == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-
+        
+        if (account == null)
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        
         List<Order> allOrders = orders.findAllByCustomer(account.id());
-
+        
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), allOrders.size());
-
+        
         List<Order> pageContent;
         if (start >= allOrders.size()) {
             pageContent = List.of();
         } else {
             pageContent = allOrders.subList(start, end);
         }
-
+        
         Page<Order> page = new PageImpl<>(pageContent, pageable, allOrders.size());
         return page.map(OrderListResponse::from);
     }
+    
 }
