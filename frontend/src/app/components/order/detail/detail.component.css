@@ -1,0 +1,32 @@
+.wrapper {
+    margin: 8vh 18vw 8vh 18vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.order-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.order-data > div {
+    border-radius: 8px;
+    border: 2px solid var(--border-grey);
+    padding: 2rem;
+}
+
+p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .order-data {
+        display: flex;
+        flex-direction: column;
+    }
+}

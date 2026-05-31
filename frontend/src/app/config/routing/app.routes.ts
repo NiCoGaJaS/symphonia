@@ -9,6 +9,7 @@ import { CartComponent } from '@components/order/cart/cart.component';
 import { CheckoutComponent } from '@components/order/checkout/checkout.component';
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
+import { OrderDetailComponent } from '@components/order/detail/detail.component';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
 import { ProductDetailComponent } from '@components/products/detail/product-detail.component';
 import { ProductManagement } from '@components/admin/product/management/product-management.component';
@@ -78,6 +79,10 @@ export const routes: Routes = [
     {
         path: 'product/:id',
         component: ProductDetailComponent,
+    },
+    {
+        path: 'order/:id',
+        component: OrderDetailComponent,
     },
     {
         path: 'register',

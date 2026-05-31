@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject, Signal } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -16,6 +16,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { Router } from '@angular/router';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 import { TableComponent } from '@components/order/table/table.component';
+import { orderPatterns } from '@app/components/global/formPatterns';
+import {
+    CartProductsSignals,
+    createCartProductsSignals,
+} from '@components/order/order-products';
 
 export interface Field {
     id: string;
@@ -42,6 +47,11 @@ export class CheckoutComponent {
     private readonly router = inject(Router);
     private readonly cart = inject(Cart);
     private readonly formBuilder = inject(FormBuilder);
+
+    private readonly cartSignals: CartProductsSignals =
+        createCartProductsSignals(this.cart);
+
+    protected readonly totalPrice: Signal<number> = this.cartSignals.totalPrice;
 
     createAddressForm(fb: FormBuilder): FormGroup {
         return fb.group({

@@ -1,0 +1,7 @@
+<h3>{{ title }}</h3>
+
+@for (line of data; track $index) {
+    <div class="line">
+        <p>{{ line.join(' ') }}</p>
+    </div>
+}

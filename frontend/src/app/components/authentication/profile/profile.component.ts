@@ -23,6 +23,8 @@ import { InputText } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { PAYMENT_PATTERNS } from '@components/global/form.patterns';
 import { Router } from '@angular/router';
+import { HistoryComponent } from '@components/order/history/history.component';
+import { TableModule } from 'primeng/table';
 import { User } from '@api/authentication/user.store';
 import { allOrNoneValidator } from '@components/global/form.validators';
 import { isPlatformBrowser } from '@angular/common';
@@ -39,6 +41,7 @@ import { isPlatformBrowser } from '@angular/common';
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',
+    imports: [RouterLink, TableModule, HistoryComponent],
 })
 export class Profile implements OnInit {
     private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));

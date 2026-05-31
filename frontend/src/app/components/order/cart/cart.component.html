@@ -1,4 +1,4 @@
 <div class="wrapper">
     <app-products-table />
-    <app-products-summary />
+    <app-products-summary [total]="totalPrice()" [disableCheckoutButton]="isCartEmpty()"/>
 </div>
