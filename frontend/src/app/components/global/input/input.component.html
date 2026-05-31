@@ -1,21 +1,23 @@
-<p-input-group>
-    <p-floatlabel variant="over">
-        <input
-            pInputText
-            [id]="field"
-            [formControlName]="field"
-            [placeholder]="placeholder"
-            [pInputMask]="inputMask"
-            required
-            [ngClass]="{
-                'p-invalid':
-                    form.get(field)?.invalid && form.get(field)?.touched,
-            }"
-        />
+<div class="wrapper">
+    <p-input-group>
+        <p-floatlabel variant="over">
+            <input
+                pInputText
+                [id]="field"
+                [formControlName]="field"
+                [placeholder]="placeholder"
+                [pInputMask]="inputMask"
+                required
+                [ngClass]="{
+                    'p-invalid':
+                        form.get(field)?.invalid && form.get(field)?.touched,
+                }"
+            />
 
-        <label [for]="field">
-            {{ label }}
-            <span class="required">*</span>
-        </label>
-    </p-floatlabel>
-</p-input-group>
+            <label [for]="field">
+                {{ label }}
+                <span class="required">*</span>
+            </label>
+        </p-floatlabel>
+    </p-input-group>
+</div>

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { API_ORIGIN } from '@api/api.config';
 import { ProductImageComponent } from './product-image.component';
 
 describe('ProductImageComponent', () => {
@@ -13,6 +14,9 @@ describe('ProductImageComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [ProductImageComponent],
+            providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:3000' },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ProductImageComponent);

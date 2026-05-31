@@ -1,0 +1,11 @@
+.full-width {
+    --p-floatlabel-focus-color: var(--primary-blue);
+    --p-textarea-focus-border-color: var(--primary-blue);
+
+    width: 100%;
+}
+
+p-floatlabel,
+textarea {
+    width: 100%;
+}

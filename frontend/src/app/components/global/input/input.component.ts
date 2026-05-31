@@ -30,9 +30,9 @@ import { NgClass } from '@angular/common';
     ],
 })
 export class InputComponent {
-    @Input() form!: FormGroup;
-    @Input() field!: string;
-    @Input() label!: string;
+    @Input({ required: true }) form!: FormGroup;
+    @Input({ required: true }) field!: string;
+    @Input({ required: true }) label!: string;
 
     @Input() inputMask?: string;
     @Input() placeholder: string = '';

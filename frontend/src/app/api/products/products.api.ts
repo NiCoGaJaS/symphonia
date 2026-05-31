@@ -51,6 +51,25 @@ export class Products {
         });
     }
 
+    create(product: CreateProductParams): Observable<void> {
+        const { image, ...productRequest } = product;
+        const formData = new FormData();
+
+        formData.append(
+            'product',
+            new Blob([JSON.stringify(productRequest)], {
+                type: 'application/json',
+            }),
+        );
+
+        formData.append('image', image, image.name);
+
+        return this.http.post<void>(
+            `${this.base}/api/admin/products/create`,
+            formData,
+        );
+    }
+
     delete(id: string): Observable<void> {
         const url = `${this.base}/api/admin/products/${id}`;
         return this.http.delete<void>(url);
@@ -117,4 +136,19 @@ export interface GetProductAdminResponse {
         url: string;
         alternative_text: string;
     };
+}
+
+export interface ProductImage {
+    id: string;
+    url: string;
+    alternative_text: string;
+}
+
+export interface CreateProductParams {
+    name: string;
+    category: Category;
+    price: number;
+    summary: string;
+    description: string;
+    image: File;
 }

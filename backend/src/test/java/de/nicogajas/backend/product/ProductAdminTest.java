@@ -4,21 +4,26 @@ import de.nicogajas.backend.product.admin.ProductAdminController;
 import de.nicogajas.backend.security.SecurityConfig;
 import de.nicogajas.backend.security.authentication.Accounts;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import io.minio.MinioClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -27,6 +32,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,7 +48,13 @@ public class ProductAdminTest {
     Products products;
     
     @MockitoBean
+    ProductImages productImages;
+    
+    @MockitoBean
     Accounts accounts;
+    
+    @MockitoBean
+    private MinioClient minioClient;
     
     
     @Test
@@ -91,6 +103,64 @@ public class ProductAdminTest {
                 .andExpect(status().isNoContent());
         
         verify(products).deleteById(id);
+    }
+    
+    
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    void createProductFromRequestBody() throws Exception {
+        
+        MockMultipartFile requestPart = new MockMultipartFile(
+                "product",
+                "product.json",
+                MediaType.APPLICATION_JSON_VALUE,
+                """
+                {
+                  "name": "Fender Player II Strat RW BCG",
+                  "category": "GUITAR",
+                  "price": 772.00,
+                  "summary": "Short Description",
+                  "description": "Description"
+                }
+                """.getBytes()
+        );
+        
+        MockMultipartFile image = new MockMultipartFile(
+                "image",
+                "fender.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                "image-content".getBytes()
+        );
+        
+        mvc.perform(
+                multipart("/api/admin/products/create")
+                        .file(requestPart)
+                        .file(image)
+                        .with(csrf())
+        )
+                .andExpect(status().isCreated());
+        
+        verify(productImages).upload(
+                argThat(name -> name.endsWith(".jpg")),
+                any(InputStream.class),
+                eq((long) "image-content".getBytes().length),
+                eq(MediaType.IMAGE_JPEG_VALUE)
+        );
+        
+        verify(products).save(
+                argThat(
+                        product -> product.id() == null
+                                && product.name().equals("Fender Player II Strat RW BCG")
+                                && product.category() == Product.Category.GUITAR
+                                && product.price().compareTo(new BigDecimal("772.00")) == 0
+                                && product.summary().equals("Short Description")
+                                && product.description().equals("Description")
+                                && product.image().id() == null
+                                && product.image().url().startsWith("/public/")
+                                && product.image().url().endsWith(".jpg")
+                                && product.image().alternativeText().endsWith(".jpg")
+                )
+        );
     }
     
     

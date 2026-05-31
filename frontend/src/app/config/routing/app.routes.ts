@@ -10,6 +10,7 @@ import { CheckoutComponent } from '@components/order/checkout/checkout.component
 import { HomeComponent } from '@components/home/home.component';
 import { Login } from '@components/authentication/login/login.component';
 import { ProductCatalog } from '@components/products/catalog/product-catalog.component';
+import { ProductCreateComponent } from '@components/admin/product/product-create/product-create.component';
 import { ProductDetailComponent } from '@components/products/detail/product-detail.component';
 import { ProductManagement } from '@components/admin/product/management/product-management.component';
 import { Profile } from '@components/authentication/profile/profile.component';
@@ -105,6 +106,10 @@ export const routes: Routes = [
             {
                 path: 'products',
                 component: ProductManagement,
+            },
+            {
+                path: 'products/create',
+                component: ProductCreateComponent,
             },
         ],
         canActivateChild: [isAdmin],

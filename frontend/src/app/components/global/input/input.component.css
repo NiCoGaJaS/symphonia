@@ -1,3 +1,4 @@
-.required {
-    color: var(--primary-red);
+.wrapper {
+    --p-floatlabel-focus-color: var(--primary-blue);
+    --p-floatlabel-position-x: 0rem;
 }

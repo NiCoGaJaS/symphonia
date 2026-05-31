@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { GetProductResponse, Products } from '@api/products/products.api';
+import { API_ORIGIN } from '@api/api.config';
 import { Cart } from '@api/cart/cart.store';
 import { TableComponent } from './table.component';
 import { createCart } from '@components/order/order-test.utils';
@@ -14,6 +15,7 @@ describe('TableComponent', () => {
         await TestBed.configureTestingModule({
             imports: [TableComponent],
             providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:3000' },
                 {
                     provide: Cart,
                     useValue: createCart([]),

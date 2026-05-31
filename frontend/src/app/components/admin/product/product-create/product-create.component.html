@@ -1,0 +1,122 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="wrapper">
+        <div>
+            <p-fileUpload
+                #fileUpload
+                name="images"
+                accept="image/*,video/*"
+                [multiple]="false"
+                [showUploadButton]="false"
+                [showCancelButton]="false"
+                [customUpload]="true"
+                (onSelect)="onSelectImages($event)"
+                (onRemove)="onRemoveImage()"
+            >
+                <ng-template pTemplate="content"></ng-template>
+            </p-fileUpload>
+
+            <button
+                type="button"
+                class="image-wrapper"
+                id="image"
+                (click)="fileUpload.choose()"
+            >
+                @if (isLoading) {
+                    <div class="loading">
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <span>Bild wird geladen...</span>
+                    </div>
+                } @else if (previewUrl) {
+                    <img [src]="previewUrl" class="preview" alt="" />
+                } @else {
+                    <div class="placeholder">
+                        Bild hinzufügen<span class="required">*</span>
+                    </div>
+                }
+
+                @if (previewUrl) {
+                    <button
+                        type="button"
+                        class="remove"
+                        (click)="onRemoveImage($event)"
+                    >
+                        <i class="pi pi-times"></i>
+                    </button>
+                }
+            </button>
+        </div>
+
+        <div class="top-right">
+            <app-form-input
+                [form]="form"
+                field="name"
+                label="Name"
+                class="full"
+            />
+
+            <app-form-textarea
+                [form]="form"
+                field="summary"
+                label="Zusammenfassung"
+                [rows]="3"
+                [required]="true"
+                class="full"
+            />
+
+            <p-floatlabel class="category-float-label" variant="over">
+                <p-select
+                    inputId="category"
+                    formControlName="category"
+                    [autofocus]="false"
+                    [options]="categories"
+                    optionLabel="label"
+                    optionValue="value"
+                    placeholder="Kategorie wählen.."
+                    class=""
+                    [ngClass]="{
+                        'p-invalid':
+                            form.get('category')?.invalid &&
+                            form.get('category')?.touched,
+                    }"
+                />
+                <label for="category">
+                    Kategorie
+                    <span class="required">*</span>
+                </label>
+            </p-floatlabel>
+
+            <div class="price">
+                <p-floatlabel>
+                    <p-inputnumber
+                        [min]="0"
+                        [max]="10000"
+                        [autofocus]="false"
+                        formControlName="price"
+                        mode="currency"
+                        inputId="price"
+                        currency="EUR"
+                        locale="de-DE"
+                        required
+                    />
+                    <label for="price"
+                        >Preis <span class="required">*</span></label
+                    >
+                </p-floatlabel>
+            </div>
+        </div>
+        <div class="full">
+            <app-form-textarea
+                [form]="form"
+                field="description"
+                label="Beschreibung"
+                [rows]="10"
+                [required]="true"
+            />
+        </div>
+        <div>
+            <span class="required">*</span>
+            <span>Pflichtfelder</span>
+        </div>
+        <button type="submit" class="button-blue right">Erstellen</button>
+    </div>
+</form>

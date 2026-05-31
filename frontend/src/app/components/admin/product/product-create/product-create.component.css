@@ -1,0 +1,126 @@
+.category-float-label label {
+    top: var(--p-floatlabel-over-active-top, -1.25rem);
+    transform: translateY(0);
+    font-size: var(--p-floatlabel-active-font-size, 0.75rem);
+    font-weight: var(--p-floatlabel-active-font-weight, 400);
+}
+
+.wrapper {
+    padding-left: 15vw;
+    padding-right: 15vw;
+    margin: 5vh 0 10vh 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    --p-floatlabel-focus-color: var(--primary-blue);
+    --p-floatlabel-position-x: 0rem;
+    --p-select-focus-border-color: var(--primary-blue);
+    --p-select-option-selected-background: var(--background-blue);
+    --p-select-option-selected-focus-background: var(--background-blue);
+}
+
+.full {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.full app-form-textarea {
+    display: block;
+    width: 100%;
+}
+
+.right {
+    grid-column: 2;
+    justify-self: end;
+    width: 20vw;
+}
+
+.top-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: start;
+    gap: 2rem;
+}
+
+.price {
+    justify-self: end;
+}
+
+.price p-floatlabel,
+.price p-inputnumber {
+    width: 100%;
+}
+
+:host ::ng-deep .p-fileupload {
+    border: none !important;
+    background: transparent !important;
+}
+
+:host ::ng-deep .p-fileupload-content,
+:host ::ng-deep .p-fileupload-buttonbar,
+:host ::ng-deep .p-fileupload-header {
+    display: none !important;
+}
+
+.image-wrapper {
+    width: 100%;
+    height: 320px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--primary-grey);
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    cursor: pointer;
+}
+
+.preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder {
+    color: var(--p-floatlabel-color);
+    font-size: 14px;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary-dark-grey);
+}
+
+.loading i {
+    font-size: 22px;
+}
+
+.remove {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 10;
+
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    background: var(--primary-black);
+    color: var(--primary-grey);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

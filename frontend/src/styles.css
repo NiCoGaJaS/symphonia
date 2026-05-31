@@ -16,6 +16,9 @@
     --menu-hover: #1f1f1f;
     --border-grey: #c4c4c4;
     --pagination-grey: #334155;
+
+    --p-floatlabel-focus-color: var(--primary-blue);
+    --p-floatlabel-position-x: 0rem;
 }
 
 html {
@@ -65,6 +68,7 @@ body {
     color: var(--primary-white);
     background: var(--primary-blue);
     font-size: large;
+    font-weight: bold;
     padding: 0.5rem;
     border-radius: 8px;
     border: 0;
@@ -81,4 +85,8 @@ body {
 
 input {
     --p-inputtext-focus-border-color: var(--primary-blue);
+}
+
+.required {
+    color: var(--primary-red);
 }
