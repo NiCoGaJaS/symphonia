@@ -111,8 +111,8 @@ public class ProductAdminTest {
     void createProductFromRequestBody() throws Exception {
         
         MockMultipartFile requestPart = new MockMultipartFile(
-                "request",
-                "request.json",
+                "product",
+                "product.json",
                 MediaType.APPLICATION_JSON_VALUE,
                 """
                 {
