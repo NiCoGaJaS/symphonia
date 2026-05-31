@@ -9,12 +9,26 @@ export class Products {
     private readonly http = inject(HttpClient);
     private readonly base = inject(API_ORIGIN);
 
-    search(query: string | null): Observable<GetProductResponse[]> {
+    search(
+        query: string | null,
+        category: string | null,
+        priceMin: number | null,
+        priceMax: number | null,
+    ): Observable<GetProductResponse[]> {
         const url = `${this.base}/api/products`;
 
         let params = new HttpParams();
         if (query) {
             params = params.set('query', query);
+        }
+        if (category) {
+            params = params.set('category', category);
+        }
+        if (priceMin && !Number.isNaN(priceMin)) {
+            params = params.set('price_min', priceMin);
+        }
+        if (priceMax && !Number.isNaN(priceMax)) {
+            params = params.set('price_max', priceMax);
         }
 
         return this.http.get<GetProductResponse[]>(url, { params: params });

@@ -16,7 +16,7 @@ export interface CartProductsSignals {
 export function createCartProductsSignals(cart: Cart): CartProductsSignals {
     const productsApi = inject(Products);
 
-    const products = toSignal(productsApi.search(null), {
+    const products = toSignal(productsApi.search(null, null, null, null), {
         initialValue: [] as GetProductResponse[],
     });
 

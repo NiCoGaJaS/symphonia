@@ -56,6 +56,69 @@
     font-size: 1.5rem;
 }
 
+.filter-panel {
+    position: absolute;
+    right: 0.7rem;
+    margin-top: 0.2rem;
+    z-index: 200;
+
+    background: var(--primary-black);
+    color: var(--primary-white);
+
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    justify-content: center;
+}
+
+.filter-panel form > div:last-child {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.filter-panel label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: var(--primary-white);
+}
+
+.filter-panel input {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.9rem;
+    width: 6.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--primary-grey);
+    background: var(--primary-white);
+    color: var(--primary-black);
+}
+
+.filter-panel button {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: var(--primary-white);
+}
+
+.filter-btn-submit {
+    background: var(--primary-blue);
+}
+
+.filter-btn-reset {
+    background: var(--primary-red);
+}
+
 :host ::ng-deep .cart-badge {
     background-color: var(--primary-blue) !important;
     font-family: 'Montserrat', sans-serif;
@@ -73,6 +136,15 @@
         input {
             width: 100%;
         }
+    }
+
+    .filter-panel {
+        display: block;
+        width: 100%;
+        margin-top: 0;
+        right: 0;
+        border-radius: 0;
+        max-width: none;
     }
 
     .desktop-search-bar {
