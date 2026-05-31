@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { API_ORIGIN } from '@api/api.config';
 import { HistoryComponent } from './history.component';
 
 describe('HistoryComponent', () => {
@@ -9,6 +9,9 @@ describe('HistoryComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [HistoryComponent],
+            providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HistoryComponent);

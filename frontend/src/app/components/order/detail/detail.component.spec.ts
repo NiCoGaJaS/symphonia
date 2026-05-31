@@ -1,17 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DetailComponent } from './detail.component';
+import { API_ORIGIN } from '@api/api.config';
+import { OrderDetailComponent } from './detail.component';
 
 describe('DetailComponent', () => {
-    let component: DetailComponent;
-    let fixture: ComponentFixture<DetailComponent>;
+    let component: OrderDetailComponent;
+    let fixture: ComponentFixture<OrderDetailComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DetailComponent],
+            imports: [OrderDetailComponent],
+            providers: [
+                { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
+            ],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(DetailComponent);
+        fixture = TestBed.createComponent(OrderDetailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
