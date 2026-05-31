@@ -47,14 +47,12 @@
             spinnerMode="horizontal"
             [step]="1"
             [inputStyle]="{ width: '3.25rem', textAlign: 'center' }"
-            [incrementButtonProps]="{ 'aria-label': 'Menge erhöhen für '}"
-            [decrementButtonProps]="{ 'aria-label': 'Menge verringern für '}"
         >
             <ng-template #incrementbuttonicon>
-                <span class="pi pi-plus"></span>
+                <span class="pi pi-plus" aria-label="Menge erhöhen für"></span>
             </ng-template>
             <ng-template #decrementbuttonicon>
-                <span class="pi pi-minus"></span>
+                <span class="pi pi-minus" aria-label="Menge verringern für"></span>
             </ng-template>
         </p-inputnumber>
 
