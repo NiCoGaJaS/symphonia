@@ -12,6 +12,7 @@ import { Cart } from '@app/api/cart/cart.store';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { User } from '@api/authentication/user.store';
 
 @Component({
     selector: 'app-navbar',
@@ -31,6 +32,7 @@ export class NavbarComponent {
 
     protected readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
+    protected readonly user = inject(User);
     protected cart: Cart = inject(Cart);
     protected showSearch = false;
     protected showFilters = false;

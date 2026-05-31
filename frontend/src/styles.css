@@ -3,7 +3,7 @@
 
 :root {
     --primary-black: #000000;
-    --primary-green: #68b13b;
+    --primary-green: #51a319;
 
     --primary-blue: #0989c4;
     --secondary-blue: #e0f2fe;
@@ -31,6 +31,7 @@ body {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    --p-floatlabel-focus-color: var(--primary-blue);
 }
 
 @media (max-width: 768px) {

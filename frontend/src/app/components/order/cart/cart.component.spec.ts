@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { GetProductResponse, Products } from '@app/api/products/products.api';
 import { Cart } from '@app/api/cart/cart.store';
 import { CartComponent } from './cart.component';
@@ -24,6 +25,8 @@ describe('CartComponent', () => {
                         search: () => of([] as GetProductResponse[]),
                     } satisfies Partial<Products>,
                 },
+                MessageService,
+                ConfirmationService,
             ],
         }).compileComponents();
     });

@@ -40,6 +40,12 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    font-weight: bold;
+
+    i {
+        font-weight: bold;
+    }
 }
 
 .product-order-group {

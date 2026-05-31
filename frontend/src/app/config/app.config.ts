@@ -21,6 +21,7 @@ import { API_ORIGIN } from '@api/api.config';
 import Aura from '@primeuix/themes/aura';
 import { Cart } from '@app/api/cart/cart.store';
 import { CartValidation } from '@app/api/cart/cart.api';
+import { MessageService } from 'primeng/api';
 import { firstValueFrom } from 'rxjs';
 import localeDe from '@angular/common/locales/de';
 import { providePrimeNG } from 'primeng/config';
@@ -82,5 +83,6 @@ export const appConfig: ApplicationConfig = {
                 },
             },
         }),
+        MessageService,
     ],
 };

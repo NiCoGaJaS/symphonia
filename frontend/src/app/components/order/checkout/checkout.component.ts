@@ -6,6 +6,7 @@ import {
     ReactiveFormsModule,
     Validators,
 } from '@angular/forms';
+import { ADDRESS_PATTERNS } from '@app/components/global/form.patterns';
 import { Cart } from '@api/cart/cart.store';
 import { Checkbox } from 'primeng/checkbox';
 import { InputComponent } from '@components/global/input/input.component';
@@ -15,7 +16,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { Router } from '@angular/router';
 import { SummaryComponent } from '@components/order/summary/summary.component';
 import { TableComponent } from '@components/order/table/table.component';
-import { orderPatterns } from '@app/components/global/formPatterns';
 
 export interface Field {
     id: string;
@@ -49,22 +49,31 @@ export class CheckoutComponent {
             lastName: ['', [Validators.required]],
             street: [
                 '',
-                [Validators.required, Validators.pattern(orderPatterns.street)],
+                [
+                    Validators.required,
+                    Validators.pattern(ADDRESS_PATTERNS.street),
+                ],
             ],
             number: [
                 '',
-                [Validators.required, Validators.pattern(orderPatterns.number)],
+                [
+                    Validators.required,
+                    Validators.pattern(ADDRESS_PATTERNS.house_number),
+                ],
             ],
             zipcode: [
                 '',
                 [
                     Validators.required,
-                    Validators.pattern(orderPatterns.zipcode),
+                    Validators.pattern(ADDRESS_PATTERNS.zipcode),
                 ],
             ],
             city: [
                 '',
-                [Validators.required, Validators.pattern(orderPatterns.city)],
+                [
+                    Validators.required,
+                    Validators.pattern(ADDRESS_PATTERNS.city),
+                ],
             ],
         });
     }

@@ -68,6 +68,7 @@ public class SecurityConfig {
             AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
     ) {
         auth.requestMatchers("/api/admin/**").hasRole(Account.Role.ADMIN.name())
+                .requestMatchers("/api/settings/**").authenticated()
                 .anyRequest().permitAll();
     }
     

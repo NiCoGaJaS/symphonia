@@ -1,0 +1,70 @@
+<app-editable-form
+    #formView
+    class="form"
+    [title]="title"
+    [form]="form"
+    [formGroup]="form"
+    [labels]="labels"
+    [prefixes]="prefixes"
+    (submitted)="onAddressSave()"
+>
+    <p-floatlabel>
+        <input
+            pInputText
+            id="first_name"
+            formControlName="firstName"
+            placeholder="Max"
+        />
+        <label for="first_name">Vorname</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input
+            pInputText
+            id="last_name"
+            formControlName="lastName"
+            placeholder="Mustermann"
+        />
+        <label for="last_name">Nachname</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input
+            pInputText
+            id="street"
+            formControlName="street"
+            placeholder="Musterstraße"
+        />
+        <label for="street">Straße</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input
+            pInputText
+            id="house_number"
+            formControlName="houseNumber"
+            placeholder="1"
+        />
+        <label for="house_number">Hausnummer</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input
+            pInputText
+            id="zipcode"
+            formControlName="zipcode"
+            placeholder="12345"
+        />
+        <label for="zipcode">PLZ</label>
+    </p-floatlabel>
+
+    <p-floatlabel>
+        <input
+            pInputText
+            id="city"
+            formControlName="city"
+            placeholder="Musterstadt"
+        />
+        <label for="city">Stadt</label>
+    </p-floatlabel>
+</app-editable-form>

@@ -1,5 +1,6 @@
 import { Category, GetProductAdminResponse } from '@api/products/products.api';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import {
     HttpTestingController,
     provideHttpClientTesting,
@@ -22,6 +23,8 @@ describe('Product Management Component', () => {
                 { provide: API_ORIGIN, useValue: 'http://localhost:8080' },
                 provideHttpClientTesting(),
                 provideRouter([]),
+                MessageService,
+                ConfirmationService,
             ],
         }).compileComponents();
 

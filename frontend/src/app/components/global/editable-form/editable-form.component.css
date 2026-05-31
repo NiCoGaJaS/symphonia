@@ -1,0 +1,62 @@
+.editable-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.editable-form-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editable-form-title {
+    font-size: xx-large;
+    font-weight: bold;
+    margin: 0;
+
+    text-wrap: auto;
+}
+
+.editable-form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+
+    button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+
+        background-color: var(--primary-white);
+        border-radius: 8px;
+        border: 2px solid var(--primary-grey);
+        cursor: pointer;
+
+        i {
+            font-weight: bolder;
+        }
+    }
+}
+
+.editable-form-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.editable-form-validation {
+    text-align: center;
+    color: var(--primary-red);
+}
+
+.editable-form-error-list {
+    list-style: none;
+}

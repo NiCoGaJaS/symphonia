@@ -6,7 +6,6 @@ import {
 import { Component, Input, Signal, inject } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Cart } from '@api/cart/cart.store';
-import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Divider } from 'primeng/divider';
 import { FormsModule } from '@angular/forms';
 import { GetProductResponse } from '@api/products/products.api';
@@ -17,7 +16,6 @@ import { ProductImageComponent } from '@components/products/image/product-image.
 @Component({
     selector: 'app-products-table',
     imports: [
-        ConfirmDialog,
         Divider,
         InputNumber,
         PriceTagComponent,
@@ -26,7 +24,6 @@ import { ProductImageComponent } from '@components/products/image/product-image.
     ],
     templateUrl: './table.component.html',
     styleUrl: './table.component.css',
-    providers: [ConfirmationService, MessageService],
 })
 export class TableComponent {
     @Input() variant: 'cart' | 'checkout' = 'cart';
@@ -68,7 +65,7 @@ export class TableComponent {
                 this.confirmationService.close();
 
                 this.messageService.add({
-                    severity: 'info',
+                    severity: 'success',
                     summary: 'Entfernt.',
                     detail: 'Produkt entfernt.',
                 });
