@@ -1,9 +1,11 @@
 package de.nicogajas.backend.product.admin;
 
+import de.nicogajas.backend.media.MediaStorageException;
 import de.nicogajas.backend.product.Product;
 import de.nicogajas.backend.product.ProductImages;
 import de.nicogajas.backend.product.Products;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.Objects;
@@ -122,12 +124,12 @@ public class ProductAdminController {
         
         try {
             productImages.upload(objectName, image.getInputStream(), image.getSize(), contentType);
-        } catch (Exception exception) {
+        } catch (MediaStorageException | IOException exception) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to store product image.", exception);
         }
         
         return new Product.Image(
-                "/public/%s/%s".formatted(ProductImages.BUCKET, objectName),
+                "/public/%s/%s".formatted(productImages.bucket(), objectName),
                 objectName
         );
     }

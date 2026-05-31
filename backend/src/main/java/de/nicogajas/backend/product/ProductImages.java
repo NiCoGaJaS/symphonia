@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductImages extends BucketStorage {
     
-    public static final String BUCKET = "product-images";
-    
-    
     @Autowired
     public ProductImages(MinioClient minio) {
         super(minio);
@@ -20,7 +17,7 @@ public class ProductImages extends BucketStorage {
     
     @Override
     public String bucket() {
-        return BUCKET;
+        return "product-images";
     }
     
 }

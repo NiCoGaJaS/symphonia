@@ -76,7 +76,7 @@ public abstract class BucketStorage {
                 logger.debug("Bucket '{}' already exists.", bucket);
             }
         } catch (MinioException exception) {
-            throw new RuntimeException("Bucket %s failed to create or verify.".formatted(bucket), exception);
+            throw new MediaStorageException("Bucket %s failed to create or verify.".formatted(bucket), exception);
         }
     }
     
@@ -88,6 +88,7 @@ public abstract class BucketStorage {
      * @param data the content of the object
      * @param size the size of the object in bytes
      * @param type the content type of the object
+     * @throws MediaStorageException if the upload to the underlying storage fails
      */
     public void upload(String name, InputStream data, long size, String type) {
         String bucket = bucket();
@@ -107,7 +108,7 @@ public abstract class BucketStorage {
             );
             logger.debug("Successfully uploaded object '{}' to bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException(
+            throw new MediaStorageException(
                     "Failed to upload object '%s' to bucket '%s'.".formatted(name, bucket),
                     exception
             );
@@ -119,6 +120,7 @@ public abstract class BucketStorage {
      * Deletes an object from this bucket.
      * 
      * @param name the object key inside the bucket
+     * @throws MediaStorageException if the deletion from the underlying storage fails
      */
     public void delete(String name) {
         String bucket = bucket();
@@ -133,7 +135,7 @@ public abstract class BucketStorage {
             );
             logger.debug("Successfully deleted object '{}' from bucket '{}'.", name, bucket);
         } catch (MinioException exception) {
-            throw new RuntimeException(
+            throw new MediaStorageException(
                     "Failed to delete object '%s' from bucket '%s'.".formatted(name, bucket),
                     exception
             );

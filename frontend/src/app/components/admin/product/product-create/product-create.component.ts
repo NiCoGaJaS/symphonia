@@ -58,7 +58,7 @@ export class ProductCreateComponent {
         name: ['', [Validators.required]],
         category: [null, [Validators.required]],
         summary: ['', [Validators.required]],
-        description: [''],
+        description: ['', [Validators.required]],
         price: [0, [Validators.required]],
     });
 
@@ -112,7 +112,7 @@ export class ProductCreateComponent {
             category: formValue.category!,
             price: formValue.price,
             summary: formValue.summary,
-            description: formValue.description ?? '',
+            description: formValue.description,
             image: this.image,
         };
 
