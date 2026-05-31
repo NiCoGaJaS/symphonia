@@ -8,10 +8,6 @@
                     <i class="pi pi-pencil"></i>
                 </button>
             } @else {
-                <button type="button" (click)="onClearAndSubmit()">
-                    <i class="pi pi-trash"></i>
-                </button>
-
                 <button type="submit" [disabled]="form.touched && form.invalid">
                     <i class="pi pi-check"></i>
                 </button>

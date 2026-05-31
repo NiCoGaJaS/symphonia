@@ -7,6 +7,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { allOrNoneValidator } from '@components/global/form.validators';
 
 @Component({
     selector: 'app-address-form',
@@ -24,29 +25,22 @@ export class AddressForm {
 
     @ViewChild('formView') private readonly formView?: EditableForm;
 
-    protected form = inject(FormBuilder).nonNullable.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        street: [
-            '',
-            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.street)],
-        ],
-        houseNumber: [
-            '',
-            [
-                Validators.required,
-                Validators.pattern(ADDRESS_PATTERNS.house_number),
+    protected form = inject(FormBuilder).nonNullable.group(
+        {
+            firstName: [''],
+            lastName: [''],
+            street: ['', [Validators.pattern(ADDRESS_PATTERNS.street)]],
+            houseNumber: [
+                '',
+                [Validators.pattern(ADDRESS_PATTERNS.house_number)],
             ],
-        ],
-        zipcode: [
-            '',
-            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.zipcode)],
-        ],
-        city: [
-            '',
-            [Validators.required, Validators.pattern(ADDRESS_PATTERNS.city)],
-        ],
-    });
+            zipcode: ['', [Validators.pattern(ADDRESS_PATTERNS.zipcode)]],
+            city: ['', [Validators.pattern(ADDRESS_PATTERNS.city)]],
+        },
+        {
+            validators: allOrNoneValidator(),
+        },
+    );
 
     protected labels: Record<string, string> = {
         firstName: 'Vorname',
@@ -112,7 +106,17 @@ export class AddressForm {
         const { firstName, lastName, street, houseNumber, zipcode, city } =
             this.form.getRawValue();
 
-        console.log(this.form.getRawValue());
+        if (
+            !firstName &&
+            !lastName &&
+            !street &&
+            !houseNumber &&
+            !zipcode &&
+            !city
+        ) {
+            this.updateAddress(null);
+            return;
+        }
 
         if (
             !firstName ||
@@ -133,9 +137,5 @@ export class AddressForm {
             zipcode: zipcode,
             city: city,
         });
-    }
-
-    onAddressClear(): void {
-        this.updateAddress(null);
     }
 }

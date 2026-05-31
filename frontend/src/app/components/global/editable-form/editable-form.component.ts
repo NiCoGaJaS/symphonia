@@ -15,7 +15,6 @@ export class EditableForm implements OnInit {
     @Input() prefixes: Record<string, string> = {};
 
     @Output() submitted = new EventEmitter<void>();
-    @Output() clearAndSubmit = new EventEmitter<void>();
 
     protected editing = false;
     private previous = null;
@@ -47,18 +46,6 @@ export class EditableForm implements OnInit {
         this.form.disable({ emitEvent: false });
     }
 
-    protected onClearAndSubmit(): void {
-        if (!this.editing) {
-            return;
-        }
-
-        this.form.reset();
-        this.clearAndSubmit.emit();
-
-        this.editing = false;
-        this.form.disable({ emitEvent: false });
-    }
-
     protected onCancel(): void {
         if (!this.editing) {
             return;
@@ -81,7 +68,7 @@ export class EditableForm implements OnInit {
     }
 
     protected get errors(): (string | undefined)[] {
-        return Object.entries(this.form.controls)
+        const controlMessages = Object.entries(this.form.controls)
             .filter(([, control]) => control.errors !== null)
             .flatMap(([name, control]) => {
                 const errors = control.errors;
@@ -121,5 +108,21 @@ export class EditableForm implements OnInit {
 
                 return messages;
             });
+
+        const globalErrors = this.form.errors;
+        const edited = Object.values(this.form.controls).some(
+            (control) => control.touched && control.dirty,
+        );
+        const globalMessages = [];
+
+        if (globalErrors && edited) {
+            if (globalErrors['allOrNone']) {
+                globalMessages.push(
+                    'Alle Felder dieses Abschnitts müssen entweder gemeinsam ausgefüllt oder gemeinsam leer sein.',
+                );
+            }
+        }
+
+        return [...globalMessages, ...controlMessages];
     }
 }

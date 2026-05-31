@@ -24,7 +24,6 @@
             [labels]="nameLabels"
             [prefixes]="namePrefixes"
             (submitted)="onNameSave()"
-            (clearAndSubmit)="onNameClear()"
         >
             <p-floatlabel>
                 <input
@@ -32,7 +31,6 @@
                     id="first_name"
                     formControlName="firstName"
                     placeholder="Max"
-                    required
                 />
                 <label for="first_name">Vorname</label>
             </p-floatlabel>
@@ -43,7 +41,6 @@
                     id="last_name"
                     formControlName="lastName"
                     placeholder="Mustermann"
-                    required
                 />
                 <label for="last_name">Nachname</label>
             </p-floatlabel>
@@ -57,7 +54,6 @@
             [labels]="paymentLabels"
             [prefixes]="paymentPrefixes"
             (submitted)="onPaymentSave()"
-            (clearAndSubmit)="onPaymentClear()"
         >
             <p-floatlabel>
                 <input
@@ -65,7 +61,6 @@
                     id="account_holder"
                     formControlName="holder"
                     placeholder="Max Mustermann"
-                    required
                 />
                 <label for="account_holder">Kontoinhaber</label>
             </p-floatlabel>
@@ -77,7 +72,6 @@
                     formControlName="iban"
                     pInputMask="aa99 9999 9999 9999 9999 99"
                     placeholder="DE00 0000 0000 0000 0000 00"
-                    required
                 />
                 <label for="iban">IBAN</label>
             </p-floatlabel>

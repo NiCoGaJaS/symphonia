@@ -24,6 +24,7 @@ import { MessageService } from 'primeng/api';
 import { PAYMENT_PATTERNS } from '@components/global/form.patterns';
 import { Router } from '@angular/router';
 import { User } from '@api/authentication/user.store';
+import { allOrNoneValidator } from '@components/global/form.validators';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -56,10 +57,15 @@ export class Profile implements OnInit {
 
     protected isLoggingOut = false;
 
-    protected name = this.fb.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-    });
+    protected name = this.fb.group(
+        {
+            firstName: [''],
+            lastName: [''],
+        },
+        {
+            validators: allOrNoneValidator(),
+        },
+    );
 
     protected nameLabels: Record<string, string> = {
         firstName: 'Vorname',
@@ -71,13 +77,15 @@ export class Profile implements OnInit {
         lastName: 'Der',
     };
 
-    protected payment = this.fb.group({
-        holder: ['', [Validators.required]],
-        iban: [
-            '',
-            [Validators.required, Validators.pattern(PAYMENT_PATTERNS.iban)],
-        ],
-    });
+    protected payment = this.fb.group(
+        {
+            holder: [''],
+            iban: ['', [Validators.pattern(PAYMENT_PATTERNS.iban)]],
+        },
+        {
+            validators: allOrNoneValidator(),
+        },
+    );
 
     protected paymentLabels: Record<string, string> = {
         holder: 'Kontoinhaber',
@@ -155,6 +163,11 @@ export class Profile implements OnInit {
     onNameSave(): void {
         const { firstName, lastName } = this.name.getRawValue();
 
+        if (!firstName && !lastName) {
+            this.updateName(null);
+            return;
+        }
+
         if (!firstName || !lastName) {
             return;
         }
@@ -163,10 +176,6 @@ export class Profile implements OnInit {
             first_name: firstName,
             last_name: lastName,
         });
-    }
-
-    onNameClear(): void {
-        this.updateName(null);
     }
 
     updatePayment(payment: PaymentDetails | null): void {
@@ -192,15 +201,16 @@ export class Profile implements OnInit {
     onPaymentSave(): void {
         const { holder, iban } = this.payment.getRawValue();
 
+        if (!holder && !iban) {
+            this.updatePayment(null);
+            return;
+        }
+
         if (!holder || !iban) {
             return;
         }
 
         this.updatePayment({ holder, iban });
-    }
-
-    onPaymentClear(): void {
-        this.updatePayment(null);
     }
 
     saveShipping = (address: Address | null): Observable<void> => {
