@@ -19,10 +19,10 @@
             </form>
         }
 
-        <button type="button" (click)="toggleSearch()">
+        <button type="button" (click)="toggleSearch()" aria-label="Suche öffnen">
             <i class="pi pi-search"></i>
         </button>
-        <a routerLink="/cart">
+        <a routerLink="/cart" aria-label="Warenkorb anzeigen">
             @if (isBrowser) {
                 <i
                     class="pi pi-shopping-cart"
@@ -32,7 +32,7 @@
                 ></i>
             }
         </a>
-        <a routerLink="/profile">
+        <a routerLink="/profile" aria-label="Profil öffnen">
             <i class="pi pi-user"></i>
         </a>
     </div>
@@ -43,6 +43,6 @@
         class="search-bar mobile-search-bar"
         (ngSubmit)="onSearch(searchInput.value)"
     >
-        <input #searchInput type="search" placeholder="Suche Produkte..." />
+        <input #searchInput type="search" placeholder="Suche Produkte..." aria-label="Produkte suchen"/>
     </form>
 }

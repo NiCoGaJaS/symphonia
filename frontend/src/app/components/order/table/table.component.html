@@ -51,6 +51,9 @@
                                     width: '2.75rem',
                                     textAlign: 'center',
                                 }"
+                                aria-label="Menge fuer Produkt"
+                                [incrementButtonProps]="{'aria-label': 'Menge erhoehen'}"
+                                [decrementButtonProps]="{ 'aria-label': 'Menge verringern für ' + item.name }"
                             >
                                 <ng-template #incrementbuttonicon>
                                     <span class="pi pi-plus"></span>
