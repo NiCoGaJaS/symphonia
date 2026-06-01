@@ -9,6 +9,7 @@ import java.util.UUID;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -69,6 +70,8 @@ public class SecurityConfig {
     ) {
         auth.requestMatchers("/api/admin/**").hasRole(Account.Role.ADMIN.name())
                 .requestMatchers("/api/settings/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/products/order/{id}").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/products/orders").authenticated()
                 .anyRequest().permitAll();
     }
     

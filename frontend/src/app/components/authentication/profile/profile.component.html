@@ -1,18 +1,23 @@
 <div class="profile">
     <section class="header">
         <p class="title">Mein Profil</p>
-        <button
-            class="logout"
-            type="button"
-            (click)="onLogout()"
-            [disabled]="isLoggingOut"
-        >
-            @if (isLoggingOut) {
-                Wird abgemeldet...
-            } @else {
-                Ausloggen
-            }
-        </button>
+        <div class="buttons">
+            <a type="button" routerLink="/orders" class="button-blue history">
+                Bestellhistorie
+            </a>
+            <button
+                class="logout"
+                type="button"
+                (click)="onLogout()"
+                [disabled]="isLoggingOut"
+            >
+                @if (isLoggingOut) {
+                    Wird abgemeldet...
+                } @else {
+                    Ausloggen
+                }
+            </button>
+        </div>
     </section>
 
     <section class="general">

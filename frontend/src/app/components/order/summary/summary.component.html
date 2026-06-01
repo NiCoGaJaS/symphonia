@@ -3,11 +3,7 @@
 
     <div class="cart-summary-entry">
         <p>Zwischensumme</p>
-        <app-price-tag
-            [price]="totalPrice()"
-            [alignRight]="true"
-            [noTax]="true"
-        />
+        <app-price-tag [price]="total" [alignRight]="true" [noTax]="true" />
     </div>
 
     <div class="cart-summary-entry">
@@ -21,11 +17,7 @@
 
     <div class="cart-summary-entry">
         <p>Gesamtsumme</p>
-        <app-price-tag
-            [price]="totalPrice()"
-            [priceBold]="true"
-            [alignRight]="true"
-        />
+        <app-price-tag [price]="total" [priceBold]="true" [alignRight]="true" />
     </div>
 
     @if (variant === 'cart') {
@@ -34,7 +26,7 @@
             routerLink="/checkout"
             class="button-blue cart-button-submit"
             type="button"
-            [disabled]="cart.getAmount() === 0"
+            [disabled]="disableCheckoutButton"
         >
             Zur Kasse
         </button>

@@ -1,4 +1,8 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import {
+    CartProductsSignals,
+    createCartProductsSignals,
+} from '@components/order/order-products';
+import { Component, Signal, ViewChild, inject } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
@@ -42,6 +46,11 @@ export class CheckoutComponent {
     private readonly router = inject(Router);
     private readonly cart = inject(Cart);
     private readonly formBuilder = inject(FormBuilder);
+
+    private readonly cartSignals: CartProductsSignals =
+        createCartProductsSignals(this.cart);
+
+    protected readonly totalPrice: Signal<number> = this.cartSignals.totalPrice;
 
     createAddressForm(fb: FormBuilder): FormGroup {
         return fb.group({

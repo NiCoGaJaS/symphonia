@@ -1,0 +1,65 @@
+<div class="wrapper">
+    @let details = details$ | async;
+    @let products = (products$ | async) ?? [];
+    @let total = (total$ | async) ?? 0;
+
+    @if (details) {
+        <div class="header">
+            <h1>Bestellung</h1>
+            <p>Id: {{ details.id }}</p>
+            <p>
+                Bestellt am {{ details.timestamp | date: 'dd.MM.yyyy' }},
+                {{ details.timestamp | date: 'HH:mm' }}
+            </p>
+        </div>
+
+        <app-order-table
+            [products]="products"
+            mode="readonly"
+            emptyLabel="Keine Produkte in dieser Bestellung."
+        ></app-order-table>
+
+        <app-products-summary
+            [total]="total"
+            variant="checkout"
+        ></app-products-summary>
+
+        <div class="order-data">
+            <div>
+                @let shipping = details.shipping;
+                <app-order-detail-data
+                    title="Lieferadresse"
+                    [data]="[
+                        [shipping.first_name, shipping.last_name],
+                        [shipping.street, shipping.house_number],
+                        [shipping.zipcode, shipping.city],
+                    ]"
+                >
+                </app-order-detail-data>
+            </div>
+            <div>
+                @let billing = details.billing || details.shipping;
+                <app-order-detail-data
+                    title="Rechnungsadresse"
+                    [data]="[
+                        [billing.first_name, billing.last_name],
+                        [billing.street, billing.house_number],
+                        [billing.zipcode, billing.city],
+                    ]"
+                >
+                </app-order-detail-data>
+            </div>
+            <div>
+                <app-order-detail-data
+                    title="Bezahlung"
+                    [data]="[
+                        [details.payment.holder],
+                        [details.payment.iban.toLocaleUpperCase()],
+                    ]"
+                ></app-order-detail-data>
+            </div>
+        </div>
+    } @else {
+        <p>Bestellung konnte nicht gefunden werden.</p>
+    }
+</div>
