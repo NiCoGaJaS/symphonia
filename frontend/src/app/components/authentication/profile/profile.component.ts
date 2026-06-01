@@ -14,16 +14,15 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable, finalize } from 'rxjs';
+import { Router, RouterLink } from '@angular/router';
 import { AddressForm } from '@components/authentication/profile/address/address-form.component';
 import { Authentication } from '@api/authentication/authentication.api';
 import { EditableForm } from '@components/global/editable-form/editable-form.component';
 import { FloatLabel } from 'primeng/floatlabel';
-import { HistoryComponent } from '@components/order/history/history.component';
 import { InputMaskDirective } from 'primeng/inputmask';
 import { InputText } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { PAYMENT_PATTERNS } from '@components/global/form.patterns';
-import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { User } from '@api/authentication/user.store';
 import { allOrNoneValidator } from '@components/global/form.validators';
@@ -39,7 +38,7 @@ import { isPlatformBrowser } from '@angular/common';
         EditableForm,
         InputMaskDirective,
         TableModule,
-        HistoryComponent,
+        RouterLink,
     ],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.css',

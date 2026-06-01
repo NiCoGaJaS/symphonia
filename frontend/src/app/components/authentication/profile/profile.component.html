@@ -1,18 +1,27 @@
 <div class="profile">
     <section class="header">
         <p class="title">Mein Profil</p>
-        <button
-            class="logout"
-            type="button"
-            (click)="onLogout()"
-            [disabled]="isLoggingOut"
-        >
-            @if (isLoggingOut) {
-                Wird abgemeldet...
-            } @else {
-                Ausloggen
-            }
-        </button>
+        <div class="buttons">
+            <button
+                type="button"
+                routerLink="/orders"
+                class="button-blue history"
+            >
+                Bestellhistorie
+            </button>
+            <button
+                class="logout"
+                type="button"
+                (click)="onLogout()"
+                [disabled]="isLoggingOut"
+            >
+                @if (isLoggingOut) {
+                    Wird abgemeldet...
+                } @else {
+                    Ausloggen
+                }
+            </button>
+        </div>
     </section>
 
     <section class="general">
@@ -91,5 +100,3 @@
         ></app-address-form>
     </div>
 </div>
-
-<app-order-history />
