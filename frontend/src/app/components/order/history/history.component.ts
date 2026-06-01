@@ -31,12 +31,11 @@ export class HistoryComponent {
         const page = (event.first ?? 0) / size;
 
         this.loading = true;
-        this.orders.getOrderList(page, size).subscribe({
+        this.orders.list(page, size).subscribe({
             next: (page) => {
                 this.page = page;
                 this.items = page.content;
                 this.loading = false;
-                console.log(this.items);
                 this.cdr.markForCheck();
             },
             error: () => {

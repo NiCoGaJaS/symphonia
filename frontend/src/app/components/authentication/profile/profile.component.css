@@ -29,6 +29,7 @@
     border-color: var(--pagination-grey);
     color: var(--pagination-grey);
     background: transparent;
+    text-decoration: none;
     font-size: large;
 }
 

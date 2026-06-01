@@ -161,7 +161,7 @@ public class OrderProductController {
                     order.id(),
                     Timestamp.from(order.createdAt()),
                     Address.from(order.shipping()),
-                    order.billing() != null ? Address.from(order.billing()) : null,
+                    Address.from(order.billing()),
                     Payment.from(order.payment()),
                     order.products().stream()
                             .map(Product::from)
@@ -180,6 +180,10 @@ public class OrderProductController {
         ) {
             
             public static Address from(Order.Address address) {
+                if (address == null) {
+                    return null;
+                }
+                
                 return new Address(
                         address.firstName(),
                         address.lastName(),
@@ -247,7 +251,7 @@ public class OrderProductController {
     
     
     @GetMapping("/order/{id}")
-    public ResponseEntity<OrderDetailResponse> orderDetails(
+    public ResponseEntity<OrderDetailResponse> details(
             @PathVariable UUID id,
             Authentication authentication
     ) {
@@ -291,7 +295,7 @@ public class OrderProductController {
     
     
     @GetMapping("/orders")
-    public Page<OrderListResponse> orderList(
+    public Page<OrderListResponse> list(
             Authentication authentication,
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {

@@ -34,7 +34,7 @@ export class OrderDetailComponent {
             return;
         }
 
-        const details$ = this.orders.getDetails(value).pipe(shareReplay(1));
+        const details$ = this.orders.details(value).pipe(shareReplay(1));
         this.details$ = details$;
 
         this.products$ = details$.pipe(

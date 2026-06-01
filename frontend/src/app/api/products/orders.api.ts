@@ -9,15 +9,13 @@ export class Orders {
     private readonly http = inject(HttpClient);
     private readonly base = inject(API_ORIGIN);
 
-    getDetails(id: string): Observable<GetOrderDetailResponse> {
+    details(id: string): Observable<GetOrderDetailResponse> {
         const url = `${this.base}/api/products/order/${id}`;
-
-        console.log(url);
 
         return this.http.get<GetOrderDetailResponse>(url);
     }
 
-    getOrderList(
+    list(
         page: number,
         size: number,
     ): Observable<PageResponse<GetOrderListResponse>> {
